@@ -142,453 +142,1354 @@
 
 \chapterimage{ima2} % Chapter heading image
 
-\chapter{Introducción}
+\chapter{Installation}
 
-El presengte trabajo tiene como objetivo dar a conocer las bondades de los modelos Logit y probit dentro del campo de la estimación de modelos con variable endógena discreta dicotómica. 
-\\\\
-Estos modelos surgen porque en situaciones en que la variable endógena es discreta y asume un pequeño número de valores, no tiene sentido tratarla como una variable aproximadamente continua. Por sí misma, la discrecionalidad de la variable endógema no significa que los modelos lineales sean inapropiados. No obstante, el modelo de probabilidad lineal tiene ciertas desventajas. Los modelos logit y probit, superan las desventajas del Modelo de Probabilidad Lineal (MPL); la desventaja es que son más difíciles de interpretar.
-\\\\
-Existen numerosos tipos diferentes que se aplican en diferentes situaciones. Lo que tienen en común es que son modelos en los que la variable dependiente es un indicador de una elección discreta, como un "sí o no" decisión. En general, los métodos de regresión convencionales no son adecuadas en estos casos.
-\\\\
-En la mayoría de los casos, el método de estimación es de máxima verosimilitud. Existen diversas propiedades de los estimadores de máxima verosimilitud. Para el desarrollo de este libro, se asumirá que se cumplan las condiciones necesarias detrás de las propiedades de optimalidad de los estimadores de máxima verosimilitud.
-\\\\
-Además, se desarrollará el modelo con datos de Conteo. Para datos de conteo se suele utilizar la distribución Poisson como componente aleatorio en el proceso de ajuste de un modelo lineal generalizado. Esta distribución se caracteriza por la igualdad entre su media y su variancia, supuesto difícil de verificar ya que en la práctica
-las observaciones de conteos frecuentemente exhiben una variabilidad que excede la supuesta para una variable del tipo Poisson. El fenómeno por el cual un modelo lineal generalizado
-tiene mayor variabilidad que la presupuesta por el componente aleatorio del mismo se denomina sobredispersión. 
+EMDO101 classic is directly assembled on utility meter on D0 Interface (IEC-62056-21). 
+One RS485
+one relay output driver
+one s0 optical input 
+two s0 electrical inputs
+two s0 electrical outputs
+board temperature sensor
+Ethernet 
+usb for firmware update
+USB Power supply
+default reset button
+picture emdo101
+
+pinout table
+1 S0 IN 1 +
+2 S0 IN 1 -
+3 S0 IN 2 +
+4 S0 IN 2 -
+5 S0 OUT 1 +
+6 S0 OUT 1 -
+7 S0 OUT 2 +
+8 S0 OUT 2 -
+9 GND
+10 5V Out 200mA
+11 RS485 A
+12 RS485 B
+13 Relay OUT
+
+EMDO102 is mounted on DIN Rail and can be connected with an optional external D0 reader head IEC-62056-21
+two rs485
+two relay output drivers
+two s0 electrical inputs
+two s0 electrical outputs
+board temperature sensor
+1 wire
+Ethernet 
+usb for firmware update
+default reset button
+Requires 24V DIN rail power supply
+picture emdo102
+
+pinout table
+1 24V In (or 12V)
+2 GND
+3 GND
+4 24V Out (internal fuse protected, approx. 1.4A)
+5 Relay OUT 1
+6 Relay OUT 2
+7 GND (1Wire)
+8 1Wire
+
+1 S0 OUT 1 +
+2 S0 OUT 1 -
+3 S0 OUT 2 +
+4 S0 OUT 2 -
+5 5V Out (approx 0.9A in total)
+6 GND
+7 RS485 A1
+8 RS485 B1
+
+1 S0 IN 1 +
+2 S0 IN 1 -
+3 S0 IN 2 +
+4 S0 IN 2 -
+5 5V Out (approx 0.9A in total)
+6 GND
+7 RS485 A2
+8 RS485 B2
+
+
+
+EMDO103 is connected over MBUS bus
+one mbus slave port
+one rs485
+two relay output drivers
+two s0 electrical inputs
+two s0 electrical outputs
+board temperature sensor
+1 wire
+Ethernet 
+usb for firmware update
+default reset button
+Requires 24V DIN rail power supply
+picture emdo103
+pinout table
+1 24V In (or 12V)
+2 GND
+3 GND
+4 24V Out (internal fuse protected, approx. 1.4A)
+5 Relay OUT 1
+6 Relay OUT 2
+7 GND (1Wire)
+8 1Wire
+
+1 S0 OUT 1 +
+2 S0 OUT 1 -
+3 S0 OUT 2 +
+4 S0 OUT 2 -
+5 5V Out (approx 0.9A in total)
+6 GND
+7 RS485 A1
+8 RS485 B1
+
+1 S0 IN 1 +
+2 S0 IN 1 -
+3 S0 IN 2 +
+4 S0 IN 2 -
+5 5V Out (approx 0.9A in total)
+6 GND
+7 MBUS A (requires external power supply over bus)
+8 MBUS B (requires external power supply over bus)
+
+
+
+EMDO104 is connected over KNX bus
+one knx slave port
+one rs485
+two relay output drivers
+two s0 electrical inputs
+two s0 electrical outputs
+board temperature sensor
+1 wire
+Ethernet 
+usb for firmware update
+default reset button
+Requires 24V DIN rail power supply
+picture emdo104
+pinout table
+1 24V In (or 12V)
+2 GND
+3 GND
+4 24V Out (internal fuse protected, approx. 1.4A)
+5 Relay OUT 1
+6 Relay OUT 2
+7 GND (1Wire)
+8 1Wire
+
+1 S0 OUT 1 +
+2 S0 OUT 1 -
+3 S0 OUT 2 +
+4 S0 OUT 2 -
+5 5V Out (approx 0.9A in total)
+6 GND
+7 RS485 A1
+8 RS485 B1
+
+1 S0 IN 1 +
+2 S0 IN 1 -
+3 S0 IN 2 +
+4 S0 IN 2 -
+5 5V Out (approx 0.9A in total)
+6 GND
+7 KNX A (requires external power supply over bus)
+8 KNX B (requires external power supply over bus)
+
+
+
+Expansion boards
+Expansion board for LoRaWAN, WMBUS, Enocean, Zigbee, WiFi, picture
+
+Install / deinstall Expansion Board, disconnect power, open EMDO enclosure with two black skews or remove cover
+picture emdo classic skews to open
+picture din rail enclosure open
+put expansion board on header
+for radio modules it is important that electromagnetic radiation is not obscured by walls, metal enclosures,... this greatly disgrades performance.
 
 
 %----------------------------------------------------------------------------------------
 %	CHAPTER 2
 %----------------------------------------------------------------------------------------
 
-\chapter{Modelos de Elección Binaria}
+\chapter{Webinterface}
 
-\section{Modelo Logit}\index{Modelo Logit}
+EMDO runs with dhcp server, however if no dhcp server is present, fixed ip can be used.
+if settings are bad and emdo can't be connected anymore with fixed ip, there is a reset button to factory default on the emdo
 
-\subsection{Introducción}\index{Introducción}
+add pictures from web folderdescribe all pictures, except credits, will go into its own chapter
+pictures must be cut on bottom and top that can be done in latex too. pls make pictures again before final manual, we will still change one or the other mask slightly. e.g. tab menu has changed (temp removed).you might take some text from welcome tab.
 
-En el siguiente capítulo se dará a conocer las bondades del modelo Logit dentro del campo de la estimación de modelos con variable endógena discreta dicotómica. Si bien hemos trabajado hasta ahora con variables discretas en nuestras estimaciones , éstas solo se han comportado como variables exógenas, es decir, han sido tratadas como variables independietes que tratan de explicar a otra variable, dejando de lado la posibilidad de ser modeladas como variables endógenas.
-\\\\
-Es preciso entonces, abordar un nuevo tema: modelos con variable endógena discreta. En este caso, los modelos lineales convencionales trabajados hasta ahora ya no son válidos y tampoco la estimación por Mínimos Cuadrados Ordinarios (MCO), por lo que introduciremos un modelo nuevo para tales estimaciones. Es conveniente recalcar que esta variable endógena puede ser discreta dicotómica, discreta sin orden o discretas ordenadas.
-\\\\
-De acuerdo a la forma de la variable endógena, (entre los tres mencionados anteriormente) el modelo tiene un tratamiento especial. Centrándonos en el presente trabajo, se pasará a decribir el caso especial de los modelos con variable endógena discreta dicotómica. En un modelo de respuesta binaria, el interés yace principalmente en conocer la probabilidad de respuesta.
-\\\\
-Por sí misma, la discrecionalidad de la variable endógena no significa que los modelos de probabilidad lineal (MPL)  sean inapropiados. Estimar y utilizar el modelo de probabilidad lineal es simple, pero tiene algunas desventajas. Las dos desventajas más importantes son que las probabilidades ajustadas pueden ser menores que cero o mayores que uno y el efecto parcial de cualquier variable explicativa (si aparece en la ecuación en su nivel) es constante. Estas limitaciones del MPL pueden superarse si se usan modelos de respuesta binaria más sofisticados. Entre ellos el modelo Logit.
+contact tab: there is support page in case of trouble
 
-\newpage
+network tab (top down): enable dhcp client, set network static settings, ntp server ip or dn , mqtt ip or domain name, remote syslog (rsyslog) server ip or domain name, configure logging, configure remote shell (rsh) should be disabled by default, config tcp to d0 gateway, config tcp to rs485 gateway, auth password.
+All data loggin is based on ntp time, thus this is very important.
 
-\subsection{Motivación}\index{Motivación}
+firmware update tab: System log gives details about system. describe procedure for firmware update from file. Prior to update, make sure data from emdo is copied with get data snapshot. then choose firmware file, there are two files one for program memory on the cpu and second for filesystem. This order should be maintained for firmware updates. 
 
-Los modelos Logit se comportan como una herramienta científica avanzada, genera instrumentos y procedimientos que permitirán validar, mejorar y actualizar los procesos estadísticos.
-\\\\
-Los modelos de elección cualitativa son muy útiles y muy utilizados en la economía, porque muchas decisiones pueden ser tomadas a partir de simples respuestas como un sí o un no, podemos mencionar por ejemplo la decisión de una empresa si va decidir retribuir servicio de sus utilidades a sus accionistas o no, votar por un político o no, si un individuo viene a trabajar o no. Estos son distintos casos de los modelos tradicionales. El objetivo de los modelos de elección cualitativa es encontrar la probabilidad de que algo ocurra; por ello los modelos de elección cualitativa son también conocidos como modelos de probabilidad.
-\\\\
+D0, RS485, S0 Input, S0 Output tab: describe the settings. D0 is for the IEC interface. These settings can also be set from basic interpreter. 
 
-\subsection{Descripción Teórica del Modelo}\index{Descripción Teórica del Modelo}
+Editor tab: this is the main tab for writing and running a program.  Pls play around with the editor and  describe the buttons. Time is from ntp server, it is not running info is shown. white area with numbers for the source code, blue background area is for print output, variable area to show variable values, buttons to run stop, restart, slow step, upload download the basic interpreter code. it is also possible to upload libraries.
+% FIXME add tabs for mbus and knx when available
 
-Los modelos Logit son de respuesta binaria (0 y 1) se usan como un instrumento recomendable para calcular la probabilidad de respuesta, indicando la construcción y forma del modelo y el análisis de algunos estadísticos requeridos.
-\\\\
-La modelización Logit es similar a la regresión tradicional salvo que utiliza como función de estimación a la función logística en lugar de utilizar a la lineal. Con la modelización Logit, el resultado del modelo es la estimación de la probabilidad de que un nuevo individuo pertenezca a un grupo o a otro (probabilidad de éxito o fracaso, si o no, etc.). Además, al tratarse de un análisis de regresión, también es posible identificar las variables más importantes que explican las diferencias entre grupos.
-\begin{align} 
-\begin{split}
-P(y=1/x) = P(y=1/x_{1},x_{2},...,x_{k})
-\end{split}					
-\end{align}
-
-donde x denota el conjunto total de variables explicativas. En el MPL, se supone que la probabilidad de respuesta es lineal en un conjunto de parámetros $\beta _{k}$. Para evitar las limitaciones del MPL, considere una clase de modelos de respuesta binaria de la forma:
-\begin{align} 
-\begin{split}
-P(y=1/x)=F(\beta _{0}+\beta _{1}x_{1}+\beta _{2}x_{2}+...+\beta _{k}x_{k})=F(\boldsymbol{x\beta})
-\end{split}					
-\end{align}
-
-donde F es una función que asume valores estrictamente entre cero y uno, para todos los números reales z. Esto asegura que las probabilidades de respuesta estimada están estrictamente entre cero y uno. La función F, entre las muchas sugeridas, es la función logística, cuya representación es:
-\begin{align} 
-\begin{split}
-F(x\beta)=\Lambda(z)=\frac{e^{x\beta}}{1+e^{x\beta}}
-\end{split}					
-\end{align}
-
-que está entre cero y uno para todos los números reales z. Esta es la función de distribución acumulada (fda) para una variable aleatoria logística estándar. La función logística es creciente, y aumenta con más rapidez en z = 0. El comportamiento de la función es el siguiente: F(z) $\rightarrow $ 0 a medida que z $\rightarrow -\infty $ , y F(z)$\rightarrow $1 a medida que z$\rightarrow \infty$. (Ver gráfica en \textbf{Anexo1}).
-
-\subsection{Definición Matemática}\index{Definición Matemática}
-
-El modelo Logit puede derivarse a partir de un modelo de variable latente subyacente. Sea y* una variable inobservable, o latente, determinada por:
-\begin{align} 
-\begin{split}
-y^{*}=\beta_{0}+x\beta+e,y=1[y^{*}>0]
-\end{split}					
-\end{align}
-
-donde se introduce la notación 1[.] para definir un resultado binario. La función 1[.] recibe el nombre de función de indicador, que asume el valor de uno si el evento dentro de los corchetes es verdadero y de cero si no lo es. Por tanto, y es uno si y* $>$ 0 y y es cero si y* $\leq$ 0.
-\\\\
-Bajo el supuesto que ``x'' es independiente de ``e'' y que este último tiene la distribución logística estándar, ``e'' se distribuye simétricamente en torno a cero, lo cual significa que 1 - F(-z) = F(z) para todos los números reales z. A partir de (3.4) y de los supuestos establecidos al inicio del párrafo, es posible calcular la probabilidad de respuesta para y:
-
-\begin{align} 
-\begin{split}
-P(y=1/x)   &=P(y*>0/x)=P[x\beta+e>0/x]=P[e>-(\beta_{0}+x\beta)/x]\\
-&=1-F[-(\beta_{0}+x\beta)]=F(\beta_{0}+x\beta)
-\end{split}					
-\end{align}
-
-\subsection{Impacto marginal}\index{Impacto marginal}
-
-Como en todo modelo de estimación,  el objetivo principal del modelo Logit es explicar los efectos de las $x_{j}$ sobre la probabilidad de respuesta P(y =1/x). La formulación de la variable latente tiende a dar la impresión de que lo que principalmente interesa son los  efectos de cada $x_{j}$ sobre y*. Pero la variable latente y* rara vez tiene una unidad de medición bien definida. (Por ejemplo, y* puede ser la diferencia en niveles de utilidad de dos acciones diferentes.) Por tanto, las magnitudes de cada $\beta _{k}$ no son, por sí mismas, especialmente útiles en contraste con el modelo de probabilidad lineal.
-\\\\
-Para la mayoría de los propósitos, se quiere estimar el efecto de $x_{j}$ sobre la probabilidad de éxito P(y =1/x), pero esto se complica por la naturaleza no lineal de la función logística. 
-Para hallar el efecto parcial de las variables aproximadamente continuas sobre la probabilidad de respuesta, es necesario recurrir al cálculo. Si $x_{j}$ es una variable aproximadamente continua, su efecto parcial sobre p(x) = P(y = 1/x) se obtiene de la derivada parcial:
-
-\begin{align} 
-\begin{split}
-\frac{\partial p(x)}{\partial x_{j}}=\frac{\partial F(x\beta)}{\partial x}=\frac{\partial F(x\beta)}{\partial x\beta}\frac{\partial x\beta}{\partial \beta}=f(\overline{x}\beta)\beta _{j}
-\end{split}					
-\end{align}
-
-Ahora, si por ejemplo, $x_{j}$ es una variable explicativa binaria discreta, entonces el efecto parcial de cambiar $x_{j}$ de cero a uno, manteniendo todas las demás variables fijas, simplemente es:
-\begin{align} 
-\begin{split}
-\frac{\Delta P(y=1/x) }{\Delta x_{j}}   &=P(y=1/x_{j}=1)-P(y=1/x_{j}=0)\\
-&=F(\beta _{0}+\beta _{1}x_{1}+...+\beta _{k}x_{k}/x_{j}=1)-F(\beta _{0}+\beta _{1}x_{1}+...+\beta _{k}x_{k}/x_{j}=0)
-\end{split}					
-\end{align}
-
-\section{Modelo Probit}\index{Modelo Probit}
-
-Los Modelo Probit son aquellos que pertenecen a la clase de modelos de respuesta binaria, es decir, la variable dependiente es una variable dicotómica, donde toma 1 para indicar el éxito en la variable de análisis y 0 en el caso de no ser así.
-\\
-Por ejemplo se asume una variable observada (latente) que debe traspasar un umbral para que la variable dependiente tome el valor de 1,la estimación d estos modelos no puede ser realizada por MCO (Mínimos cuadrados ordinarios)ya que la variable dependiente es inobservable por lo que se recurre al uso de Máxima Verosimilitud haciendo supuestos sobre la distribución de los errores.Cuando los errores se consideran distribuidos de manera normal, entones se obtiene un Modelo Probit .
-\\
-Con esta especificación,la variable dependiente dicotómica tiene la probabilidad de 2 opciones Pr(y=1/x) o la Pr (y=0/x) que dependen de los valores que toman las variables de control especificadas como las variables sociodemográficas, socioeconómicas representadas mediante una combinación lineal ($x_{i}\beta$).El modelo se especifica de la siguiente forma :
-
-\begin{align} 
-\begin{split}
-P(y=1/x)= Pr(y^{*}>0)=F(x\beta)
-\end{split}					
-\end{align}
-
-
-Si definimos el modelo de la siguiente manera:
-\begin{align} 
-\begin{split}
-P(y=1/x)=G(\beta_{0}+x_{1}\beta_{1}+ ... + x_{K}\beta_{K})=G(\beta_{0}+x\beta)
-\end{split}					
-\end{align}
- 
-
-donde G es una funcion que adopta valores entre cero y uno para todos los numeros reales Z,donde G representa la funcion de distribucion acumulativa.
-
-Debido a que el modelo Probit es un modelo de vaiable dependiente limitada,la estimacion de parametros se hace por el metodo de Maxima Verosimilitud.Este modelo sugiere que se elijan como estimados los valores de los parametros que maximizen el logaritmo de la funcion de verosimilitud.
-La funcion logaritmica de verosimilitud para la observacion i se define como: 
-
-\begin{align} 
-\begin{split}
-\lambda(\beta)= yi log(G(Xi\beta)) + (1-yi)log(1-G(Xi\beta))
-\end{split}					
-\end{align}
-
-El logaritmo de la funcion de verosimilitud para una muestra de tamano n se define como:  
-
-\begin{align} 
-\begin{split}
-L= \sum_{i=1}^{n} \lambda(\beta)
-\end{split}					
-\end{align}
-
-El estimador de maxima verosimilitud de $\beta$,denotado por $\beta$  que maximize el logaritmo de verosimilitud.Las propiedades de los estimadores de maxima verosimiltud del modelo son conistentes,asintoticamente normales y asintoticamente eficientes.
-\\
-Ahora conociendo los efectos de los cambios en las variables explicativas sobre las probabilidades de que cualquier observaion perteneza a uno de los 2 grupos (y=0,y=1) se emplea una derivada parial definida como:
-
-\begin{align} 
-\begin{split}
-\frac{\partial x }{\partial xj} = g(\beta 0 +X\beta )\beta
-\end{split}					
-\end{align}
-
-
-El termino g(z) corresponde a una funcion de densidad de probabilidad.Dado que en el modelo Probit G(.) es una funcion de distribucion acumulativa estrictamente positiva,g(z)>0 para toda Z,el signo del efecto parcial es el mismo que el de $\beta$.
-
-
-Ahora para probar la significania de cada uno de los coeficientes estimados se lleva a cabo la prueba hipotesis Ho :$\beta$=0,con un t estadistico.Para probar la significancia de variables conjuntamente existen diferentes estadisticos como el estadistico Wald y el estadistico de la razon de verosimilitud entre otros. En estos 2 casos se emplea una distribucion chi cuadrado.
-
-Mediante un caso practico analizaremos ambos modelos e interpretaremos los resultados
-Estimamos en Stata el siguiente modelo para la probabilidad de estar
-desempleado en Colombia en función de la edad, el genero, la situacion marital, la educacion, el ingreso no laboral y la localizacion geografica.
-\\\\
-. probit desocupado edad mujer soltero educ jefe inla caba 
-Ver resultados en \textbf{Anexo2}.
-\\\\
-A diferencia de los modelos de Mínimos Cuadrados Ordinarios (MCO), estos modelos tienen que ser interpretados cuidadosamente.Empezando que los valores de estos coeficientes no tienen una interpretación cuantitativa (solo es interpretable el signo de los mismos).A la vez analizaremos los efectos marginales de cada variable para realizar una interpretación cuantitativa del efecto de cada variable sobre la probabilidad de estar desocupado.
-\\\\
-Interpretando cuantitativamente cada uno de los efectos
-marginales.Las variables explicativas que son continuas:
-\\\\
-.La interpretación del valor -0.0020344, que corresponde al efecto marginal de la variable años de educación (educ) donde para una persona con las características consideradas un aumento en un año de
-educación provoca un cambio en la probabilidad predicha de -0.0020344, es decir, las 2 probabilidades de estar desocupado se reduciría en 0.203 puntos porcentuales (-0.0020344*100),dado todo lo demás constante.
-.La interpretación para el efecto marginal de la variable edad es equivalente. Para una persona con las características consideradas, un aumento en un año de edad reduce la probabilidad
-predicha de estar desempleado en 0.022 puntos porcentuales (-0.0002215*100), ceteris paribus.
-\\\\
-Para el caso del efecto marginal de las variables dummies (como mujer, soltero, jefe y caba) recuerden que se computan de diferente manera pero se interpreta de manera equivalente.
-
-• El hecho de ser jefe de hogar, para un hombre casado que es jefe de familia, con 17 años de educación, edad e ingreso no laboral promedio y que resida en la CABA, reduce su probabilidad predicha de estar desempleada en 1.87 puntos porcentuales (-0.0187869*100).
-• De la misma forma, el hecho de residir en CABA, dado todo lo demás, reduce su probabilidad predicha de estar desempleada en 0.19 puntos porcentuales (-.0019124*100).
-\\\\
-Como notarán, se ha hecho énfasis en aclarar que en el caso de los modelos de elección binaria si se multiplica por 100 al efecto marginal, se está midiendo el efecto del cambio en una unidad de X sobre la probabilidad predicha. Ese cambio es en puntos porcentuales y no en tanto por ciento.En el primer caso se usa para indicar un cambio marginal, mientras que el segundo se aplica cuando se trata
-de cambios proporcionales.
-Por ejemplo, según se muestra en la segunda salida de Stata, la probabilidad de desempleo para un hombre casado que es jefe de familia, con 17 años de educación, edad e ingreso no laboral promedio y que resida en la CABA es de 0.02056653 (es decir, 2 por ciento de probabilidad). Dijimos que el efecto marginal de la educación (educ) para este caso es de 0.20 puntos porcentuales, es decir si en
-lugar de tener 17 años de educación tuviera 18 (1 año más) entonces la probabilidad pasaría a ser 1.8\% (es decir, el 2 por ciento original menos 0.20 puntos porcentuales).
-La forma incorrecta de interpretar los modelos probit y logit es si habláramos del cambio de probabilidad como una reducción del 0.02\% (cambio proporcional), porque en ese caso se entiende que
-la probabilidad predicha para ese caso seria 1.9996 por ciento,es decir hacer 2*(1-0.0002),lo cual es incorrecto. 
-
-
-
-
-\section{Problema Aplicativo}\index{Problema Aplicativo}
-
-La entidad financiera ABC, destina \$800,000,000 de su capital a otorgar créditos personales de acuerdo a las siguientes convenciones:
-
--El Supervisor bancario, establece una tasa de severidad (LGD) de 45\% para el banco, ya que este no cuenta con un modelo interno para la estimación de dicho parámetro.
-
--El Supervisor, establece las categorías crediticias basándose en la probabilidad de incumplimiento (PD), de la siguiente manera:
-Cliente normal(0 – 20\%), cliente con problemas potenciales(20\%-40\%), cliente deficiente(40\%-60\%), cliente dudoso(60\%-80\%) y pérdida: (80\%-100\%)
-
--Basándose en los lineamientos de riesgo que sigue el banco, se establece que los préstamos personales en mención se harán de la siguiente manera:
-Clientes normales: 35\%, cliente con problemas potenciales: 30\%, cliente deficiente: 20\%, cliente dudoso: 10\% y pérdida: 5\% del capital invertido en préstamos.
-
--Se pide al banco declarar el gasto en provisiones que hará, teniendo en cuenta que para su cálculo sigue una metodología de Pérdidas Esperadas.
-\\\\
-
-\textbf{Desarrollo}
-
-\subsection{Estimación con el Modelo Logit}\index{Estimación con el Modelo Logit}
-
-Lo primero que se realizó fue realizar una estimación mediante el modelo Logit. Se regresionó la variable dependiente ``default'' (variable dicotómica discreta que toma el valor de 1 si el individuo cayó en default, y 0 en caso contrario) con respecto a las variables explicativas edad, rcuota\_ingreso, ingreso, nro\_ctas, nro\_default\_anterior, nro\_prest\_hipotec y nro\_depend. Como resultado de la estimación, obtuvimos que todos los parámetros eran significativos excepto el coeficiente de la variable nro\_prest\_hipotec (Ver en \textbf{Anexo3}).
-\\\\
-Para comprobar que dicha variable no era significativa, aplicamos el test de Wald, el test nos permite asegurar que dicha variable no era significativa. Por tanto, regresioanamos nuevamente el modelo logit, pero esta vez sin la variable en cuetión. El resultado obtenido es que ahora todas las variables consideradas son significativas. (Ver \textbf{Anexo4} y \textbf{Anexo5})
-
-\subsection{Estimación con el Modelo Probit}\index{Estimación con el Modelo Probit}
-Análogamente al caso anterior, realizamos una regresión mediante el modelo Probit de la variable cualitativa discreta dcicotómica ``default'' con respecto a todas las variables exógenas encontradas en la base de datos ``data\_pd''. De la misma manera que con el modelo Logit, los resultados arrojan que la variable independiente nro\_prest\_hipotec es la única que no es significativa, al estimar nuevamente el modelo sin considerar esta vez dicha variable, se obtiene un modelo con todas las variables significativas. (Ver \textbf{Anexo6} y \textbf{Anexo7}) 
-
-\subsection{Comparando entre Modelos}\index{Comparando entre Modelos}
-Una vez que hemos realizado las estimaciones con los modelos Logit y Probit, el siguiente paso es elegir entre estos dos modelos, el criterio de elección es: elegir el modelo que tenga mayor capacidad de predicción acetdad, esto será posible analizando la Potencia recurriendo al comando ``lstat''. Los resultados del test indican que con el modelo Logit se acierta en el 67.45\% de los casos, mientras que el modelo Probit acierta en el 67.44\%. (Ver \textbf{Anexo8} y \textbf{Anexo9})  
-\\
-Al contrastar ambos resultados, se aprecia que el modelo logit es ligeramente mejor que el modelo Probit, debido a que la diferencia obtenida del test entre ambos modelos es mínima; se podría decir, en este caso particular que es indistinto optar por cualquiera de ellos. Sin embargo, el modelo elegido para desarrollar los pasos siguientes es el Modelo Logit.
-\\\\
-Finalmente para validar nuestro modelo obtenido, analizamos la Curva ROC mediante el comando ``lroc'', el resultado muestra que el área es 0.7436, valor superior a 0.5. Por lo tanto, es correcto decir que nuestro modelo de elección discreta dicotómica: Logit, está bien especificado. (Ver \textbf{Anexo10}).
-
-\subsection{Probabilidad de Default}\index{Probabilidad de Default}
-
-Ya que contamos con el modelo adecuado, además que está validado, lo que realizaremos ahora es estimar las probabilidades de default. Lo primero a hacer es obtener la probabuilidad de default para cada individuo. Es decir, obtendremos la probabilidad que cada individuo con sus características específicas cumpla sus pagos.
-\\
-Después de esto, se ordena dichas probabilidades de menor a mayor, para poder facilitar la agrupación, ya que se categorizará a las personas en 5 niveles de riesgo, de acuerdo al nivel de probabilidas obtenida, dicha categorización será de la siguiente manera:
-
-\begin{table}[H]
-\caption{Ranking Crediticio}
-\centering
-\begin{tabular}{llr}
-\toprule
-\multicolumn{2}{c}{Categorías} \\
-\cmidrule(r){1-2}
-Cliente & PD(\%) \\
-\midrule
-Normal & $[0 - 20]$ \\
-CPP & $[20 - 40]$ \\
-Deficiente & $[40 - 60]$ \\
-Dudoso & $[60- 80]$ \\
-Pérdida & $[80 - 100]$ \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-Una vez categorizado a cada individuo, se debe calcular la probabilidad default promedio de cada categoría. Dichos valores representan el valor esperado de la PD por cada categoría. Los resultados de esta operación se meustran en el \textbf{Anexo11}.
-\\\\
-Estos resultados nos permite corroborar con la teoría, ya que se aprecia que la esperanza que los individuos normales caigan caigan en default es baja (17.08\%), mientras la esperanza que los individuos categorizados en pérdida caigan en defaul es muy alta (92.07\%)
-
-\subsection{Pérdida Esperada}\index{Pérdida Esperada}
-
-Contamos ya con el promedio de la probabilidad de incumplimiento de cada categoría crediticia que se ha calculado anteriormente, con la tasa de severidad (LGD) de 45\% establecido por el Supervisor bancario (SBS para el caso peruano) y el saldo expuesto determinado por la entidad financiera ABC de la siguiente manera: 
-\begin{table}[H]
-\caption{Saldo Expuesto}
-\centering
-\begin{tabular}{llr}
-\toprule
-\multicolumn{2}{c}{Categorías} \\
-\cmidrule(r){1-2}
-Cliente & \ \ Porcentaje del\\ & capital invetido \\
-\midrule
-Normal & \ \ \ \ \ \ \ \ \ \ \ \ $35\%$ \\
-CPP & \ \ \ \ \ \ \ \ \ \ \ \ $30\%$ \\
-Deficiente & \ \ \ \ \ \ \ \ \ \ \ \ $20\%$ \\
-Dudoso &  \ \ \ \ \ \ \ \ \ \ \ \ $10\%$ \\
-Pérdida &  \ \ \ \ \ \ \ \ \ \ \ \ $5\%$ \\
-\bottomrule
-\end{tabular}
-\end{table}
-Ahora, a partir de estos 3 datos es posible hallar la pérdida esperada para dicha entidad.(Ver \textbf{Anexo12})
-\\
-Los resultados nos dicen que el banco deberá tener una mayor cantidad de  provisiones para las categorías de clientes que se encuentren  con problemas potenciales y/o sean deficientes; aunque sus probabilidad de incumplimiento no sean las más  altas, la causa se debe a que tienen un mayor porcentaje del capital invertido.
-\\\\
-Los clientes normales y dudosos presentan una menor perdida esperada, pero  no son la categoría que necesitan menos provisiones. En el caso de clientes normales aunque tengan una baja probabilidad de incumplimiento, pero presentan un alto porcentaje del capital invertido (el más alto entre las cinco categorías). Para los clientes dudosos, es la situación contraria;  presentan una alta probabilidad de incumplimiento y por lo tal el capital invertido no es tan alto.
-\\\\
-Y con menor cantidad de provisiones se encuentra los clientes que son categorizados como pérdida ya que cuentan con una alta probabilidad de incumplimiento; justamente se espera que  la perdida esperada no sea tan alta, y para esto el banco asigna un menor porcentaje de su capital.\\
-En suma la perdida esperada total es \$132,404,686.20; por lo tal el banco tendrá que declarar el gasto en provisiones igual a ese mismo monto.\\
-
+graphs tab: all data are saved on 32mb flash that is build into the emdo. logger library write data to flash and it is visualized as plots. live data are shown as donuts with text. these data can be configured.
 
 -----------------------------
 
-\chapter{Modelos de Conteo}
+\chapter{Basic Interpreter}
 
-\section{Introducción}\index{Introducción}
-Contar las variables indica cuántas veces ha ocurrido un evento. Mientras que el uso de la regresión modelos de conteo es relativamente reciente, incluso una breve encuesta de aplicaciones recientes ilustra cómo estos resultados son comunes y la importancia de este tipo de modelos. Los ejemplos incluyen el número de pacientes, hospitalizaciones, homicidios diarios, conflictos internacionales, bebidas consumidas, accidentes de trabajo, nuevas empresas, y las detenciones por la policía, por nombrar sólo algunos.
-\\
-Mientras que el modelo de regresión lineal a menudo se ha aplicado para contar los resultados, esto puede resultar en que las estimaciones sean ineficientes, inconsistentes y sesgadas. A pesar de que hay situaciones en las que el la regresión lineal  proporciona resultados razonables, es mucho más seguro de usar modelos diseñados específicamente para el conteo de resultados. En este capítulo   se estudiara el modelo de  regresión de Poisson (PRM).
+reference to mmbasic
+table with commands
+pls make sure all of these are convered.most should be covered already in the word document. all otheres I can quickly write up for you, once it is in table format. to describe some operator we can take text from mmbasic manual
 
-\section{Distribución de Poisson}\index{Distribución de Poisson}
+\begin{table}[]
+\centering
+\caption{Predefined Read Only Variables}
+\label{Predefined_Read_Only_Variables}
+\begin{tabular}{|p{4cm}|p{10cm}|}
+\hline
+\textbf{Basic Interpreter} & \textbf{Description}                                                             \\ \hline
+MM.VER & The version number of the firmware in the form aa.bbcc where aa is the major version number, bb is the minor version number and cc is the revision number (normally zero but A = 01, B = 02, etc).
+\\ \hline
+MM.FNAME\$ & The name of the file that will be used as the default for the SAVE command. This is set by LOAD, RUN and SAVE.
+\\ \hline
+MM.CMDLINE\$ & The command line used with the implied RUN command. See the implied RUN command at the start of the next page for the details.
+\\ \hline
+MM.ERRNO & Is set to the error number if a statement involving the NOR flash fails or
+zero if the operation succeeds. This value is not supported yet.
+\\ \hline
+\end{tabular}
+\end{table}
 
-La distribución de Poisson univariado es fundamental para la comprensión de los modelos de conteo. En consecuencia, comenzamos explorando esta distribución. Sea y una variable aleatoria que indica la número de veces que se ha producido un evento. Si Y tiene una distribución de Poisson, a continuación:
+Square brackets indicate that the parameter or characters are optional.
+\begin{table}[]
+\centering
+\caption{Commands}
+\label{Commands}
+\begin{tabular}{|p{4cm}|p{10cm}|}
+\hline
+\textbf{Basic Interpreter} & \textbf{Description}                                                             \\ \hline
+‘ (single quotation mark) & Starts a comment and any text following it will be ignored. Comments
+can be placed anywhere on a line.
+\\ \hline
+? (question mark) & Shortcut for the PRINT command.
+\\ \hline
+\\ \hline
+CHAIN file\$ &
+Clear the current program from memory, load the new program ('file\$')
+into memory and run it starting with the first line.
+Unlike the RUN command this command retains the current state of the
+program (ie, the value of variables, open files, loaded fonts, open COM
+ports, etc). The only exception is any open interrupts which will be
+automatically closed.
+One program can CHAIN to another which can then chain to another (or
+back to the original) an unlimited number of times. As long as a
+program can be broken down into modules this command allows
+programs of almost unlimited size to be run, even with limited memory.
+Communication between the modules can be accomplished by assigning
+values to one or more variables which then can be examined by the new
+chained program.
+Note that another way of squeezing a large program into limited memory
+is to use the LIBRARY command.
+\\ \hline
+CLEAR & Delete all variables and recover the memory used by them.
+See ERASE for deleting specific array variables.
+\\ \hline
+CLOSE [\#]nbr [,[\#]nbr] … &
+Close the file(s) previously opened with the file number ‘nbr’.
+The \# is optional. Also see the OPEN command.
+\\ \hline
+CONTINUE & Resume running a program that has been stopped by an END statement,
+an error, or CTRL-C. The program will restart with the next statement
+following the previous stopping point.
+\\ \hline
+COPY src\$ TO dest\$ & Copy the file named 'src\$' to another file named 'dest\$'.
+\\ \hline
+DATA constant[,constant]... & Stores numerical and string constants to be accessed by READ.
+In general string constants should be surrounded by double quotes (").
+An exception is when the string consists of just alphanumeric characters
+that do not represent MMBasic keywords (such as THEN, WHILE, etc).
+In that case quotes are not needed.
+Numerical constants can also be expressions such as 5 * 60.
+\\ \hline
+DIM var(dim) , [var(dim)]...
+or
+DIM var\$(dim) LENGTH n
+Examples:
+DIM nbr(50)
+DIM str\$(20)
+DIM a(5,5,5), b(1000)
+DIM str\$(200) LENGTH 20
+&
+Specifies a variable that is an array with one or more dimensions. The
+variables can be numbers or strings with multiple declarations separated
+by commas.
+'dim' is a bracketed list of numbers separated by commas. Each number
+specifies the number of elements in each dimension. Normally the
+numbering of each dimension starts at 0 but the OPTION BASE
+command can be used to change this to 1.
+For example: DIM nbr(10, 20) specifies a two dimensional array with
+11 elements (0 to 10) in the first dimension and 21 (0 to 20) in the
+second dimension. The total number of elements is 231 and because
+each number requires 4 bytes a total of 924 bytes of memory will be
+allocated.
+String arrays will by default be allocated memory for 255 characters for
+each element and this can quickly use up memory. In that case the
+LENGTH keyword can be used to specify the amount of memory to be
+allocated to each element. This allocation ('n') can be from 1 to 255
+characters.
+For example: DIM str\$(5, 10) will declare a string array with 66
+elements consuming 16,896 bytes of memory while:
+DIM str\$(5, 10) LENGTH 20
+Will only consume 1,386 bytes of memory. Note that the amount of
+memory allocated for each element is n + 1 as the extra byte is used to
+track the actual length of the string stored in each element.
+If a string longer than 'n' is assigned to an element of the array an error
+will be produced. Other than this string arrays created with the
+LENGTH keyword act exactly the same as other string arrays.
+\\ \hline
+DO
+<statements>
+LOOP
+& This structure will loop forever; the EXIT command can be used to
+terminate the loop or control must be explicitly transferred outside of the
+loop by commands like GOTO or RETURN (if in a subroutine).
+\\ \hline
+DO WHILE expression
+<statements>
+LOOP
+DO
+<statements>
+LOOP UNTIL expression
+& 
+Loops while "expression" is true (this is equivalent to the older WHILE-
+WEND loop, also implemented in MMBasic). If, at the start, the
+expression is false the statements in the loop will not be executed, even
+once.
+Loops until the expression following UNTIL is true. Because the test is
+made at the end of the loop the statements inside the loop will be
+executed at least once, even if the expression is false.
+\\ \hline
+ELSE & Introduces a default condition in a multiline IF statement.
+See the multiline IF statement for more details.
+\\ \hline
+ELSEIF expression THEN & Introduces a secondary condition in a multiline IF statement.
+See the multiline IF statement for more details.
+\\ \hline
+ENDIF & Terminates a multiline IF statement.
+See the multiline IF statement for more details.
+\\ \hline
+END & End the running program and return to the command prompt.
+\\ \hline
+END FUNCTION & Marks the end of a user defined function. See the FUNCTION
+command.
+Each sub must have one and only one matching END FUNCTION
+statement. Use EXIT FUNCTION if you need to return from a
+subroutine from within its body.
+Only one space is allowed between END and FUNCTION.
+\\ \hline
+END SUB & Marks the end of a user defined subroutine. See the SUB command.
+Each sub must have one and only one matching END SUB statement.
+Use EXIT SUB if you need to return from a subroutine from within its
+body.
+Only one space is allowed between END and SUB.
+\\ \hline
+ERASE variable
+[,variable]...
+&
+Deletes arrayed variables and frees up the memory.
+Use CLEAR to delete all variables including all arrayed variables.
+\\ \hline
+EXIT
+EXIT DO
+EXIT FOR
+EXIT FUNCTION
+EXIT SUB
+ & EXIT by itself or EXIT DO provides an early exit from a DO...LOOP
+EXIT FOR provides an early exit from a FOR...NEXT loop.
+EXIT FUNCTION provides an early exit from a defined function.
+EXIT SUB provides an early exit from a defined subroutine.
+Only one space is allowed between the two words.
+\\ \hline
+FILES [fspec\$] & Lists files in the current directory on the NOR flash.
+Question marks
+(?) will match any character and an asterisk (*) will match any number
+of characters. If omitted, all files will be listed. For example:
+*.*
+Find all entries
+*.TXT
+Find all entries with an extension of TXT
+E*.*
+Find all entries starting with E
+X?X.*
+Find all three letter file names starting and ending with
+X
+\\ \hline
+FOR counter = start TO
+finish [STEP increment]
+& Initiates a FOR-NEXT loop with the 'counter' initially set to 'start' and
+incrementing in 'increment' steps (default is 1) until 'counter' equals
+'finish'. The ‘increment’ must be an integer, but may be negative.
+See also the NEXT command.
+\\ \hline
+FUNCTION xxx (arg1
+[,arg2, …])
+<statements>
+<statements>
+xxx = <return value>
+END FUNCTION
+& Defines a callable function. This is the same as adding a new function to
+MMBasic while it is running your program.
+'xxx' is the function name and it must meet the specifications for naming
+a variable. 'arg1', 'arg2', etc are the arguments or parameters to the
+function.
+To set the return value of the function you assign the value to the
+function's name. For example:
+FUNCTION SQUARE(a)
+SQUARE = a * a
+END FUNCTION
+Every definition must have one END FUNCTION statement. When this
+is reached the function will return its value to the expression from which
+it was called. The command EXIT FUNCTION can be used for an early
+exit.
+You use the function by using its name and arguments in a program just
+as you would a normal MMBasic function. For example:
+PRINT SQUARE(56.8)
+When the function is called each argument in the caller is matched to the
+argument in the function definition. These arguments are available only
+inside the function.
+Functions can be called with a variable number of arguments. Any
+omitted arguments in the function's list will be set to zero or a null string.
+Arguments in the caller's list that are a variable (ie, not an expression or
+constant) will be passed by reference to the function. This means that
+any changes to the corresponding argument in the function will also be
+copied to the caller's variable.
+You must not jump into or out of a function using commands like
+GOTO, GOSUB, etc. Doing so will have undefined side effects
+including the possibility of ruining your day.
+\\ \hline
+GOSUB target & Initiates a subroutine call to the target, which can be a line number or a
+label. The subroutine must end with RETURN.
+\\ \hline
+GOTO target & Branches program execution to the target, which can be a line number or
+a label.
+\\ \hline
+IF expr THEN statement
+or
+IF expr THEN statement
+ELSE statement
+ & Evaluates the expression ‘expr' and performs the THEN statement if it is
+true or skips to the next line if false. The optional ELSE statement is the
+reverse of the THEN test. This type of IF statement is all on one line.
+The ‘THEN statement’ construct can be also replaced with:
+GOTO linenumber | label’.
+\\ \hline
+IF expression THEN
+<statements>
+[ELSE
+<statements>]
+[ELSEIF expression THEN
+<statements>]
+ENDIF
+& The ELSEIF statement (if present) is executed if the previous condition
+is false and it starts a new IF chain with further ELSE and/or ELSEIF
+statements as required.
+One ENDIF is used to terminate the multiline IF.
+\\ \hline
+INPUT ["prompt string\$";]
+list of variables
+& Allows input from the keyboard to a list of variables. The input
+command will prompt with a question mark (?).
+The input must contain commas to separate each data item if there is
+more than one variable.
+For example, if the command is: INPUT a, b, c
+And the following is typed on the keyboard: 23, 87, 66
+Then a = 23 and b = 87 and c = 66
+If the "prompt string\$" is specified it will be printed before the question
+mark. If the prompt string is terminated with a comma (,) rather than the
+semicolon (;) the question mark will be suppressed.
+\\ \hline
+INPUT \#nbr,
+list of variables
+& Same as above except that the input is read from a file previously opened
+for INPUT as ‘nbr’. See the OPEN command.
+\\ \hline
+KILL file\$ & Deletes the file specified by ‘file\$’. If there is an extension it must be
+specified.
+If 'file' is a string constant quote marks around it are optional at the
+command prompt but must be specified if the command is used within a
+program. Example: KILL “SAMPLE.DAT”
+\\ \hline
+LET variable = expression & Assigns the value of 'expression' to the variable. LET is automatically
+assumed if a statement does not start with a command.
+\\ \hline
+LIBRARY LOAD \$file
+and
+LIBRARY UNLOAD \$file
+& Will load a library file ('file\$') into general memory. Any user defined
+commands and subroutines in the file will then become available to the
+running program. Up to 8 files can be loaded simultaneously.
+A library file is like any other MMBasic program, with the exception
+that any programming code outside the user defined commands and
+subroutines in the file will be ignored. The library is not visible to the
+user (it is not listed by the LIST command) so it should be tested and
+debugged as a normal basic program first. Normally a library file has
+the extension ".LIB" and that extension will be automatically added if
+the file name ('\$file') does not include the extension.
+Libraries can be loaded and unloaded in any order. Libraries can be
+loaded from within other libraries and nested to an unlimited extent.
+Any library file can be unloaded from memory and the memory returned
+to the general pool by using the LIBRARY UNLOAD command.
+Library files must not be unloaded from within a library that is currently
+being used by the program (the results are undefined but it may crash
+MMBasic and cause your hair to go prematurely grey).
+This command can be used to load specialised libraries to extend the
+functionality of MMBasic. Examples include device drivers, libraries
+that provide bit manipulation and libraries of specialised mathematical
+functions. The library file is only loaded on the first load command
+encountered so it is acceptable to put the same load command into every
+part of the program or every subroutine that may need the library.
+Another use of the LIBRARY command is to extend the amount of
+memory available to a program by only loading sections of code as
+needed and then unloading them when their task is finished so that
+another function can be loaded.
+To prevent fragmentation of memory, functions that use a lot of memory
+(like arrays) should be declared first before any
+libraries are loaded and then unloaded. This is not supported yet.
+\\ \hline
+LIST
+LIST line
+LIST -lastline
+LIST firstline -
+LIST firstline - lastline
+& Lists all lines in a program line or a range of lines.
+If –lastline is used it will start with the first line in the program. If
+startline- is used it will list to the end of the program.
+\\ \hline
+LOAD file\$
+& Loads a program called ‘file\$’ from the current drive into program
+memory.
+If an extension is not specified “.BAS” will be added to the file name.
+\\ \hline
+LOCAL variable [,
+variables]
+& Defines a list of variable names as local to the subroutine or function.
+'variable' can be an array and the array will be dimensioned just as if the
+DIM command had been used.
+A local variable will only be visible within the procedure and will be
+deleted (and the memory reclaimed) when the procedure returns. If the
+local variable has the same name as a global variable (used before any
+subroutines or functions were called) the global variable will be hidden
+by the local variable while the procedure is executed.
+\\ \hline
+LOOP [UNTIL expression] & Terminates a program loop: see DO.
+\\ \hline
+NAME old\$ AS new\$ & Rename a file or a directory from ‘old\$’ to ‘new\$’
+Unlike the other commands that work with file names the NAME
+command cannot accept a full pathname (with directories).
+\\ \hline
+NEW & Deletes the program in memory and clears all variables.
+\\ \hline
+NEXT [counter-variable] [, counter-variable], etc & NEXT comes at the end of a FOR-NEXT loop; see FOR. The ‘counter-variable’ specifies exactly which loop is being operated on.
+If no ‘counter-variable’ is specified the NEXT will default to the
+innermost loop. It is also possible to specify multiple counter-variables
+as in:
+NEXT x, y, z
+\\ \hline
+ON nbr GOTO | GOSUB
+target[,target, target,...]
+& ON either branches (GOTO) or calls a subroutine (GOSUB) based on
+the rounded value of 'nbr'; if it is 1, the first target is called, if 2, the
+second target is called, etc. Target can be a line number or a label.
+\\ \hline
+OPEN fname\$ FOR mode
+AS [\#]fnbr
+& Opens a file for reading or writing.
+‘fname’ is the filename (8 chars max) with an optional extension (3 chars
+max) separated by a dot (.). It can be prefixed with a directory path. For
+example: "DIR1/DIR2/FILE.EXT".
+‘mode’ is INPUT, OUTPUT, APPEND or RANDOM.
+INPUT will open the file for reading and throw an error if the file does
+not exist. OUTPUT will open the file for writing and will automatically
+overwrite any existing file with the same name.
+APPEND will also open the file for writing but it will not overwrite an
+existing file; instead any writes will be appended to the end of the file. If
+there is no existing file the APPEND mode will act the same as the
+OUTPUT mode (i.e. the file is created then opened for writing). Note:
+APPEND is not supported on the flash file system (drive A:).
+RANDOM will open the file for both read and write and will allow
+random access using the SEEK command. When opened the read/write
+pointer is positioned at the end of the file. See Appendix I for more
+details.
+‘fnbr’ is the file number (1 to 10). The \# is optional. Up to 10 files can
+be open simultaneously. The INPUT, LINE INPUT, PRINT, WRITE
+and CLOSE commands as well as the EOF() and INPUT\$() functions all
+use ‘fnbr’ to identify the file being operated on.
+See also OPTION ERROR and MM.ERRNO for error handling.
+\\ \hline
+OPTION BASE 0
+or
+OPTION BASE 1
+& Set the lowest value for array subscripts to either 0 or 1. The default is
+0.
+This must be used before any arrays are declared.
+\\ \hline
+OPTION BREAK nn
+& Set the value of the break key to 'nn'. This key is used to interrupt a
+running program.
+The value of the break key is set to CTRL-C key at startup but it can be
+changed to any keyboard key using this command (for example,
+OPTION BREAK 156 will set the break key to the F12 key).
+Setting this option to an invalid key value (for example, 255) will disable
+the break function entirely.
+\\ \hline
+OPTION ERROR
+CONTINUE
+or
+OPTION ERROR ABORT
+ & Set the treatment for errors in file input/output. The option CONTINUE
+will cause MMBasic to ignore file related errors. The program must
+check the variable MM.ERRNO to determine if and what error has
+occurred.
+The option ABORT sets the normal behaviour (ie, stop the program and
+print an error message). The default is ABORT.
+Note that this option only relates to errors reading from or writing to
+NOR flash. It does not affect the handling of syntax and other
+program errors.
+\\ \hline
+OPTION PROMPT string\$ & Sets the command prompt to the contents of ‘string\$’ (which can also be
+an expression which will be evaluated when the prompt is printed).
+For example:
+OPTION PROMPT “Ok “
+or
+OPTION PROMPT TIME\$ + “: “
+or
+OPTION PROMPT CWD\$ + “: “
+Maximum length of the prompt string is 48 characters. The prompt is
+reset to the default (“> “) on power up but you can automatically set it by
+saving the following example program as “AUTORUN.BAS” on the
+NOR flash:
+10 OPTION PROMPT “My prompt: “
+20 NEW
+\\ \hline
+PAUSE delay & Halt execution of the running program for ‘delay’ mS.
+The maximum delay is 2147483647 mS (about 24 days).
+\\ \hline
+POKE hiword, loword, val
+or
+POKE keyword, offset, val
+or
+POKE VAR var, +-offset, val
+ & Will set a byte within the PIC32 virtual memory space.
+The address is specified by ‘hiword’ which is the top 16 bits of the
+address while ‘loword’ is the bottom 16 bits.
+Alternatively 'keyword' can be used and 'offset' is the +-offset from the
+address of the keyword. The keyword can be
+PROGMEM (program memory) or VARTBL (the variable table).
+You can also access the memory allocated to a variable by using the
+variable's name ('var') preceded by the keyword VAR. This can be used
+to access the individual bytes of a numeric variable or a large segment of
+RAM allocated to an array. The first element of an array (eg, nbr(0)) is
+the start of RAM allocated to the whole array. For example:
+DIM nbr(1024)
+'allocate 4KB
+POKE VAR nbr(0),100,1 'set the 100th byte to 1
+This command is for expert users only. address space. Note that MMBasic stores most data (including video) as
+32 bit integers and the PIC32 uses little endian format.
+WARNING: No validation of the parameters is made and if you use this
+facility to access an invalid memory address you will get an "internal
+error" which causes the processor to reset and clear all memory.
+\\ \hline
+PRINT expression
+[[,; ]expression] … etc
+& Outputs text to the screen. Multiple expressions can be used and must be
+separated by either a:
+? Comma (,) which will output the tab character
+? Semicolon (;) which will not output anything (it is just used to
+separate expressions).
+? Nothing or a space which will act the same as a semicolon.
+A semicolon (;) at the end of the expression list will suppress the
+automatic output of a carriage return/ newline at the end of a print
+statement.
+When printed, a number is preceded with a space if positive or a minus
+(-) if negative but is not followed by a space. Integers (whole numbers)
+are printed without a decimal point while fractions are printed with the
+decimal point and the significant decimal digits. Large numbers (greater
+than six digits) are printed in scientific format.
+The function FORMAT\$() can be used to format numbers. The function
+TAB() can be used to space to a certain column and the string functions
+can be used to justify or otherwise format strings.
+\\ \hline
+QUIT & Will exit MMBasic and return control to the operating system.
+\\ \hline
+RANDOMIZE nbr & Seed the random number generator with ‘nbr’.
+On power up the random number generator is seeded with zero and will
+generate the same sequence of random numbers each time. To generate
+a different random sequence each time you must use a different value for
+‘nbr’. One good way to do this is use the TIMER function.
+For example  100 RANDOMIZE TIMER
+\\ \hline
+READ variable[, variable]...
+& Reads values from DATA statements and assigns these values to the
+named variables. Variable types in a READ statement must match the
+data types in DATA statements as they are read. See also DATA and
+RESTORE.
+\\ \hline
+REM string & REM allows remarks to be included in a program.
+Note the Microsoft style use of the single quotation mark to denote
+remarks is also supported and is preferred.
+\\ \hline
+RESTORE & Resets the line and position counters for DATA and READ statements to
+the top of the program file.
+\\ \hline
+RETURN & RETURN concludes a subroutine called by GOSUB and returns to the
+statement after the GOSUB.
+\\ \hline
+RUN [line] [file\$] & Executes the program in memory. If a line number is supplied then
+execution will begin at that line, otherwise it will start at the beginning
+of the program. Or, if a file name (file\$) is supplied, the current program
+will be erased and that program will be loaded from the current drive and
+executed. This enables one program to load and run another.
+Example: RUN “TEST.BAS”
+If an extension is not specified “.BAS” will be added to the file name.
+\\ \hline
+SEEK [\#]fnbr, pos & Will position the read/write pointer in a file that has been opened for
+RANDOM access to the 'pos' byte.
+The first byte in a file is numbered one so  SEEK \#5,1 will position the read/write pointer to the start of the file.
+See Appendix I for more details on random file access.
+\\ \hline
+SUB xxx (arg1 [,arg2, …])
+<statements>
+<statements>
+END SUB
+& Defines a callable subroutine. This is the same as adding a new
+command to MMBasic while it is running your program.
+'xxx' is the subroutine name and it must meet the specifications for
+naming a variable. 'arg1', 'arg2', etc are the arguments or parameters to
+the subroutine.
+Every definition must have one END SUB statement. When this is
+reached the program will return to the next statement after the call to the
+subroutine. The command EXIT SUB can be used for an early exit.
+You use the subroutine by using its name and arguments in a program
+just as you would a normal command. For example:  MySub a1, a2
+When the subroutine is called each argument in the caller is matched to
+the argument in the subroutine definition. These arguments are available
+only inside the subroutine. Subroutines can be called with a variable
+number of arguments. Any omitted arguments in the subroutine's list
+will be set to zero or a null string.
+Arguments in the caller's list that are a variable (ie, not an expression or
+constant) will be passed by reference to the subroutine. This means that
+any changes to the corresponding argument in the subroutine will also be
+copied to the caller's variable and therefore may be accessed after the
+subroutine has ended. Brackets around the argument list in both the caller and the definition are
+optional.
+\\ \hline
+SYSTEM command\$ & Submit 'command\$' to the operating system.
+It can be any command recognised by the command window in
+Windows XP/Vista/7. The available commands are listed here:
+http://ss64.com/nt
+For example, this will set the window to blue lettering on a yellow
+background: SYSTEM "COLOR 1E"
+Note that the command is executed in a different instance of the
+command processor to MMBasic so some commands (like "CD ..") will
+have no effect.
+\\ \hline
+TROFF & Turns the trace facility off; see TRON.
+\\ \hline
+TRON & Turns on the trace facility. This facility will print the number of each line
+(counting from the beginning of the program) in square brackets as the
+program is executed. This is useful in debugging programs.
+\\ \hline
+ABS( number ) & Returns the absolute value of the argument 'number' (ie, any negative
+sign is removed and the positive number is returned).
+\\ \hline
+ASC( string\$ ) & Returns the ASCII code for the first letter in the argument ‘string\$’.
+\\ \hline
+ATN( number ) & Returns the arctangent value of the argument 'number' in radians.
+\\ \hline
+BIN\$( number ) & Returns a string giving the binary (base 2) value for the 'number'.
+\\ \hline
+CHR\$( number ) & Returns a one-character string consisting of the character corresponding
+to the ASCII code indicated by argument 'number'.
+\\ \hline
+CINT( number ) & Round numbers with fractional portions up or down to the next whole
+number or integer.
+For example,
+45.47 will round to 45
+45.57 will round to 46
+-34.45 will round to -34
+-34.55 will round to -35
+See also INT() and FIX().
+\\ \hline
+CLR\$( )
+or
+CLR\$( fg )
+or
+CLR\$( fg, bg )
+ & Returns a string containing embedded codes to select colours in a string.
+'fg' is the foreground colour and 'bg' is the background colour. If no
+parameters are specified both the foreground and background colours
+will be reset to the defaults set by the last COLOUR command.
+Example, this will display yellow letters on a red background:
+PRINT CLR\$(YELLOW,RED) " ALARM "
+This function simply generates a two character string where the first
+character is the number 128 plus the foreground colour number and the
+second character is the number 192 plus the background colour number.
+\\ \hline
+COS( number ) & Returns the cosine of the argument 'number' in radians.
+\\ \hline
+DEG( radians ) & Converts 'radians' to degrees.
+\\ \hline
+DIR\$( fspec, type )
+or
+DIR\$( fspec )
+or
+DIR\$( )
+ & Will search the NOR flash for files and return the names of entries found.
+'fspec' is a file specification using wildcards the same as used by the
+FILES command. Eg, "*.*" will return all entries, "*.TXT" will return
+text files.
+'type' is the type of entry to return and can be one of:
+VOL
+Search for the volume label only
+DIR
+Search for directories only
+FILE
+Search for files only (the default if 'type' is not specified)
+The function will return the first entry found. To retrieve subsequent
+entries use the function with no arguments. ie, DIR\$( ). The return of
+an empty string indicates that there are no more entries to retrieve.
+This example will print all the files in a directory:
+f\$ = DIR\$("*.*", FILE)
+DO WHILE f\$ <> ""
+PRINT f\$
+f\$ = DIR\$()
+LOOP
+\\ \hline
+EOF( [\#]nbr ) & Will return true if the file previously opened for INPUT with the file
+number ‘nbr’ is positioned at the end of the file.
+If used on a file number opened as a serial port this function will return
+true if there are no characters waiting in the receive buffer.
+The \# is optional. Also see the OPEN, INPUT and LINE INPUT
+commands and the INPUT\$ function.
+\\ \hline
+EXP( number ) & Returns the exponential value of 'number'.
+\\ \hline
+FIX( number ) & Truncate a number to a whole number by eliminating the decimal point
+and all characters to the right of the decimal point.
+For example 9.89 will return 9 and -2.11 will return -2.
 
-\begin{equation}
-Pr(y | \mu ) =\frac{{e}^{\mu }\mu^{y }}{y!}
-\end{equation}
+The major difference between FIX and INT is that FIX provides a true
+integer function (ie, does not return the next lower number for negative
+numbers as INT() does). This behaviour is for Microsoft compatibility.
+See also CINT() .
+\\ \hline
+FORMAT\$( nbr [, fmt\$] ) & Will return a string representing ‘nbr’ formatted according to the
+specifications in the string ‘fmt\$’.
+The format specification starts with a % character and ends with a letter.
+Anything outside of this construct is copied to the output as is.
+The structure of a format specification is:
+% [flags] [width] [.precision] type
+Where ‘flags’ can be:
+-
+Left justify the value within a given field width
+0
+Use 0 for the pad character instead of space
++
+Forces the + sign to be shown for positive numbers
+space
+Causes a positive value to display a space for the sign.
+Negative values still show the – sign
+‘width’ is the minimum number of characters to output, less than this the
+number will be padded, more than this the width will be expanded.
+‘precision’ specifies the number of fraction digits to generate with an e,
+or f type or the maximum number of significant digits to generate with a
+g type. If specified, the precision must be preceded by a dot (.).
+‘type’ can be one of:
+g
+Automatically format the number for the best presentation.
+f
+Format the number with the decimal point and following
+digits
+e
+Format the number in exponential format
+If uppercase G or F is used the exponential output will use an uppercase
+E. If the format specification is not specified “%g” is assumed.
+Examples:
+format\$(45) will return 45
+format\$(45, “%g”) will return 45
+format\$(24.1, “%g”) will return 24.1
+format\$(24.1,”%f”) will return 24.100000
+format\$(24.1, “%e”) will return 2.410000e+01
+format\$(24.1,"%09.3f") will return 00024.100
+format\$(24.1,"%+.3f") will return +24.100
+format\$(24.1,"**%-9.3f**") will return **24.100  **
+\\ \hline
+HEX\$( number ) & Returns a string giving the hexadecimal (base 16) value for the 'number'.
+\\ \hline
+INKEY\$ & Checks the input of a character.
+\\ \hline
+INPUT\$(nbr, [\#]fnbr) & Will return a string composed of ‘nbr’ characters read from a file
+previously opened for INPUT with the file number ‘fnbr’. This function
+will read all characters including carriage return and new line without
+translation.
+When reading from a serial communications port this will return as
+many characters as are waiting in the receive buffer up to ‘nbr’. If there
+are no characters waiting it will immediately return with an empty string.
+The \# is optional. Also see the OPEN command.
+\\ \hline
+INSTR( [start-position,]
+string-searched\$, string-
+pattern\$ )
+ & Returns the position at which 'string-pattern\$' occurs in 'string-
+searched\$', beginning at 'start-position'.
+\\ \hline
+INT( number ) & Truncate an expression to the next whole number less than or equal to
+the argument. For example 9.89 will return 9 and -2.11 will return -3.
+This behaviour is for Microsoft compatibility, the FIX() function
+provides a true integer function.
+See also CINT() .
+\\ \hline
+LEFT\$( string\$, number-
+of-chars )
+ & Returns a substring of ‘string\$’ with ‘number-of-chars’ from the left
+(beginning) of the string.
+\\ \hline
+LEN( string\$ ) & Returns the number of characters in 'string\$'.
+\\ \hline
+LOC( [\#]fnbr ) & For a file opened as RANDOM this will return the current position of
+the read/write pointer in the file. Note that the first byte in a file is
+numbered 1. See Appendix I for more details of random file access.
+For a serial port this will return the number of bytes received and
+waiting in the receive buffer to be read.
+The \# is optional.
+\\ \hline
+LOF( [\#]fnbr ) & For a file this will return the current length of the file in bytes.
+For a serial port this will return the space (in characters) remaining in the
+transmit buffer. Note that when the buffer is full MMBasic will pause
+when adding a new character and wait for some space to become
+available.
+The \# is optional.
+\\ \hline
+LOG( number ) & Returns the natural logarithm of the argument 'number'. 
+\\ \hline
+LCASE\$( string\$ ) & Returns ‘string\$’ converted to lowercase characters.
+\\ \hline
+MID\$( string\$, start-
+position-in-string[, number-
+of-chars ] )
+ & Returns a substring of ‘string\$’ beginning at ‘start-position-in-string’
+and continuing for ‘number-of-chars’ bytes. If ‘number-of-chars’ is
+omitted the returned string will extend to the end of ‘string\$’
+\\ \hline
+OCT\$( number ) & Returns a string giving the octal (base 8) representation of 'number'.
+\\ \hline
+PEEK( hiword, loword )
+or
+PEEK( keyword, +-offset)
+or
+PEEK(VAR var, +-offset)
+& Will return a byte within the PIC32 virtual memory space.
+The address is specifies by ‘hiword’ which is the top 16 bits of the
+address while ‘loword’ is the bottom 16 bits.
+Alternatively 'keyword' can be used and 'offset' is the +-offset from the
+address of the keyword. The keyword can be 
+PROGMEM (program
+memory) or VARTBL (the variable table). 
+You can also access the memory allocated to a variable by using the
+variable's name ('var') preceded by the keyword VAR. This can be used
+to access the individual bytes of a numeric variable or a large segment of
+RAM allocated to an array (the first element of an array (eg, nbr(0)) is
+the start of RAM allocated to the whole array).
+See the POKE command for notes and warnings related to memory
+access.
+\\ \hline
+PI & Returns the value of pi.
+\\ \hline
+POS & Returns the current cursor position in the line in characters.
+\\ \hline
+RAD( degrees ) & Converts 'degrees' to radians.
+\\ \hline
+RIGHT\$( string\$, number-
+of-chars )
+ & Returns a substring of ‘string\$’ with ‘number-of-chars’ from the right
+(end) of the string.
+\\ \hline
+RND( number ) & Returns a pseudo-random number in the range of 0 to 0.999999. The
+'number' value is ignored if supplied. The RANDOMIZE command
+reseeds the random number generator.
+\\ \hline
+SGN( number ) & Returns the sign of the argument 'number', +1 for positive numbers, 0 for
+0, and -1 for negative numbers.
+\\ \hline
+SIN( number ) & Returns the sine of the argument 'number' in radians.
+\\ \hline
+SPACE\$( number ) & Returns a string of blank spaces 'number' bytes long.
+\\ \hline
+SQR( number ) & Returns the square root of the argument 'number'.
+\\ \hline
+STR\$( number ) & Returns a string in the decimal (base 10) representation of 'number'.
+\\ \hline
+STRING\$( number, ascii-
+value|string\$ )
+ & Returns a string 'number' bytes long consisting of either the first
+character of string\$ or the character representing the ASCII value ascii-
+value.
+\\ \hline
+TAB( number ) & Outputs spaces until the column indicated by 'number' has been reached.
+\\ \hline
+TAN( number ) & Returns the tangent of the argument 'number' in radians.
+\\ \hline
+UCASE\$( string\$ ) & Returns ‘string\$’ converted to uppercase characters.
+\\ \hline
+VAL( string\$ ) & Returns the numerical value of the ‘string\$’. If 'string\$' is an invalid
+number the function will return zero.
+This function will recognise the \&H prefix for a hexadecimal number,
+\&O for octal and \&B for binary.
+\\ \hline
+\end{tabular}
+\end{table}
 
-donde  $\mu> 0 $• es el único parámetro que define la distribución. La manera más fácil de conseguir un sentido de esta distribución es comparar la trama de la probabilidad pronosticada para diferentes valores de la tasa parámetro $\mu$ (etiquetado como mu en el gráfico):
+\begin{table}[]
+\centering
+\caption{Basic Instructions for System}
+\label{Basic_Instructions_for_System}
+\begin{tabular}{|p{4cm}|p{10cm}|}
+\hline
+\textbf{Basic Interpreter} & \textbf{Description}                                                             \\ \hline
+3A & 3B 
+\\ \hline
+3A & 3B 
+\\ \hline
+3A & 3B 
+\\ \hline
+\end{tabular}
+\end{table}
 
-\begin{center}
-\includegraphics[height=6cm]{1}
-\end{center}
 
-La trama muestra cuatro características de la distribución de Poisson que son importantes para la comprensión modelos de regresión para el recuento:
-\begin{itemize}
-\item  $\mu$ es la media de la distribución. Como  $\mu$  aumenta, la masa de la distribución se desplaza hacia la derecha.
- \item $\mu$ es también la varianza. Por lo tanto, $Var (y) = \mu$, que se conoce como equidispersión. En los datos reales, muchas variables de recuento tienen una varianza mayor que la media, que se llama sobredispersión.
- \item Como $\mu$ aumenta, la probabilidad de que un cero disminución de los recuentos. Para muchas variables de recuento, hay ceros que las predichas por la distribución de Poisson más observado.
- \item Como $\mu$ aumenta, la distribución de Poisson se aproxima a una distribución normal. Esto se muestra por la distribución de $\mu = 10,5$.
- \end{itemize}
+\begin{table}[]
+\centering
+\caption{Basic Instructions for File Operation}
+\label{Basic_Instructions_for_File_Operation}
+\begin{tabular}{|p{4cm}|p{10cm}|}
+\hline
+\textbf{Basic Interpreter} & \textbf{Description}                                                             \\ \hline
+3A & 3B 
+\\ \hline
+3A & 3B 
+\\ \hline
+3A & 3B 
+\\ \hline
+\end{tabular}
+\end{table}
 
-\section{Modelo de Regresión de Poisson}\index{Modelo de Regresión de Poisson}
 
-El modelo de regresión de Poisson (PRM) se extiende de la distribución de Poisson al permitir que cada observación tener un valor diferente de $\mu$. Más formalmente, el PRM asume que el recuento observado para la observación i se extrae de una distribución de Poisson con $\mu_{i}$ de media, donde $\mu_{i}$  se estima a partir  de las características observadas. Esto se refiere a veces como la incorporación de heterogeneidad observada, y conduce a la ecuación estructural:
-\\
-\begin{equation}
-\mu_{i}  =E(y_{i}|x_{i})=exp(x_{i}\beta )
-\end{equation}
+\begin{table}[]
+\centering
+\caption{Basic Instructions for Communication}
+\label{Basic_Instructions_for_Communication}
+\begin{tabular}{|p{4cm}|p{10cm}|}
+\hline
+\textbf{Basic Interpreter} & \textbf{Description}                                                             \\ \hline
+3A & 3B 
+\\ \hline
+3A & 3B 
+\\ \hline
+3A & 3B 
+\\ \hline
+\end{tabular}
+\end{table}
 
-Por lo tanto la distribución de Possion con la variables explicativas x, seria:
-\begin{equation}
-Pr(y | x) =\frac{{e}^{\mu_{i} }\mu_{i}^{y }}{y!}
-\end{equation}
-Tomando el exponencial de  $x\beta$ para  $\mu$ debe ser positivo, lo cual  necesario ya que el conteo sólo puede ser 0 o positivo. Para ver cómo funciona esto, considere el modelo de regresión de Poisson con una sola variable independiente $\mu$ =exp ($\alpha$ $+$ $\beta x$), que puede ser trazada como:
+\begin{table}[]
+\centering
+\caption{Basic Instructions for Numerical Operation}
+\label{Basic_Instructions_for_Numerical_Operation}
+\begin{tabular}{|p{4cm}|p{10cm}|}
+\hline
+\textbf{Basic Interpreter} & \textbf{Description}                                                             \\ \hline
+3A & 3B 
+\\ \hline
+3A & 3B 
+\\ \hline
+3A & 3B 
+\\ \hline
+\end{tabular}
+\end{table}
 
-\begin{center}
-\includegraphics[height=6cm]{2}
-\end{center}
+\begin{table}[]
+\centering
+\caption{Basic Instructions for String Operation}
+\label{Basic_Instructions_for_String_Operation}
+\begin{tabular}{|p{4cm}|p{10cm}|}
+\hline
+\textbf{Basic Interpreter} & \textbf{Description}                                                             \\ \hline
+3A & 3B 
+\\ \hline
+3A & 3B 
+\\ \hline
+3A & 3B 
+\\ \hline
+\end{tabular}
+\end{table}
 
-En este gráfico, la media  $\mu$, que se muestra por la línea curva, aumenta a medida que aumenta x. Para cada valor de  $\mu$, la distribución alrededor de la media se muestra por los puntos y que representan la probabilidad de cada conteo. Interpretación del modelo implica evaluar cómo los cambios en las variables independientes afectan a la media condicional y las probabilidades de varios conteos.
+\begin{table}[]
+\centering
+\caption{Basic Instructions for System}
+\label{Basic_Instructions_for_System}
+\begin{tabular}{|p{4cm}|p{10cm}|}
+\hline
+\textbf{Basic Interpreter} & \textbf{Description}                                                             \\ \hline
+Memory & List the amount of memory currently in use. For example: \newline
+ \textit{\newline 15kB (18\%) Program (528 lines) \newline 23kB (28\%) 52 Variables \newline 17kB (21\%) General \newline 28kB (33\%) Free} \newline \newline
+Program memory is cleared by the NEW command. Variable and the general memory spaces are cleared by many commands (eg, NEW, RUN, LOAD, etc) as well as the specific commands CLEAR and ERASE. General memory is used by streams, file I/O buffers, etc.   
+\\ \hline
+\end{tabular}
+\end{table}
 
-\subsection{Estimación por máxima verosimilitud }
-\begin{equation}
-lnt =\sum_{i=1}^{n}({-\mu+yln\mu-ln(y!)})
-\end{equation}
-\begin{equation}
-lnt=\sum_{i=1}^{n}({-e^{x\beta}+yx\beta-ln(y!)})
-\end{equation}
+%BASIC COMMANDS
+%#	                Name	Tkn	Type
+%   1)	              Memory	0080	C
+%   2)	                   ?	0081	C
+%   3)	               Clear	0082	C
+%   4)	            Continue	0083	C
+%   5)	                Data	0084	C
+%   6)	                 Dim	0085	C
+%   7)	                  Do	0086	C
+%   8)	              ElseIf	0087	C
+%   9)	             Else If	0088	C
+%  10)	           Case Else	0089	C
+%  11)	                Else	008a	C
+%  12)	         Select Case	008b	C
+%  13)	          End Select	008c	C
+%  14)	                Case	008d	C
+%  15)	               EndIf	008e	C
+%  16)	              End If	008f	C
+%  17)	        End Function	0090	C
+%  18)	             End Sub	0091	C
+%  19)	                 End	0092	C
+%  20)	               Erase	0093	C
+%  21)	               Error	0094	C
+%  22)	            Exit For	0095	C
+%  23)	            Exit Sub	0096	C
+%  24)	       Exit Function	0097	C
+%  25)	             Exit Do	0098	C
+%  26)	                Exit	0099	C
+%  27)	                 For	009a	C
+%  28)	            Function	009b	C
+%  29)	               GoSub	009c	C
+%  30)	                GoTo	009d	C
+%  31)	                  If	009e	C
+%  32)	          Line Input	009f	C
+%  33)	               Input	00a0	C
+%  34)	                 Let	00a1	C
+%  35)	                List	00a2	C
+%  36)	               Local	00a3	C
+%  37)	                Loop	00a4	C
+%  38)	               Chain	00a5	C
+%  39)	                Next	00a6	C
+%  40)	                  On	00a7	C
+%  41)	              Option	00a8	C
+%  42)	               Print	00a9	C
+%  43)	                Read	00aa	C
+%  44)	                 Rem	00ab	C
+%  45)	             Restore	00ac	C
+%  46)	              Return	00ad	C
+%  47)	                 Run	00ae	C
+%  48)	                 Sub	00af	C
+%  49)	               TROFF	00b0	C
+%  50)	                TRON	00b1	C
+%  51)	               Trace	00b2	C
+%  52)	                Wend	00b3	C
+%  53)	               While	00b4	C
+%  54)	               Const	00b5	C
+%  55)	                Open	00b6	C
+%  56)	               Close	00b7	C
+%  57)	               Files	00b8	C
+%  58)	                Kill	00b9	C
+%  59)	                Copy	00ba	C
+%  60)	                Name	00bb	C
+%  61)	                Seek	00bc	C
+%  62)	             Library	00bd	C
+%  63)	               Pause	00be	C
+%  64)	               S0Out	00bf	C
+%  65)	        SetVarAccess	00c0	C
+%  66)	          SetTimeout	00c1	C
+%  67)	             SYS.Set	00c2	C
+%  68)	              SYSTEM	00c3	C
+%  69)	            Dispatch	00c4	C
+%  70)	                  @(	00c5	C
+%  71)	              SYSLOG	00c6	C
+%  72)	                 WDT	00c7	C
+%  73)	              Memory	00c8	C
+%  74)	           Copyright	00c9	C
+%BASIC TOKENS
+%#	                Name	Tkn	Type
+%   1)	                Abs(	0080	fF
+%   2)	               Acos(	0081	fF
+%   3)	                Asc(	0082	iF
+%   4)	               Asin(	0083	iF
+%   5)	                Atn(	0084	fF
+%   6)	               Bin$(	0085	sF
+%   7)	               Chr$(	0086	sF
+%   8)	               Cint(	0087	iF
+%   9)	                Cos(	0088	fF
+%  10)	                Deg(	0089	fF
+%  11)	                Exp(	008a	fF
+%  12)	                Fix(	008b	iF
+%  13)	            Format$(	008c	sF
+%  14)	               Hex$(	008d	sF
+%  15)	              Inkey$	008e	sV
+%  16)	              Instr(	008f	iF
+%  17)	                Int(	0090	iF
+%  18)	             LCase$(	0091	sF
+%  19)	              Left$(	0092	sF
+%  20)	             Ltrim$(	0093	sF
+%  21)	                Len(	0094	iF
+%  22)	                Log(	0095	fF
+%  23)	               Mid$(	0096	sF
+%  24)	         MM.CmdLine$	0097	sV
+%  25)	              MM.Ver	0098	fV
+%  26)	               Oct$(	0099	sF
+%  27)	               Peek(	009a	iF
+%  28)	                 Pi(	009b	fF
+%  29)	                Pos(	009c	iF
+%  30)	                Rad(	009d	fF
+%  31)	             Right$(	009e	sF
+%  32)	                Rnd(	009f	fF
+%  33)	                 Rnd	00a0	fV
+%  34)	              Round(	00a1	fF
+%  35)	             Rtrim$(	00a2	sF
+%  36)	                Sgn(	00a3	iF
+%  37)	                Sin(	00a4	fF
+%  38)	             Space$(	00a5	sF
+%  39)	                Spc(	00a6	sF
+%  40)	                Sqr(	00a7	fF
+%  41)	               Str$(	00a8	sF
+%  42)	            String$(	00a9	sF
+%  43)	                Tab(	00aa	sF
+%  44)	                Tan(	00ab	fF
+%  45)	             UCase$(	00ac	sF
+%  46)	                Val(	00ad	fF
+%  47)	                 For	00ae	
+%  48)	                Else	00af	
+%  49)	               GoSub	00b0	
+%  50)	                GoTo	00b1	
+%  51)	                Step	00b2	
+%  52)	                Then	00b3	
+%  53)	                  To	00b4	
+%  54)	               Until	00b5	
+%  55)	               While	00b6	
+%  56)	                   ^	00b7	fO
+%  57)	                   *	00b8	fO
+%  58)	                   /	00b9	fO
+%  59)	                   \	00ba	iO
+%  60)	                 Mod	00bb	iO
+%  61)	                   +	00bc	fO
+%  62)	                   -	00bd	fO
+%  63)	                 Not	00be	fO
+%  64)	                  <<	00bf	iO
+%  65)	                  >>	00c0	iO
+%  66)	                  <>	00c1	fO
+%  67)	                  >=	00c2	fO
+%  68)	                  =>	00c3	fO
+%  69)	                  <=	00c4	fO
+%  70)	                  =<	00c5	fO
+%  71)	                   <	00c6	fO
+%  72)	                   >	00c7	fO
+%  73)	                   =	00c8	fO
+%  74)	                 And	00c9	iO
+%  75)	                  Or	00ca	iO
+%  76)	                 Xor	00cb	iO
+%  77)	                   ~	00cc	iO
+%  78)	                Eof(	00cd	iF
+%  79)	                Loc(	00ce	iF
+%  80)	                Lof(	00cf	iF
+%  81)	                  As	00d0	
+%  82)	            MM.Errno	00d1	iV
+%  83)	             Input$(	00d2	sF
+%  84)	           MM.Fname$	00d3	sV
+%  85)	               Dir$(	00d4	sF
+%  86)	                Abs(	00d5	fF
+%  87)	           Unixtime(	00d6	iF
+%  88)	              Ticks(	00d7	iF
+%  89)	         Timestamp$(	00d8	sF
+%  90)	              Date$(	00d9	sF
+%  91)	            Weekday(	00da	iF
+%  92)	            Yearday(	00db	iF
+%  93)	       CheckTimeout(	00dc	iF
+%  94)	            SYS.Get(	00dd	fF
+%  95)	               S0In(	00de	iF
+%  96)	        Temperature(	00df	iF
+%  97)	         RS485Read$(	00e0	sF
+%  98)	       RS485ReadLn$(	00e1	sF
+%  99)	          RS485Read(	00e2	iF
+% 100)	         RS485Write(	00e3	iF
+% 101)	       RS485ReadEx$(	00e4	sF
+% 102)	     RS485ReadLnEx$(	00e5	sF
+% 103)	        RS485ReadEx(	00e6	iF
+% 104)	       RS485WriteEx(	00e7	iF
+% 105)	            D0Start(	00e8	iF
+% 106)	          D0ReadLn$(	00e9	sF
+% 107)	              D0End(	00ea	iF
+% 108)	            D0Read$(	00eb	sF
+% 109)	             D0Read(	00ec	iF
+% 110)	            D0Write(	00ed	iF
+% 111)	       SocketServer(	00ee	iF
+% 112)	       SocketClient(	00ef	iF
+% 113)	    SocketConnected(	00f0	iF
+% 114)	         SocketRead(	00f1	iF
+% 115)	        SocketRead$(	00f2	sF
+% 116)	      SocketReadLn$(	00f3	sF
+% 117)	        SocketWrite(	00f4	iF
+% 118)	        SocketClose(	00f5	iF
+% 119)	       SocketOption(	00f6	iF
+% 120)	               CRC$(	00f7	sF
+% 121)	             Split$(	00f8	sF
+% 122)	      StreamSearch$(	00f9	sF
+% 123)	     EnoceanReceive(	00fa	iF
+% 124)	    EnoceanTransmit(	00fb	iF
+% 125)	        MQTTConnect(	00fc	iF
+% 126)	     MQTTConnectTLS(	00fd	iF
+% 127)	     MQTTDisconnect(	00fe	iF
+% 128)	        MQTTPublish(	00ff	iF
+% 129)	      MQTTSubscribe(	0180	iF
+% 130)	    MQTTUnsubscribe(	0181	iF
+% 131)	   MQTTSubscription(	0182	iF
+% 132)	               Conv(	0183	fF
+% 133)	                  @(	0184	fF
+% 134)	           SetTimer(	0185	iF
+% 135)	          KillTimer(	0186	iF
+% 136)	         CrontabAdd(	0187	iF
+% 137)	      CrontabRemove(	0188	iF
+% 138)	                  As	0189	
 
-Derivamos la ecuación respecto de $\beta$
-\begin{equation}
-\frac{\partial lnt }{\partial \beta}=\sum_{i=1}^{n}({-xe^{x\beta}+yx})=0
-\end{equation}
-\begin{equation}
-\sum_{i=1}^{n}({xe^{x\beta}})=\sum_{i=1}^{n}{(y_{i}x_{i}})
-\end{equation}
+\chapter{Specification}
+% TODO measure weight and dimensions
+Matrix with features
+horizontal	EMDO101	EMDO102	EMDO103 MBUS	EMDO104 KNX
+USB Power Supply o - - -
+12V/24V Power Suply - o o o
+D0 Interface o - - -
+RS485 1 2 - -
+MBUS - - o -
+KNX - - - o
+S0 Electrical Outputs 2 2 2 2 
+S0 Electrical Inputs 2 2 2 2
+S0 Optical Input 1 - - - -
+Relay Outputs 1 2 2 2
+1 Wire - 1 1 1 
+Ethernet 1 1 1 1
+Power Consumption < 1Watt (all)
+Dimensions TBD
+Weight TBD
 
-\begin{equation}
-\frac{\partial^2 lnt }{\partial \beta^2}= -\sum_{i=1}^{n}({xxe^{x\beta}})
-\end{equation}
+\chapter{Credits and Licenses}
+pls extract from credit.txt
 
-\section{Ejemplo de una estimación del modelo de regresión de Poisson en Stata}\index{Ejemplo de una estimación del modelo de regresión de Poisson en Stata}
 
-Para este ejemplo, utilizamos datos de Long (1990) sobre el número de publicaciones producido por Ph.D. bioquímicos. Las variables consideradas son\\
-. use couart2, clear\\
-. describe\\
-
-\begin{center}
-\includegraphics[height=4.5cm]{3}
-\end{center}
-
-. summarize\\
-
-\begin{center}
-\includegraphics[height=5cm]{4}
-\end{center}
-
-Las diferencias entre los científicos en sus índices de productividad podría deberse a factores como el género, el estado civil, el número de jóvenes niños, el prestigio del programa de postgrado, y el número de artículos escritos por el mentor de un científico. Para dar cuenta de estas diferencias, añadimos estas variables como variables independientes, donde la variable dependiente sera el numero de artículos en los  últimos 3 años de doctorado.
-\\\\
-Ahora utilizaremos el siguiente comando para estimar el modelo.\\
-. poisson art fem mar kid5 phd ment, nolog\\
-
-\begin{center}
-\includegraphics[height=6cm]{5}
-\end{center}
-
-La manera  en la cual se interpreta  un modelo de conteo depende si se está interesado en el valor esperado de la variable de recuento o en la distribución de los recuentos. Si el interés está en el recuento esperado, varios métodos se pueden utilizar para calcular el cambio en la expectativa de un cambio en una independiente variable.
-\\
-Si el interés está en la distribución de los recuentos o tal vez sólo la probabilidad de que un recuento específico, la probabilidad de que un recuento para un nivel dado de las variables independientes se puede calcular.
-\begin{itemize}
- \item Factor de Cambio en la E (y / x)\\
-Quizás el método más común de interpretación es el factor de cambio en la tarifa. Si definimos
-E (y / x,$ x_{k}$) como el recuento esperado para un determinado x donde notamos explícitamente el valor de $x_{k}$, y definir E (y / x, $x_{k}$ + $\delta$) como el recuento de espera después de aumentar$ x_{k}$ por unidades $\delta$, entonces
-\begin{equation}
-\frac{E (y / x, x_{k}+ \delta)}{E (y / x, x_{k})}=e^{\beta_{k}\delta}
-\end{equation}
-Por lo tanto, los parámetros pueden ser interpretados como
-Para un cambio de $\delta$ en $x_{k}$, el recuento esperados aumenta en un factor de $exp(\beta_{k}\delta)$, teniendo a  todas las otras variables constantes.
- \item Cambio porcentual en el E (y / x)\\
-Por otra parte, el porcentaje de cambio en el recuento esperado para un cambio unitario $\delta$ en  $x_{k}$, la celebración de otra las variables constantes, se puede calcular como:
-
-\begin{equation}
-100*\frac{E (y / x, x_{k}+ \delta)-E (y / x, x_{k})}{E (y / x, x_{k})}= 100*[exp (\beta_{k}*\delta) - 1]
-\end{equation}
-\end{itemize}
-\subsubsection{Calculamos el factor y el cambio en el E (y / x)}
-Coeficientes de cambio Factor se pueden calcular utilizando listcoef:\\
-. poisson art fem mar kid5 phd ment, nolog\\
-. listcoef fem ment, help\\
-
-\begin{center}
-\includegraphics[height=6cm]{6}
-\end{center}
-
-Por ejemplo, los coeficientes de fem y ment pueden ser interpretados como: Ser una científica disminuye el número esperado de artículos por un factor de 0.80, manteniendo  las demás variables constantes.
-\\
-Para un aumento de una desviación estándar de la productividad del mentor, aproximadamente 9,5 artículos, un medias aumento de la productividad del científico por un factor de 1,27, manteniendo constante otras variables.Para calcular el porcentaje de cambio utilizamos el comando:
-
-listcoef fem ment, percent help\\
-
-\begin{center}
-\includegraphics[height=6cm]{7}
-\end{center}
-
-Por ejemplo, los coeficientes de variación porcentual de fem y ment pueden ser interpretados como:\\
-Ser una científica disminuye el número esperado de artículos en un 20 por ciento, manteniendo todas las otras variables constantes. Por cada artículo adicional por parte del mentor, predijo de un científico de la productividad media aumenta en un 2,6 por ciento, manteniendo constantes otras variables.
-\subsubsection{Cambio marginal en E (y / x)}
-Otro método de interpretación es el cambio marginal en  E (y / x)
-\begin{equation}
-\frac{\partial E (y /  x_{k})}{\partial  x}=E (y / x)\beta_{k}
-\end{equation}
-Para $\beta_{k}> 0$ es  mayor  el valor actual de E (y | x), mayor es la tasa de cambio; para $\beta_{k} <0$,es menor es la tasa de cambio. El marginal respecto de $x_{k}$ depende tanto $\beta_{k}$ y E (y/ x).
-Por lo tanto, el valor de la marginal depende de los niveles de todas las variables en el modelo. En la práctica, este medida a menudo se calcula con todas las variables se encuentren en su medio.
-\subsubsection {Ejemplo de cambio marginal utilizando mfx compute}
-Por default, mfx compute calcula el cambio marginal con variables se encuentren en su medio:\\
-. mfx compute\\
-
-\subsection{Interpretación utilizando probabilidades predichas}
-Los parámetros estimados se pueden utilizar también para calcular probabilidades predichas utilizando la siguiente fórmula:
-\begin{equation}
-\widehat{Pr}(y =m| x) =\frac{{e}^{-x \widehat{\beta}}({{x \widehat{\beta}}})^{m }}{m!}
-\end{equation}
-Probabilidades pronosticadas en los valores especificados se pueden calcular utilizando prvalue. Las predicciones de los valores observados  para todas las observaciones se pueden calcular usando prcounts.\\
-. poisson art fem mar kid5 phd ment, nolog\\
-. prcounts prm, plot max(9)\\
-. d prm*\\
 
 
 
@@ -602,73 +1503,6 @@ Probabilidades pronosticadas en los valores especificados se pueden calcular uti
 %	CHAPTER 3
 %----------------------------------------------------------------------------------------
 
-\chapterimage{ima2} % Chapter heading image
-
-
-%Anexos
-\chapter*{Anexos}
-\addcontentsline{toc}{chapter}{\textcolor{ocre}{Anexos}}
-
-Anexo1: Representación gráfica de la función logística
-\begin{center}
-\includegraphics[height=5.5cm]{ima11}
-\end{center}
-
-Anexo2: Resultados de la aplicación del Modelo Probit
-\begin{center}
-\includegraphics[height=6.5cm]{kat1}
-\end{center}
-
-Anexo3: Resultados de la estimación con el Modelo Logit
-\begin{center}
-\includegraphics[height=8.5cm]{picture11}
-\end{center}
-
-Anexo4: Resultados del Test de Wald
-\begin{center}
-\includegraphics[height=4cm]{picture8}
-\end{center}
-
-Anexo5: Resultados de la segunda estimación con el Modelo Logit \begin{center}
-\includegraphics[height=8.5cm]{picture7}
-\end{center}
-
-\newpage
-Anexo6: Resultados de la estimación con el Modelo Probit
-\begin{center}
-\includegraphics[height=6.5cm]{picture1}
-\end{center}
-
-Anexo7: Resultados de la segunda estimación con el Modelo Probit
-\begin{center}
-\includegraphics[height=6.5cm]{picture10}
-\end{center}
-
-Anexo8: Potencia de la predicción con el Modelo Logit
-\begin{center}
-\includegraphics[height=5.5cm]{picture4}
-\end{center}
-
-\newpage
-Anexo9: Potencia de la predicción con el Modelo Probit
-\begin{center}
-\includegraphics[height=5.5cm]{picture3}
-\end{center}
-
-Anexo10: Representación gráfica de la Curva ROC
-\begin{center}
-\includegraphics[height=7cm]{picture16}
-\end{center}
-
-Anexo11: Valor esperado de la PD por categoría
-\begin{center}
-\includegraphics[height=5.5cm]{picture6}
-\end{center}
-
-Anexo12: Pérdida esperada de la entidad financiera ABC por categoría
-\begin{center}
-\includegraphics[height=5.5cm]{picture2}
-\end{center}
 
 
 %----------------
