@@ -73,6 +73,8 @@
 
 %%hasta aquí
 
+\usepackage{bbding}
+\usepackage{array}
 
 \begin{document}
 
@@ -143,6 +145,40 @@
 \chapterimage{ima2} % Chapter heading image
 
 \chapter{Installation}
+
+\section*{EMDO101/102/103/104}
+\subsection*{ Features}
+
+The EMDO device is a versatile tool which allows the connection of components such as inverters, chargers, home automation, heat pumps and heaters at your home. It is a versatile piece of electronics that glues everything in the energy infrastructure together.
+The EMDO has interfaces already built into the device to facilitiate the variety of interconnections with external equipment. The following table lists the interfaces available on the EMDO range of devices;
+
+%include header formatting
+%include ticks and cross instead of \Checkmark/NO
+%include captions
+%\bgroup
+%\def\arraystretch{1.3}
+\begin{tabular}{c | c c c c} \\
+					&	EMDO101	&	EMDO102	&	EMDO103	&	EMD104 	\\\hline
+RS485					&	\Checkmark	&	\Checkmark	&			&			\\\hline
+relay output driver			&	\Checkmark	&	\Checkmark	&			&			\\\hline
+s0 optical input 			&	\Checkmark	&	\Checkmark	&			&			\\\hline
+s0 electrical inputs			&	\Checkmark	&	\Checkmark	&			&			\\\hline
+s0 electrical outputs		&	\Checkmark	&	\Checkmark	&			&			\\\hline
+board temperature sensor		&	\Checkmark	&	\Checkmark	&			&			\\\hline
+Ethernet 				&	\Checkmark	&			&			&			\\\hline
+usb for firmware update		&	\Checkmark	&			&			&			\\\hline
+USB Power supply			&	\Checkmark	&			&			&			\\\hline
+default reset button		&	\Checkmark	&			&			&			\\\hline
+\end{tabular}
+%\egroup
+
+\subsection*{Pin Diagrams}
+
+%TODO: DANI - include schematic applicable to EMOD10x devices with pin layout, or clear picture
+%TODO: Add table of pins for the EMDO10x devices 
+
+%TODO: Single out interfaces which require specific mention
+%e.g RS485, mbus, Relay Output Driver, Optical/Electrical ports, board temperature sensor, firmware upgrade
 
 EMDO101 classic is directly assembled on utility meter on D0 Interface (IEC-62056-21). 
 One RS485
