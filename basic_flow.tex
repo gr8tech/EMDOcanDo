@@ -1,0 +1,118 @@
+\begin{table}[]
+\centering
+\caption{Basic Instructions for Control Loops}
+\label{Basic_Instructions_for_Control_Loops}
+\begin{tabular}{|p{4cm}|p{10cm}|}
+\hline
+\textbf{Basic Interpreter} & \textbf{Description}                                                     \\ \hline
+\textbf{For} \textit{counter\%} = \textit{start\%} \textbf{To\%} \textit{finish} [\textbf{Step} \textit{increment\%}] \newline
+[<statement>\newline
+\textbf{Exit For}]\newline
+\textbf{Next} [\textit{counter\%}, \textit{counter2\%}, ...]
+& Initiates a \textbf{For}-\textbf{Next} loop with the \textit{counter\%} initially set to \textit{start\%} and incrementing in \textit{increment\%} steps (default is 1) until 'counter' equals \textit{finish\%}. The \textit{increment\%} must be an integer value, but may be negative.\newline
+If multiple \textbf{For}-\textbf{Next} are cascaded, one \textbf{Next} statement can be used with the list of counter variables. It is recommended to state the counter variable for better readability of the code.\newline
+\textbf{Exit For} provides a early exit for the loop. Execution will be continued after the \textbf{Next}.
+\\ \hline
+\textbf{Do}\newline
+[<statements>\newline
+\textbf{Exit Do}]\newline
+\textbf{Loop}\newline
+& This structure will loop forever; the \textbf{Exit Do} or only \textbf{xit} can be used to
+terminate the loop or control must be explicitly transferred outside of the
+loop by commands like \textbf{Goto} or \textbf{Return} (if in a subroutine).
+\\ \hline
+\textbf{Do While} \textit{expression}\newline
+<statements>\newline
+\textbf{Loop}\newline\newline
+\textbf{Do}\newline
+<statements>\newline
+\textbf{Loop Until} \textit{expression}
+& 
+Loops while \textit{expression} is true (this is equivalent to the older \textbf{While}-
+\textbf{Wend} loop, also implemented in MMBasic). \newline
+If, at the start, the expression is false the statements in the loop will not be executed, even
+once.\newline
+Loops until the expression following \textbf{Until} is true. Because the test is
+made at the end of the loop the statements inside the loop will be
+executed at least once, even if the expression is false.
+\\ \hline
+\end{tabular}
+\end{table}
+
+
+\begin{table}[]
+\centering
+\caption{Basic Instructions for Control Flow Control If Switch}
+\label{Basic_Instructions_for_Control_Flow_Control_If_Switch}
+\begin{tabular}{|p{4cm}|p{10cm}|}
+\hline
+\textbf{Basic Interpreter} & \textbf{Description}                                                       \\ \hline
+\textbf{If} \textit{expr} \textbf{Then} statement\newline
+or\newline
+\textbf{If} \textit{expr} \textbf{Then} statement\newline
+\textbf{Else} statement
+ & Evaluates the expression \textit{expr} and performs the \textbf{Then} statement if it is
+true or skips to the next line if false. The optional \textbf{Else} statement is the
+reverse of the \textbf{Then} test. This type of \textbf{If} statement is all on one line.
+The \textbf{Then} statement construct can be also replaced with:
+\textbf{Goto} \textit{linenumber} or \textbf{Goto} \textit{label}. A \textit{linenumber} is a increasing number that is add in front of each line of code. A \textit{label} is the keyword \textit{label} : (name followed by :) that is placed in front of a statement.
+\\ \hline
+\textbf{If} \textit{expr} \textbf{Then}\newline
+<statements>\newline
+[\textbf{Else}\newline
+<statements>]\newline
+[\textbf{Elseif} \textit{expr} \textbf{Then}\newline
+<statements>]\newline
+\textbf{Endif}
+& The \textbf{Elseif} statement (if present) is executed if the previous condition
+is false and it starts a new \textbf{If} chain with further \textbf{Else} and / or \textbf{Elseif} 
+statements as required.\newline
+One \textbf{Endif} is used to terminate the multiline \textbf{IF}. \newline
+\textbf{Elseif} and \textbf{Else If} are equivalent.\newline
+\textbf{Endif} and \textbf{End If} are equivalent.
+\\ \hline
+\textbf{Select Case} expression\newline
+\textbf{Case} expression\newline
+<statements>\newline
+[\textbf{Case} expression\newline
+<statements>\newline
+\textbf{Case Else}\newline
+<statements>]\newline
+\textbf{End Select}
+& The \textbf{Select Case} statement is similar to the \textbf{If} statement. It allows to compare an expression to one or more expressions. The optional \textbf{Case Else} matches if none of the previous \textbf{Case} statements matches.\newline 
+The \textbf{Select Case} must always be terminated with a \textbf{End Select} statement.
+\\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[]
+\centering
+\caption{Basic Instructions for Control Branches}
+\label{Basic_Instructions_for_Control_Branches}
+\begin{tabular}{|p{4cm}|p{10cm}|}
+\hline
+\textbf{Basic Interpreter} & \textbf{Description}                                                     \\ \hline
+\textbf{Continue} & Resume running a program that has been stopped by an \textbf{End} statement,
+an error, or web interface stop button. The program will restart with the next statement
+following the previous stopping point.
+\\ \hline
+\textbf{Gosub} target & Initiates a subroutine call to the target, which can be a line number or a
+label. The subroutine must end with \textbf{Return}.
+\\ \hline
+\textbf{Goto} target & Branches program execution to the target, which can be a line number or
+a label.
+\\ \hline
+\textbf{On} expression \textbf{Gosub} target\newline 
+\textbf{On} expression \textbf{Goto} target\newline 
+\textbf{On CRON} clid\% handler [\textbf{Detach}]\newline 
+\textbf{On TIMER} clid\% handler [\textbf{Detach}]\newline 
+%\textbf{ON SEMP DEVCTL} fn\% handler [\textbf{DETACH}]\newline 
+%\textbf{ON SEMP GET} fn\% handler [\textbf{DETACH}]\newline 
+%\textbf{ON MSG} x\% handler [\textbf{DETACH}]\newline 
+& If the expression evaluates to true, the \textbf{Gosub} / \textbf{Goto} is executed.\newline
+Special functionality offers \textbf{On CRON} and \textbf{On TIMER}. This registers a handler that is executed if the cron or timer are scheduled. \newline
+The optional \textbf{Detach} statement unregisters the handler again.
+\\ \hline
+\end{tabular}
+\end{table}
+

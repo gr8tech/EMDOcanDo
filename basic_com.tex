@@ -1,0 +1,204 @@
+The EMDO supports the OASIS Standard MQTT v3.1.1. The standard is freely available from \url{http://mqtt.org}.\newline
+MQTT (MQ Telemetry Transport) is a protocol for machine to machine communication. It is a publish/subscribe protocol, extremely simple and lightweight messaging protocol, designed for constrained devices and low-bandwidth, high-latency or unreliable networks. The design principles are to minimise network bandwidth and device resource requirements whilst also attempting to ensure reliability and some degree of assurance of delivery. \newline
+These principles also turn out to make the protocol ideal of the emerging “machine-to-machine” (M2M) or “Internet of Things” world of connected devices. With this connectivity, it is extremely important that modern encryption technologies are used as much as possible, otherwise private data quickly become public.\newline
+For certificate generation please see subsection \ref{subsection:Certificates}.\newline\newline
+
+\begin{table}[h!]
+\centering
+\caption{Basic Instructions for MQTT Communication}
+\label{Basic_Instructions_for_MQTT_Communication}
+\begin{tabular}{|p{4cm}|p{10cm}|}
+\hline
+\textbf{Basic Interpreter} & \textbf{Description}
+\\ \hline
+\textit{err\%} = \textbf{MQTTConnect}( \textit{server\$, port\%, id\$, connection-flag\$, user\$, pass\$, willtopic\$, willmessage\$, timeout\%})\newline
+\textbf{MQTTConnectTLS}( \textit{server\$, port, id\$, connection-flag\$, caCert\$, cliCert\$, cliKey\$, user\$, pass\$, willtopic\$, willmessage\$, timeout\%})
+&
+Establish a connection to a MQTT broker. We recommend to use the TLS version of the command if you publish or subscribe private data in the cloud.\newline
+\textit{server\$} server IP or domain name, use IPMQTT default from network tab on empty string.\newline
+\textit{port} server port, if 0 default TCP port 1883 is used.\newline 
+\textit{id\$} this is a unique id for a client, best use EMDO unique id \textbf{SYS.GET}(\textit{"asset","serialID"})\newline
+\textit{connection-flag\$} for example "C0", where\newline
+    C = Clean session\newline
+	R = Will Retain (must be not be set if \textit{willmessage} is empty)\newline
+	0 = Will QoS0 (at most once delivery)\newline
+	1 = Will QoS1 (at least once delivery)\newline
+ 	2 = Will QoS2 (exactly once delivery)\newline
+\textit{caCert\$} file name of the certification authority signed certificate (TLS only)\newline 
+\textit{cliCert\$} file name of the client certificate (TLS only)\newline 
+\textit{cliKey\$} file name of the client key (TLS only)\newline 
+\textit{user\$} authentification username (empty if unused)\newline 
+\textit{pass\$} authentification passwort (empty if unused)\newline 
+\textit{willtopic\$} will topic (empty if unused)\newline  
+\textit{willmessage\$} will message (empty if unused)\newline 
+\textit{timeout\%} communication timeout (in ms, -1 if forever)\newline 
+Return value 0 on success or error code with negative sign.
+\\ \hline
+\textit{err\%} = \textbf{MQTTDisconnect}( \textit{timeout} )
+&
+Wait for disconnect from MQTT broker within the given \textit{timeout\%}.
+Return value 0 on success or error code with negative sign.
+\\ \hline
+\textit{err\%} = \textbf{MQTTPublish}( \textit{flag\$}, \textit{topic\$}, \textit{payload\$}, \textit{timeout\%} )
+&
+Publish a message through the MQTT broker within the given \textit{timeout}.
+\textit{flag\$} for example "DR0", where\newline
+   D = DUP flag (this is a possible redelivery)\newline
+   R = Retain flag (message must be stored by broker and delivered to new subscribers)\newline
+   0 = QoS0 (at most once delivery)\newline
+   1 = QoS1 (at least once delivery)\newline
+   2 = QoS2 (exactly once delivery)\newline
+Return value 0 on success or error code with negative sign.
+\\ \hline
+\textit{err\%} = \textbf{MQTTSubscribe}( \textit{qos\$}, \textit{topic\$}, \textit{timeout\%})
+&
+Subscribe to MQTT broker for \textit{topic\$} filter and maximal QoS level of \textit{qos\$} that the MQTT broker is allowed to deliver messages within the given \textit{timeout\%}.\newline
+\textit{qos\$} for example "0", where \newline
+   0 = QoS0\newline
+   1 = QoS1\newline
+   2 = QoS2\newline
+Return value 0 on success or error code with negative sign.   
+\\ \hline
+\textit{err\%} = \textbf{MQTTUnsubscribe}( \textit{topic\$}, \textit{timeout\%})
+&
+Unsubscribe from MQTT broker topic \textit{topic\$} within the given \textit{timeout\%}.\newline
+Return value 0 on success or error code with negative sign.
+\\ \hline
+\textit{num-of-messages\%} = \textbf{MQTTSubscription}( \textit{flag\$}, \textit{topic\$}, \textit{payload\$} )
+& 
+Poll a received message from the MQTT message queue. The string variables \textit{flag\$}, \textit{topic\$} and \textit{payload\$} will be overwritten by the message. If the message is longer than the maximal string lenght, it will be truncated.\newline 
+Return value is the number of messages retrieved (\textit{num-of-messages\%} is 1 on success).
+\\ \hline
+\end{tabular}
+\end{table}
+
+The D0 interface (IEC62056-2) has several operation modes. Typically the device is used in mode C (active) or mode (U) passive mode. Pls make sure the interface is correctly configured.\\newline
+This example configures the interface to passive mode: \newline
+\textbf{SYS.SET "d0", "mode=U baud=19200 data=8 stop=1 parity=n echo=0 auto-parity=0 strip-parity=0 autoread=0"}.\newline
+If the EMDO is configured as D0 to TCP/IP Gateway, the autoread mode queries a new read cycle automatically on each connection. With this mechanism it is possible to read D0 meter periodically, e.g. via Openhab or FHEM by a simple query script.
+
+\begin{table}[h!]
+\centering
+\caption{Basic Instructions for D0 Communication}
+\label{Basic_Instructions_for_D0_Communication}
+\begin{tabular}{|p{4cm}|p{10cm}|}
+\hline
+\textbf{Basic Interpreter} & \textbf{Description}
+\\ \hline
+\textit{success\%} = \textbf{D0Start}( \textit{ timeout\%} )\newline
+& Start a new D0 active readout cycle within the given \textit{timeout\%} (in ms, -1 if forever). Energy meter must be configured in mode A,B,C and E (see IEC62056-2). Mode U is a passive mode and does not require any active readout cycle start. Energy meter periodically outputs all OBIS codes. Return positive value on success. 
+\\ \hline
+\textit{success\%} = \textbf{D0End}( \textit{ timeout\%} )\newline
+& End currently active D0 readout cycle within the given \textit{timeout\%}. Returns positive value on success.
+\\ \hline
+\textit{OBIS-code\$} = \textbf{D0ReadLn\$}(\textit{ timeout\%} )\newline
+& Return an OBIS code (\textit{OBIS-string\$}) per call within the given \textit{timeout\%}. Return an empty string on end.
+\\ \hline
+\textit{string\$} = \textbf{D0Read\$}(\textit{ num-of-chars\%} )\newline
+& Read a string with length \textit{ num-of-chars\%} from the D0 interface. Return the \textit{string\$}. This call is blocking and should only be used in blocking mode.
+\\ \hline
+
+\textit{char-int\%} = \textbf{D0Read}()\newline
+& Read a character from the D0 interface and return an ASCII value. This call is blocking and should only be used in passive mode. 
+\\ \hline
+
+\textit{num-of-chars-written\%} = \textbf{D0Write}( [\textit{string\$}, \textit{char-int\%}, \textit{char-float}] )\newline
+& Write the characters from argument to the D0 interface. This call is blocking until all arguments has been sent.
+\\ \hline
+\end{tabular}
+\end{table}
+
+RS485 is a common communication interface. The EMDO does not have any galvanic isolation on the RS485. So make sure that the connected devices have galvanic isolation (most do). If this is not the case, use a RS485 to Ethernet Gateway and connect the device over Ethernet.\newline
+RS485 must have termination resistors on both ends of the twisted pair line. EMDO has a software configurable termination resistor incorporated.\newline
+RS485 devices use different settings for baudrate, parity and framing. These settings must be configured for all bus participants.\newline
+For example \textbf{SYS.SET "rs485-1", "baud=115200 data=8 stop=1 parity=n"}.\newline
+
+\begin{table}[h!]
+\centering
+\caption{Basic Instructions for RS485 Communication}
+\label{Basic_Instructions_for_RS485_Communication}
+\begin{tabular}{|p{4cm}|p{10cm}|}
+\hline
+\textbf{Basic Interpreter} & \textbf{Description}
+\\ \hline
+\textit{string\$}=\textbf{RS485Read\$}( \textit{device\%}, \textit{num-of-chars\%},  \textit{timeout\%} )
+& Read string of \textit{num-of-chars\%} characters from RS485 on port \textit{device\%} (1=first, top left in mounted enclosure front view), within \textit{timeout\%} ms (in ms, -1 if forever). 
+\\ \hline
+\textit{string\$} = \textbf{RS485ReadLn\$}( \textit{device\%}, \textit{timeout\%}, \textit{end-of-line-token\$} )
+& Read string terminated with token \textit{end-of-line-token\$} from RS485 on port \textit{device\%} (1=first, top left in mounted enclosure front view), within \textit{timeout\%} ms (in ms, -1 if forever).\newline 
+Some protocol use a fixed line termination like carriage return, line feed at the end of each message. 
+\\ \hline
+\textit{char-int\%} = \textbf{RS485Read}( \textit{device\%} )
+& Read one character from RS485 port \textit{device\%} and return character (\textit{char-int\%}).
+\\ \hline
+\textit{num-of-chars-written\%} = \textbf{RS485Write}( \textit{device\%}[, \textit{string\$}, \textit{char-int\%}, \textit{char-float}] )
+& Write over RS485 \textit{string\$}, \textit{char-int\%} or \textit{char-float} on port \textit{device\%}. Return \textit{num-of-chars-written\%}.
+\\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[h!]
+\centering
+\caption{Basic Instructions for Network Communication}
+\label{Basic_Instructions_for_Network_Communication}
+\begin{tabular}{|p{4cm}|p{10cm}|}
+\hline
+\textbf{Basic Interpreter} & \textbf{Description}
+\\ \hline
+\textit{socket\%} = \textbf{SocketServer} ( \textit{isTCP\%}, \textit{port\%} )
+&
+Opens a TCP ( \textit{isTCP\%} = 1 ) or UDP server ( \textit{isTCP\%} = 0 ) socket on port \textit{port\%} on the EMDO. On success, the connection handle (\textit{socket\%}) is returned. Negative value on error.\newline
+EMDO uses the following ports 23 (telnet TCP), 80 (HTTP TCP), 514 (rsh, TCP), 2020 (TCP to D0 Gateway), 2021 (TCP to RS485 Gateway), 2023 (TCP to RS485-2 Gateway), 9522 (Speedwire, UDP), 1900 (SSDP UDP). These ports are not available.
+\\ \hline
+\textit{socket\%} = \textbf{SocketClient}(\textit{isTCP\%}, \textit{server\$}, \textit{port\%})
+& Opens a TCP ( \textit{isTCP\%} = 1 ) or UDP client ( \textit{isTCP\%} = 0 ) connection to the remote \textit{server\$} (IP or domain name) on port \textit{port\%}. On success, the connection handle (\textit{socket\%}) is returned. Negative value on error.\newline
+\\ \hline
+\textit{is-connected\%} = \textbf{SocketConnected}( \textit{socket\%} ) 
+& Check if the TCP connection \textit{socket\%} to the server is still established. Return \textit{is-connected\%} 0 if not connected anymore.
+\\ \hline
+\textit{char-int\%} = \textbf{SocketRead} ( \textit{socket\%} )
+& Read one character from \textit{socket\%} and return character (\textit{char-int\%}).
+\\ \hline
+\textit{string\$} = \textbf{SocketRead\$}( \textit{socket\%}, \textit{num-of-chars\%})
+& Read string of \textit{num-of-chars\%} characters from \textit{socket\%}. 
+\\ \hline
+\textit{string\$} = \textbf{SocketReadLn\$}( \textit{socket\%}, \textit{timeout\%}, \textit{end-of-line-token\$} )
+& Read string terminated with token \textit{end-of-line-token\$} from \textit{socket\%} within \textit{timeout\%} ms (in ms, -1 if forever).\newline 
+\\ \hline
+\textit{num-of-chars-written\%} = \textbf{SocketWrite}( \textit{socket\%}[, \textit{string\$}, \textit{char-int\%}, \textit{char-float}] )
+& Write over  \textit{socket\%} the character stream consisting of \textit{string\$}, \textit{char-int\%} or \textit{char-float}. Return \textit{num-of-chars-written\%}.
+\\ \hline
+\textit{err\%} = \textbf{SocketOption}( \textit{socket\%}, \textit{option\$}[, \textit{arguments}, ...] )
+& Configure the \textit{socket\%} options. Returns negative value on error \textit{err\%}.\newline
+Options are:\newline
+SO\_RCVTIMEO set the \textit{socket\%} receive timeout, use argument \textit{rx-timeout\%} in miliseconds. Please also refer to \textbf{SetTimeout} and \textbf{CheckTimeout} for details about monitoring network timeouts. This option is does timeout handling on network stack level, not application level.\newline
+SO\_SNDTIMEO set the \textit{socket\%} transmit timeout, use argument \textit{rx-timeout\%} in miliseconds.Please also refer to \textbf{SetTimeout} and \textbf{CheckTimeout} for details about monitoring network timeouts. This option is does timeout handling on network stack level, not application level.\newline
+SO\_IP\_ADD\_MEMBERSHIP add the \textit{socket\%} to multicast group, use argument \textit{multicast-group-ip\$} of the multicast group the socket has to enter.\newline
+SO\_IP\_DROP\_MEMBERSHIP remove the \textit{socket\%} from multicast group, use argument \textit{multicast-group-ip\$} of the multicast group the socket has to be removed from.\newline
+\\ \hline
+\textit{closed-socket\%} = \textbf{SocketClose}( \textit{socket\%} )
+& Closing communication \textit{socket\%}. The function returns \textit{closed-socket\%} equal to \textit{socket\%} on success.
+\\ \hline
+\end{tabular}
+\end{table}
+
+The EnOcean Radio addon board enables two BASIC commands to transceive EnOcean telegrams. The addon board uses a TCM310 module. \newline
+The user manuals of the chip are available from manufacturer
+\url{https://www.enocean.com/de/enocean_module/tcm-310/}.\newline
+
+\begin{table}[h!]
+\centering
+\caption{Basic Instructions for EnOcean Communication}
+\label{Basic_Instructions_for_Enocean_Communication}
+\begin{tabular}{|p{4cm}|p{10cm}|}
+\hline
+\textbf{Basic Interpreter} & \textbf{Description}                                                 
+\\ \hline
+\textit{err\%} = \textbf{EnoceanReceive}( \textit{type\%}, \textit{data\$}, \textit{optdata\$}, \textit{timeout\%} )
+& Receive an EnOcean telegram from queue within \textit{timeout\%} ms. Return value \textit{err\%} is 0 on successfull reception of a telegram, negative on error. The basic variables \textit{type\%}, \textit{data\$} and \textit{optdata\$} contain the message on successful reception of a telegram.
+\\ \hline
+\textit{err\%} = \textbf{EnoceanTransmit}( \textit{type\%}, \textit{data\$}, \textit{optdata\$}, \textit{timeout\%} )
+& Transmit an EnOcean telegram \textit{type\%}, \textit{data\$} and \textit{optdata\$} within \textit{timeout\%} ms. Return value is 0 on successful transmission of the telegram, negative on error. 
+\\ \hline
+\end{tabular}
+\end{table}

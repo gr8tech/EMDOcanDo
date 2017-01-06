@@ -1,0 +1,70 @@
+\begin{table}[]
+\centering
+\caption{Basic Instructions for Subroutines and Functions}
+\label{Basic_Instructions_for_Subroutines_and_Functions}
+\begin{tabular}{|p{4cm}|p{10cm}|}
+\hline
+\textbf{Basic Interpreter} & \textbf{Description}                                                         \\ \hline
+\textbf{Function} \textit{function-name} ([\textit{arg1}, \textit{arg2}, …])\newline
+[<statements>\newline
+xxx = <return value>
+\textbf{Exit Function}]\newline
+\textbf{End Function}
+& Defines a callable function. A function is a piece of code that takes some arguments and returns a result at the end.\newline
+\textit{function-name} is the function name and it must meet the specifications for naming
+a variable. \textit{arg1}, \textit{arg2}, etc are the arguments or parameters to the
+function.\newline
+To set the return value of the function you assign the value to the
+function's name. For example:\newline
+\textbf{Function} SQUARE(a)\newline
+SQUARE = a * a\newline
+\textbf{End Function}\newline
+Every definition must have one \textbf{End Function} statement. When this
+is reached the function will return its value to the expression from which
+it was called. The command \textbf{Exit Function} can be used for an early
+exit.\newline
+You use the function by using its name and arguments in a program just
+as you would a normal MMBasic function. For example:\newline
+\textbf{Print} SQUARE(56.8)\newline
+When the function is called each argument in the caller is matched to the
+argument in the function definition. These arguments are available only
+inside the function.\newline
+Functions can be called with a variable number of arguments. Any
+omitted arguments in the function's list will be set to zero or a null string.
+Arguments in the caller's list that are a variable (ie, not an expression or
+constant) will be passed by reference to the function. This means that
+any changes to the corresponding argument in the function will also be
+copied to the caller's variable.\newline
+You must not jump into or out of a function using commands like
+\textbf{Goto}, \textbf{Gosub}, etc. Doing so will have undefined side effects
+including the possibility of ruining your day.
+\\ \hline
+\textbf{Sub} \textit{sub-name} ([\textit{arg1},\textit{arg2}, …])\newline
+[<statements>\newline
+\textbf{Exit Sub}]\newline
+\textbf{End Sub}
+& Defines a callable subroutine. This is the same as adding a new
+command to MMBasic while it is running your program.\newline
+\textit{sub-name} is the subroutine name and it must meet the specifications for
+naming a variable. \textit{arg1}, \textit{arg2}, etc are the arguments or parameters to
+the subroutine.\newline
+Every definition must have one \textbf{End Sub} statement. When this is
+reached the program will return to the next statement after the call to the
+subroutine. The command \textbf{Exit Sub} can be used for an early exit.
+You use the subroutine by using its name and arguments in a program
+just as you would a normal command. \newline
+For example: \newline
+MySub a1, a2\newline
+When the subroutine is called each argument in the caller is matched to
+the argument in the subroutine definition. These arguments are available
+only inside the subroutine. Subroutines can be called with a variable
+number of arguments. Any omitted arguments in the subroutine's list
+will be set to zero or a null string.\newline
+Arguments in the caller's list that are a variable (ie, not an expression or
+constant) will be passed by reference to the subroutine. This means that
+any changes to the corresponding argument in the subroutine will also be
+copied to the caller's variable and therefore may be accessed after the
+subroutine has ended. 
+\\ \hline
+\end{tabular}
+\end{table}

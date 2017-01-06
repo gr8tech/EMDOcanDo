@@ -1,0 +1,161 @@
+\begin{table}[]
+\centering
+\caption{Basic Instructions for String Operation}
+\label{Basic_Instructions_for_String_Operation}
+\begin{tabular}{|p{4cm}|p{10cm}|}
+\hline
+\textbf{Basic Interpreter} & \textbf{Description}                                                   
+\\ \hline
+\textbf{ASC}( string\$ ) & Returns the ASCII code for the first letter in the argument ‘string\$’.
+\\ \hline
+\textbf{CHR}\$( number ) & Returns a one-character string consisting of the character corresponding
+to the ASCII code indicated by argument 'number'.
+\\ \hline
+\textbf{FORMAT}\$( nbr [, fmt\$] ) & Will return a string representing ‘nbr’ formatted according to the specifications in the string ‘fmt\$’. \newline
+The format specification starts with a \% character and ends with a letter.
+Anything outside of this construct is copied to the output as is.\newline
+The structure of a format specification is:\newline
+\% [flags] [width] [.precision] type Where ‘flags’ can be:\newline
+- Left justify the value within a given field width \newline
+0 Use 0 for the pad character instead of space\newline
++ Forces the + sign to be shown for positive numbers\newline
+space Causes a positive value to display a space for the sign.
+Negative values still show the – sign\newline
+‘width’ is the minimum number of characters to output, less than this the
+number will be padded, more than this the width will be expanded. \newline
+‘precision’ specifies the number of fraction digits to generate with an e,
+or f type or the maximum number of significant digits to generate with a
+g type. If specified, the precision must be preceded by a dot (.).\newline
+‘type’ can be one of: \newline
+g Automatically format the number for the best presentation.\newline
+f Format the number with the decimal point and following digits\newline
+e Format the number in exponential format\newline
+If uppercase G or F is used the exponential output will use an uppercase
+E. If the format specification is not specified “\%g” is assumed.\newline
+Examples:\newline
+\textbf{format\$}(45) will return 45\newline
+\textbf{format\$}(45, “\%g”) will return 45\newline
+\textbf{format\$}(24.1, “\%g”) will return 24.1\newline
+\textbf{format\$}(24.1,”\%f”) will return 24.100000\newline
+\textbf{format\$}(24.1, “\%e”) will return 2.410000e+01\newline
+\textbf{format\$}(24.1,"\%09.3f") will return 00024.100\newline
+\textbf{format\$}(24.1,"\%+.3f") will return +24.100\newline
+\textbf{format\$}(24.1,"**\%-9.3f**") will return **24.100  **
+\\ \hline
+\textbf{INSTR}( [start-position,]
+string-searched\$, string-
+pattern\$ )
+ & Returns the position at which 'string-pattern\$' occurs in 'string-
+searched\$', beginning at 'start-position'.
+\\ \hline
+\textbf{LCASE\$}( string\$ ) \newline
+\textbf{UCASE\$}( string\$ ) 
+& Returns ‘string\$’ converted to lowercase characters (\textbf{LCASE}) or uppercase characters (\textbf{UCASE}).
+\\ \hline
+\textbf{LEFT\$}( string\$, number-of-chars )\newline
+\textbf{RIGHT\$}( string\$, number-of-chars )\newline
+\textbf{MID\$}( string\$, start-position-in-string[, number-of-chars])
+ & Returns a substring of ‘string\$’ with ‘number-of-chars’ from the left (beginning) of the string (\textbf{LEFT\$}), from the right (end) of the string (\textbf{RIGHT\$}) or 'start-position-in-string' in the string (\textbf{MID\$}). ‘start-position-in-string’ is in the range 1..\textbf{len}( string\$ )
+\\ \hline
+\textbf{LTRIM\$}( string\$ )\newline
+\textbf{RTRIM\$}( string\$ )\newline
+\textbf{TRIM\$}( string\$ )\newline
+& Return a string copy without leading spaces on the left (\textbf{LTRIM\$}), right (\textbf{RTRIM\$}) or on both ends (\textbf{TRIM\$}).
+\\ \hline
+\textbf{LEN}( string\$ ) & Returns the number of characters in 'string\$'.
+\\ \hline
+\textbf{SPACE\$}( number ) \newline
+\textbf{SPC}( number ) 
+& Returns a string of blank spaces 'number' characters long.
+\\ \hline
+\textbf{STR\$}( number ) & Returns a string in the decimal (base 10) representation of 'number'.
+\\ \hline
+\textbf{STRING\$}( number, ascii-
+value|string\$ )
+ & Returns a string 'number' bytes long consisting of either the first
+character of 'string\$' or the character representing the ASCII value 'ascii-
+value'.
+\\ \hline
+\textbf{TAB}( number ) & Outputs spaces until the column indicated by 'number' has been reached.
+\\ \hline
+\textbf{VAL}( string\$ ) & Returns the numerical value of the ‘string\$’. If 'string\$' is an invalid number the function will return zero. This function will recognise the \&H prefix for a hexadecimal number, \&O for octal and \&B for binary.
+\\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[]
+\centering
+\caption{Basic Instructions for Variables}
+\label{Basic_Instructions_for_Variables}
+\begin{tabular}{|p{4cm}|p{10cm}|}
+\hline
+\textbf{Basic Interpreter} & \textbf{Description}                                                   
+\\ \hline
+\textbf{CONST var = constvalue} & Sets a variable to a constant value, which can't be overwritten within the program.
+\\ \hline
+\textbf{DATA} constant[,constant]... & Stores numerical and string constants to be accessed by \textbf{READ}.
+In general string constants should be surrounded by double quotes ("").\newline
+An exception is when the string consists of just alphanumeric characters
+that do not represent MMBasic keywords (such as \textbf{THEN}, \textbf{WHILE}, etc).
+In that case quotes are not needed.\newline
+Numerical constants can also be expressions such as 5 * 60.
+\\ \hline
+\textbf{RESTORE} & Resets the line and position counters for \textbf{DATA} and \textbf{READ} statements to the top of the program file.
+\\ \hline
+\textbf{READ} variable[, variable]...
+& Reads values from \textbf{DATA} statements and assigns these values to the
+named variables. Variable types in a \textbf{READ} statement must match the
+data types in \textbf{DATA} statements as they are read. See also \textbf{DATA} and
+\textbf{RESTORE}.
+\\ \hline
+\textbf{DIM} var(dim) , [var(dim)]...\newline
+or
+\textbf{DIM} var\$(dim) LENGTH n\newline
+Examples:\newline
+\textbf{DIM} nbr(50)\newline
+\textbf{DIM} str\$(20)\newline
+\textbf{DIM} a(5,5,5), b(1000)\newline
+\textbf{DIM} str\$(200) \textbf{LENGTH} 20
+&
+Specifies a variable that is an array with one or more dimensions. The
+variables can be numbers or strings with multiple declarations separated
+by commas.\newline
+'dim' is a bracketed list of numbers separated by commas. Each number
+specifies the number of elements in each dimension. Normally the
+numbering of each dimension starts at 0 but the \textbf{OPTION BASE}
+command can be used to change this to 1.\newline
+For example: \textbf{DIM} nbr(10, 20) specifies a two dimensional array with
+11 elements (0 to 10) in the first dimension and 21 (0 to 20) in the
+second dimension. The total number of elements is 231 and because
+each number requires 4 bytes a total of 924 bytes of memory will be
+allocated.\newline
+String arrays will by default be allocated memory for 255 characters for
+each element and this can quickly use up memory. In that case the
+\textbf{LENGTH} keyword can be used to specify the amount of memory to be
+allocated to each element. This allocation ('n') can be from 1 to 255
+characters.\newline
+For example: \textbf{DIM} str\$(5, 10) will declare a string array with 66
+elements consuming 16,896 bytes of memory while:\newline
+\textbf{DIM} str\$(5, 10) \textbf{LENGTH} 20 \newline
+Will only consume 1,386 bytes of memory. Note that the amount of
+memory allocated for each element is n + 1 as the extra byte is used to
+track the actual length of the string stored in each element.\newline
+If a string longer than 'n' is assigned to an element of the array an error
+will be produced. Other than this string arrays created with the
+\textbf{LENGTH} keyword act exactly the same as other string arrays.
+\\ \hline
+\textbf{LET variable} = expression & Assigns the value of 'expression' to the variable. \textbf{LET} is automatically assumed if a statement does not start with a command.
+\\ \hline
+\textbf{LOCAL} variable [,
+variables]
+& Defines a list of variable names as local to the subroutine or function.
+'variable' can be an array and the array will be dimensioned just as if the
+\textbf{DIM} command had been used.\newline
+A local variable will only be visible within the procedure and will be
+deleted (and the memory reclaimed) when the procedure returns. If the
+local variable has the same name as a global variable (used before any
+subroutines or functions were called) the global variable will be hidden
+by the local variable while the procedure is executed.
+\\ \hline
+\end{tabular}
+\end{table}

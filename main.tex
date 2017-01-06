@@ -15,7 +15,7 @@
 % Compiling this template:
 % This template uses biber for its bibliography and makeindex for its index.
 % When you first open the template, compile it from the command line with the 
-% commands below to make sure your LaTeX distribution is configured correctly:
+% commands below to make sure your LaTeX distribution is configured correctly:+
 %
 % 1) pdflatex main
 % 2) makeindex main.idx -s StyleInd.ist
@@ -72,10 +72,15 @@
 \setlength\parindent{0pt} % Removes all indentation from paragraphs - comment this line for an assignment with lots of text
 
 %%hasta aquí
-
+\usepackage{longtable}
 \usepackage{bbding}
 \usepackage{array}
-
+\usepackage{wrapfig}
+\usepackage{pict2e}
+\usepackage{verbatim}
+\usepackage{mathtools} 
+\usepackage{gensymb}
+\usepackage{multirow}
 \begin{document}
 
 %----------------------------------------------------------------------------------------
@@ -88,10 +93,10 @@
 \coordinate [below=12cm] (midpoint) at (current page.north);
 \node at (current page.north west)
 {\begin{tikzpicture}[remember picture,overlay]
-\node[anchor=north west,inner sep=0pt] at (0,0) {\includegraphics[width=\paperwidth]{background}}; % Background image
-\draw[anchor=north] (midpoint) node [fill=ocre!30!white,fill opacity=0.6,text opacity=1,inner sep=1cm]{\Huge\centering\bfseries\sffamily\parbox[c][][t]{\paperwidth}{\centering Modelos con Variable Dependiente Discreta\\[15pt] % Book title
-{\Large Econometría II}\\[20pt] % Subtitle
-{\huge Alarcón Castillo Henry\\Champa Del Valle Katherine\\Mayhuasca Gutierrez Victor\\ Bautista Ramos Luis}}}; % Author name
+\node[anchor=north west,inner sep=0pt] at (0,0) {\includegraphics[width=\paperwidth]{frontpage.pdf}}; % Background image
+\draw[anchor=north] (midpoint) node [fill=ocre!30!white,fill opacity=1.0,text opacity=1,inner sep=1cm]{\Huge\centering\bfseries\sffamily\parbox[c][][t]{\paperwidth}{\centering EMDO Energy Manager User Manual\\[15pt] % Book title
+{\Large Installation, Configuration, Basic Programming, Reference Applications}\\[20pt] % Subtitle
+{\huge EMDO can do}}}; % Author name
 \end{tikzpicture}};
 \end{tikzpicture}
 \vfill
@@ -120,7 +125,7 @@
 %	TABLE OF CONTENTS
 %----------------------------------------------------------------------------------------
 
-\chapterimage{ima1} % Table of contents heading image
+\chapterimage{photons.png} % Table of contents heading image
 
 %\chapterimage{chapter_head_1.pdf} % Table of contents heading image
 
@@ -142,45 +147,89 @@
 %	CHAPTER 1
 %----------------------------------------------------------------------------------------
 
-\chapterimage{ima2} % Chapter heading image
+\chapterimage{grid.png} % Chapter heading image
 
 \chapter{Installation}
-
-\section*{EMDO101/102/103/104}
-\subsection*{ Features}
-
+\section{EMDO101/102/103/104}
+\subsection{Features}
 The EMDO device is a versatile tool which allows the connection of components such as inverters, chargers, home automation, heat pumps and heaters at your home. It is a versatile piece of electronics that glues everything in the energy infrastructure together.
-The EMDO has interfaces already built into the device to facilitiate the variety of interconnections with external equipment. The following table lists the interfaces available on the EMDO range of devices;
+The EMDO has interfaces already built into the device to facilitate the variety of interconnections with external equipment. The following table lists the interfaces available on the EMDO range of devices:
 
 %include header formatting
 %include ticks and cross instead of \Checkmark/NO
 %include captions
 %\bgroup
-%\def\arraystretch{1.3}
-\begin{tabular}{c | c c c c} \\
+\def\arraystretch{1.3}
+\begin{tabular}{@{}l  l l l l@{}} \\\hline
 					&	EMDO101	&	EMDO102	&	EMDO103	&	EMD104 	\\\hline
-RS485					&	\Checkmark	&	\Checkmark	&			&			\\\hline
-relay output driver			&	\Checkmark	&	\Checkmark	&			&			\\\hline
-s0 optical input 			&	\Checkmark	&	\Checkmark	&			&			\\\hline
-s0 electrical inputs			&	\Checkmark	&	\Checkmark	&			&			\\\hline
-s0 electrical outputs		&	\Checkmark	&	\Checkmark	&			&			\\\hline
-board temperature sensor		&	\Checkmark	&	\Checkmark	&			&			\\\hline
-Ethernet 				&	\Checkmark	&			&			&			\\\hline
-usb for firmware update		&	\Checkmark	&			&			&			\\\hline
-USB Power supply			&	\Checkmark	&			&			&			\\\hline
-default reset button		&	\Checkmark	&			&			&			\\\hline
+D0 magnet mount  & \Checkmark & - & - & - \\
+DIN rail mount  &  & \Checkmark & \Checkmark & \Checkmark \\
+RS485					&	\Checkmark (1)	&	\Checkmark (2)	&	\Checkmark (1)		&	\Checkmark (1)		\\
+D0 interface\footnote{External D0 reader head available for all DIN rail models.}	&	\Checkmark	&		&			&			\\     
+M-Bus interface					&		&		&	\Checkmark		&			\\     
+KNX interface					&		&		&			&	\Checkmark		\\      
+Relay output driver			&	\Checkmark (1)	&	\Checkmark (2)	&	\Checkmark (2)	&	\Checkmark (2)		\\
+S0 optical input 			&	\Checkmark	&		&			&			\\
+S0 electrical inputs 		&	\Checkmark (2) &	\Checkmark (2)	&	\Checkmark (2)	&	\Checkmark (2)	\\
+S0 electrical outputs	&	\Checkmark (2)	&	\Checkmark (2)	&		\Checkmark (2)	& \Checkmark (2)			\\
+Expansion Board connector		&	\Checkmark	&	\Checkmark	&	\Checkmark		&	\Checkmark		\\
+Board temperature sensor		&	\Checkmark	&	\Checkmark	&	\Checkmark		&	\Checkmark		\\
+Ethernet 				&	\Checkmark	&		\Checkmark	&	\Checkmark		&	\Checkmark		\\
+USB for firmware update		&	\Checkmark	&	\Checkmark		&	\Checkmark		&	\Checkmark		\\
+USB Power supply			&	\Checkmark	&			&			&			\\
+DIN Power supply			&		&	\Checkmark & \Checkmark &	\Checkmark \\
+Default reset button		&	\Checkmark	&		\Checkmark	&	\Checkmark		&		\Checkmark	 \\\hline
 \end{tabular}
 %\egroup
 
-\subsection*{Pin Diagrams}
+\newpage
+\section{Pin Diagrams}
 
 %TODO: DANI - include schematic applicable to EMOD10x devices with pin layout, or clear picture
+
 %TODO: Add table of pins for the EMDO10x devices 
 
 %TODO: Single out interfaces which require specific mention
 %e.g RS485, mbus, Relay Output Driver, Optical/Electrical ports, board temperature sensor, firmware upgrade
 
-EMDO101 classic is directly assembled on utility meter on D0 Interface (IEC-62056-21). 
+\subsection{EMDO101}
+EMDO101 classic is directly assembled on a utility meter on the D0 Interface (IEC-62056-21). Refer to page \ref{EMDO101_Application} for Application.
+
+%TODO: Add picture showing direct mount
+%Any other pictures relevant to direct mounting
+%TODO: Mention pin One is Red in Color
+%TODO: Mention connector Push in spring connector
+%TODO: Tabulate pin layout
+%TODO: Reference Application Chapter.Modify reference according to requirement. Can show page number, section and chapter number if necessary
+%TODO: Use Labels to link to Application Chapter Sections
+%TODO: Add description of Pins
+\begin{table}[h!]
+\caption{EMDO101 device pins}
+\label{tbl:EMDO101_pins}
+\begin{tabular}{@{}l l p{10cm} @{}}\\\hline
+Pin & 	Function 		& Description		\\\hline
+1 	&	S0 IN 1 +		& \multirow{4}{10cm}{\input{desc_S0I}}	\\
+2 	&	S0 IN 1 -		& 					\\
+3 	&	S0 IN 2 +		&  					\\
+4 	&	S0 IN 2 -		& 					\\\hline
+5 	&	S0 OUT 1 +		& \multirow{4}{10cm}{\input{desc_S0O}}	\\	
+6 	&	S0 OUT 1 -		& 					\\
+7 	&	S0 OUT 2 +		& 					\\
+8 	&	S0 OUT 2 -		& 					\\\hline
+9 	&	GND				& \multirow{2}{10cm}{external power supply up to 200mA} \\
+10 	&	5V Out		 	& 					\\\hline
+11 	&	RS485 A			& \multirow{2}{10cm}{\input{desc_RS485}}	\\
+12 	&	RS485 B			&					\\\hline
+13 	&	Relay OUT		& \input{desc_relay}				\\\hline
+\end{tabular}
+\end{table}
+
+\begin{center}
+\includegraphics[width=6cm]{P1020554_burnedv1.png}
+\end{center}
+
+\begin{comment}
+Features now covered in the introduction section
 One RS485
 one relay output driver
 one s0 optical input 
@@ -191,24 +240,61 @@ Ethernet
 usb for firmware update
 USB Power supply
 default reset button
-picture emdo101
+\end{comment}
 
-pinout table
-1 S0 IN 1 +
-2 S0 IN 1 -
-3 S0 IN 2 +
-4 S0 IN 2 -
-5 S0 OUT 1 +
-6 S0 OUT 1 -
-7 S0 OUT 2 +
-8 S0 OUT 2 -
-9 GND
-10 5V Out 200mA
-11 RS485 A
-12 RS485 B
-13 Relay OUT
+\newpage
+\subsection{EMDO102}
+EMDO102 is mounted on a DIN Rail and can be connected with an optional external D0 reader head (IEC-62056-21). Refer to page \ref{EMDO102_DIN_Appplication} for Application.
 
-EMDO102 is mounted on DIN Rail and can be connected with an optional external D0 reader head IEC-62056-21
+
+\begin{table}[h!]
+\caption{EMDO102 device pins}
+\label{tbl:EMDO102_pins}
+\begin{tabular}{@{}l l l @{}}\\\hline
+% This is front view, bottom left
+Pin & 	Function 		& Description		\\\hline
+1 	&	24V IN (or 12V)	& \multirow{2}{10cm}{}	\\
+2 	&	GND				& 					\\\hline
+3 	&	GND				& \multirow{2}{10cm}{internal fuse protected, approx. 1.4A}					\\
+4 	&	24V Out			& \\\hline
+5 	&	Relay Out 1		& \multirow{2}{10cm}{\input{desc_relay}}					\\	
+6 	&	Relay Out 2		& 					\\\hline
+7 	&	GND (1Wire)		& \multirow{2}{10cm}{\input{desc_1wire}}					\\
+8 	&	1 Wire			& 					\\\hline
+\\hline\\hline
+% This is front view, top right (numbering from right to left)
+Pin & 	Function 		& Description		\\\hline
+1 S0 In 1 +
+2 S0 In 1 -
+3 S0 In 2 +
+4 S0 In 2 -
+5 	&	5V Out		 	& external power supply up to 0.8A (shared with other port)	\\\hline
+6 GND
+7 RS485 A2
+8 RS485 B2
+\\hline\\hline
+% This is front view, top left (numbering from right to left)
+Pin & 	Function 		& Description		\\\hline
+1 S0 Out 1 +
+2 S0 Out 1 -
+3 S0 Out 2 +
+4 S0 Out 2 -
+5 	&	5V Out		 	& external power supply up to 0.8A (shared with other port)	\\\hline
+6 	&	GND				& \multirow{2}{10cm}{}					\\
+7 	&	RS485 A			& \multirow{2}{10cm}{\input{desc_RS485}}					\\
+8 	&	RS485 B			&					\\\hline
+\end{tabular}
+\end{table}
+
+%TOD: pin layout for EMDO102 if necessary
+%\begin{center}
+%\includegraphics[width=6cm]{P1020554_burnedv1.png}
+%\end{center}
+
+
+%TODO: Add picture showing DIN rail mounting and DO interconnection
+
+\begin{comment}
 two rs485
 two relay output drivers
 two s0 electrical inputs
@@ -221,136 +307,91 @@ default reset button
 Requires 24V DIN rail power supply
 picture emdo102
 
-pinout table
-1 24V In (or 12V)
-2 GND
-3 GND
-4 24V Out (internal fuse protected, approx. 1.4A)
-5 Relay OUT 1
-6 Relay OUT 2
-7 GND (1Wire)
-8 1Wire
-
-1 S0 OUT 1 +
-2 S0 OUT 1 -
-3 S0 OUT 2 +
-4 S0 OUT 2 -
-5 5V Out (approx 0.9A in total)
-6 GND
-7 RS485 A1
-8 RS485 B1
-
-1 S0 IN 1 +
-2 S0 IN 1 -
-3 S0 IN 2 +
-4 S0 IN 2 -
-5 5V Out (approx 0.9A in total)
-6 GND
-7 RS485 A2
-8 RS485 B2
+\end{comment}
+\begin{center}
+\includegraphics[width=6cm]{P1020571_burned.png}
+\end{center}
+\begin{center}
+\includegraphics[width=6cm]{P1020575_burned.png}
+\end{center}
+\begin{center}
+\includegraphics[width=6cm]{P1020578_burned.png}
+\end{center}
+\begin{center}
+\includegraphics[width=6cm]{P1020567_burned.png}
+\end{center}
 
 
+\newpage
+\subsection{EMDO103}
+EMDO103 is connected to the meter over the MBUS interface.
 
-EMDO103 is connected over MBUS bus
-one mbus slave port
-one rs485
-two relay output drivers
-two s0 electrical inputs
-two s0 electrical outputs
-board temperature sensor
-1 wire
-Ethernet 
-usb for firmware update
-default reset button
-Requires 24V DIN rail power supply
-picture emdo103
-pinout table
-1 24V In (or 12V)
-2 GND
-3 GND
-4 24V Out (internal fuse protected, approx. 1.4A)
-5 Relay OUT 1
-6 Relay OUT 2
-7 GND (1Wire)
-8 1Wire
+\begin{table}
+\caption{EMDO103 device pins}
+\label{}
+\begin{tabular}{@{}l l l @{}}\\\hline
+Pin & Function & Description \\\hline
+1 & S0 IN 1 + & \\
+2 & S0 IN 1 - & \\
+3 & S0 IN 2 + & \\
+4 & S0 IN 2 - & \\
+5 & 5V Out & \multirow{2}{10cm}{approx 0.9A in total} \\
+6 & GND & \\
+7 & MBUS A & \multirow{2}{10cm}{requires external power supply over bus} \\
+8 & MBUS B &  \\\hline
+\end{tabular}
+\end{table}
+%TODO: add picture of emdo103
 
-1 S0 OUT 1 +
-2 S0 OUT 1 -
-3 S0 OUT 2 +
-4 S0 OUT 2 -
-5 5V Out (approx 0.9A in total)
-6 GND
-7 RS485 A1
-8 RS485 B1
+\subsection*{EMDO104}
+EMDO104 is connected to the meter over KNX bus.
 
-1 S0 IN 1 +
-2 S0 IN 1 -
-3 S0 IN 2 +
-4 S0 IN 2 -
-5 5V Out (approx 0.9A in total)
-6 GND
-7 MBUS A (requires external power supply over bus)
-8 MBUS B (requires external power supply over bus)
+%TODO: picture emdo104 if necessary
+\begin{tabular}{@{}l l l @{}}\\\hline
+Pin & Function & Description \\\hline
+1 & S0 IN 1 + & \\
+2 & S0 IN 1 - & \\
+3 & S0 IN 2 + & \\
+4 & S0 IN 2 - & \\
+5 & 5V Out (approx 0.9A in total) & \\
+6  & GND & \\
+7  & KNX A (requires external power supply over bus) & \\
+8  & KNX B (requires external power supply over bus) & \\\hline
+\end{tabular}
 
 
+\begin{center}
+\includegraphics[width=6cm]{P1020553_burned.png}
+\end{center}
 
-EMDO104 is connected over KNX bus
-one knx slave port
-one rs485
-two relay output drivers
-two s0 electrical inputs
-two s0 electrical outputs
-board temperature sensor
-1 wire
-Ethernet 
-usb for firmware update
-default reset button
-Requires 24V DIN rail power supply
-picture emdo104
-pinout table
-1 24V In (or 12V)
-2 GND
-3 GND
-4 24V Out (internal fuse protected, approx. 1.4A)
-5 Relay OUT 1
-6 Relay OUT 2
-7 GND (1Wire)
-8 1Wire
+\begin{center}
+\includegraphics[width=6cm]{P1020569_burned.png}
+\end{center}
 
-1 S0 OUT 1 +
-2 S0 OUT 1 -
-3 S0 OUT 2 +
-4 S0 OUT 2 -
-5 5V Out (approx 0.9A in total)
-6 GND
-7 RS485 A1
-8 RS485 B1
+\subsection*{Expansion boards}
+Expansion board is available for the EMDO devices to provide the following interfaces;
 
-1 S0 IN 1 +
-2 S0 IN 1 -
-3 S0 IN 2 +
-4 S0 IN 2 -
-5 5V Out (approx 0.9A in total)
-6 GND
-7 KNX A (requires external power supply over bus)
-8 KNX B (requires external power supply over bus)
+\begin{itemize}
+\item LoRaWAN
+\item WMBUS
+\item Enocean
+\item Zigbee
+\item WiFi
+\end{itemize}
 
+%TODO: picture of expansion boards
 
-
-Expansion boards
-Expansion board for LoRaWAN, WMBUS, Enocean, Zigbee, WiFi, picture
-
-Install / deinstall Expansion Board, disconnect power, open EMDO enclosure with two black skews or remove cover
-picture emdo classic skews to open
-picture din rail enclosure open
-put expansion board on header
-for radio modules it is important that electromagnetic radiation is not obscured by walls, metal enclosures,... this greatly disgrades performance.
+%Install / deinstall Expansion Board, disconnect power, open EMDO enclosure with two black skews or remove cover
+%picture emdo classic skews to open
+%picture din rail enclosure open
+%put expansion board on header
+%for radio modules it is important that electromagnetic radiation is not obscured by walls, metal enclosures,... this greatly disgrades performance.
 
 
 %----------------------------------------------------------------------------------------
 %	CHAPTER 2
 %----------------------------------------------------------------------------------------
-
+\chapterimage{hairdryer.png} % Chapter heading image
 \chapter{Webinterface}
 
 EMDO runs with dhcp server, however if no dhcp server is present, fixed ip can be used.
@@ -373,32 +414,38 @@ Editor tab: this is the main tab for writing and running a program.  Pls play ar
 
 graphs tab: all data are saved on 32mb flash that is build into the emdo. logger library write data to flash and it is visualized as plots. live data are shown as donuts with text. these data can be configured.
 
+JSON stuff read and write variables
 -----------------------------
+\chapterimage{panel.png} % Chapter heading image
+\chapter{Configuration}
+
+
+-----------------------------
+\chapterimage{cooking.png} % Chapter heading image
+
+\chapter{Application}
+
+%Example referencing
+%TODO: Modify reference according to requirement. Can show page number, section and chapter number if necessary
+\section*{EMDO101}
+\label{EMDO101_Application}
+\includegraphics[width=12cm]{application_classic.png}\newline
+\section*{EMDO102}
+\label{EMDO102_DIN_Appplication}
+
+
+Temperature sensor based on DS18S20 chip. Example shows parasitic power of the 1-wire chip. 5V power is also available on the connector on the top row.
+\includegraphics[width=12cm]{application_1-wire-temperature.png}\newline
+\includegraphics[width=12cm]{application_1-wire-rfid.png}\newline
+\includegraphics[width=12cm]{application-rs485.png}\newline
+\includegraphics[width=12cm]{application_relay.png}\newline
+\includegraphics[width=12cm]{application_s0io.png}\newline
 
 \chapter{Basic Interpreter}
 
 reference to mmbasic
 table with commands
 pls make sure all of these are convered.most should be covered already in the word document. all otheres I can quickly write up for you, once it is in table format. to describe some operator we can take text from mmbasic manual
-
-\begin{table}[]
-\centering
-\caption{Predefined Read Only Variables}
-\label{Predefined_Read_Only_Variables}
-\begin{tabular}{|p{4cm}|p{10cm}|}
-\hline
-\textbf{Basic Interpreter} & \textbf{Description}                                                             \\ \hline
-MM.VER & The version number of the firmware in the form aa.bbcc where aa is the major version number, bb is the minor version number and cc is the revision number (normally zero but A = 01, B = 02, etc).
-\\ \hline
-MM.FNAME\$ & The name of the file that will be used as the default for the SAVE command. This is set by LOAD, RUN and SAVE.
-\\ \hline
-MM.CMDLINE\$ & The command line used with the implied RUN command. See the implied RUN command at the start of the next page for the details.
-\\ \hline
-MM.ERRNO & Is set to the error number if a statement involving the NOR flash fails or
-zero if the operation succeeds. This value is not supported yet.
-\\ \hline
-\end{tabular}
-\end{table}
 
 Square brackets indicate that the parameter or characters are optional.
 \begin{table}[]
@@ -407,1101 +454,127 @@ Square brackets indicate that the parameter or characters are optional.
 \label{Commands}
 \begin{tabular}{|p{4cm}|p{10cm}|}
 \hline
-\textbf{Basic Interpreter} & \textbf{Description}                                                             \\ \hline
-‘ (single quotation mark) & Starts a comment and any text following it will be ignored. Comments
-can be placed anywhere on a line.
+\textbf{Basic Interpreter} & \textbf{Description}                                                   \\ \hline
 \\ \hline
-? (question mark) & Shortcut for the PRINT command.
-\\ \hline
-\\ \hline
-CHAIN file\$ &
-Clear the current program from memory, load the new program ('file\$')
-into memory and run it starting with the first line.
-Unlike the RUN command this command retains the current state of the
-program (ie, the value of variables, open files, loaded fonts, open COM
-ports, etc). The only exception is any open interrupts which will be
-automatically closed.
-One program can CHAIN to another which can then chain to another (or
-back to the original) an unlimited number of times. As long as a
-program can be broken down into modules this command allows
-programs of almost unlimited size to be run, even with limited memory.
-Communication between the modules can be accomplished by assigning
-values to one or more variables which then can be examined by the new
-chained program.
-Note that another way of squeezing a large program into limited memory
-is to use the LIBRARY command.
-\\ \hline
-CLEAR & Delete all variables and recover the memory used by them.
-See ERASE for deleting specific array variables.
-\\ \hline
-CLOSE [\#]nbr [,[\#]nbr] … &
-Close the file(s) previously opened with the file number ‘nbr’.
-The \# is optional. Also see the OPEN command.
-\\ \hline
-CONTINUE & Resume running a program that has been stopped by an END statement,
-an error, or CTRL-C. The program will restart with the next statement
-following the previous stopping point.
-\\ \hline
-COPY src\$ TO dest\$ & Copy the file named 'src\$' to another file named 'dest\$'.
-\\ \hline
-DATA constant[,constant]... & Stores numerical and string constants to be accessed by READ.
-In general string constants should be surrounded by double quotes (").
-An exception is when the string consists of just alphanumeric characters
-that do not represent MMBasic keywords (such as THEN, WHILE, etc).
-In that case quotes are not needed.
-Numerical constants can also be expressions such as 5 * 60.
-\\ \hline
-DIM var(dim) , [var(dim)]...
-or
-DIM var\$(dim) LENGTH n
-Examples:
-DIM nbr(50)
-DIM str\$(20)
-DIM a(5,5,5), b(1000)
-DIM str\$(200) LENGTH 20
-&
-Specifies a variable that is an array with one or more dimensions. The
-variables can be numbers or strings with multiple declarations separated
-by commas.
-'dim' is a bracketed list of numbers separated by commas. Each number
-specifies the number of elements in each dimension. Normally the
-numbering of each dimension starts at 0 but the OPTION BASE
-command can be used to change this to 1.
-For example: DIM nbr(10, 20) specifies a two dimensional array with
-11 elements (0 to 10) in the first dimension and 21 (0 to 20) in the
-second dimension. The total number of elements is 231 and because
-each number requires 4 bytes a total of 924 bytes of memory will be
-allocated.
-String arrays will by default be allocated memory for 255 characters for
-each element and this can quickly use up memory. In that case the
-LENGTH keyword can be used to specify the amount of memory to be
-allocated to each element. This allocation ('n') can be from 1 to 255
-characters.
-For example: DIM str\$(5, 10) will declare a string array with 66
-elements consuming 16,896 bytes of memory while:
-DIM str\$(5, 10) LENGTH 20
-Will only consume 1,386 bytes of memory. Note that the amount of
-memory allocated for each element is n + 1 as the extra byte is used to
-track the actual length of the string stored in each element.
-If a string longer than 'n' is assigned to an element of the array an error
-will be produced. Other than this string arrays created with the
-LENGTH keyword act exactly the same as other string arrays.
-\\ \hline
-DO
-<statements>
-LOOP
-& This structure will loop forever; the EXIT command can be used to
-terminate the loop or control must be explicitly transferred outside of the
-loop by commands like GOTO or RETURN (if in a subroutine).
-\\ \hline
-DO WHILE expression
-<statements>
-LOOP
-DO
-<statements>
-LOOP UNTIL expression
-& 
-Loops while "expression" is true (this is equivalent to the older WHILE-
-WEND loop, also implemented in MMBasic). If, at the start, the
-expression is false the statements in the loop will not be executed, even
-once.
-Loops until the expression following UNTIL is true. Because the test is
-made at the end of the loop the statements inside the loop will be
-executed at least once, even if the expression is false.
-\\ \hline
-ELSE & Introduces a default condition in a multiline IF statement.
-See the multiline IF statement for more details.
-\\ \hline
-ELSEIF expression THEN & Introduces a secondary condition in a multiline IF statement.
-See the multiline IF statement for more details.
-\\ \hline
-ENDIF & Terminates a multiline IF statement.
-See the multiline IF statement for more details.
-\\ \hline
-END & End the running program and return to the command prompt.
-\\ \hline
-END FUNCTION & Marks the end of a user defined function. See the FUNCTION
-command.
-Each sub must have one and only one matching END FUNCTION
-statement. Use EXIT FUNCTION if you need to return from a
-subroutine from within its body.
-Only one space is allowed between END and FUNCTION.
-\\ \hline
-END SUB & Marks the end of a user defined subroutine. See the SUB command.
-Each sub must have one and only one matching END SUB statement.
-Use EXIT SUB if you need to return from a subroutine from within its
-body.
-Only one space is allowed between END and SUB.
-\\ \hline
-ERASE variable
-[,variable]...
-&
-Deletes arrayed variables and frees up the memory.
-Use CLEAR to delete all variables including all arrayed variables.
-\\ \hline
-EXIT
-EXIT DO
-EXIT FOR
-EXIT FUNCTION
-EXIT SUB
- & EXIT by itself or EXIT DO provides an early exit from a DO...LOOP
-EXIT FOR provides an early exit from a FOR...NEXT loop.
-EXIT FUNCTION provides an early exit from a defined function.
-EXIT SUB provides an early exit from a defined subroutine.
-Only one space is allowed between the two words.
-\\ \hline
-FILES [fspec\$] & Lists files in the current directory on the NOR flash.
-Question marks
-(?) will match any character and an asterisk (*) will match any number
-of characters. If omitted, all files will be listed. For example:
-*.*
-Find all entries
-*.TXT
-Find all entries with an extension of TXT
-E*.*
-Find all entries starting with E
-X?X.*
-Find all three letter file names starting and ending with
-X
-\\ \hline
-FOR counter = start TO
-finish [STEP increment]
-& Initiates a FOR-NEXT loop with the 'counter' initially set to 'start' and
-incrementing in 'increment' steps (default is 1) until 'counter' equals
-'finish'. The ‘increment’ must be an integer, but may be negative.
-See also the NEXT command.
-\\ \hline
-FUNCTION xxx (arg1
-[,arg2, …])
-<statements>
-<statements>
-xxx = <return value>
-END FUNCTION
-& Defines a callable function. This is the same as adding a new function to
-MMBasic while it is running your program.
-'xxx' is the function name and it must meet the specifications for naming
-a variable. 'arg1', 'arg2', etc are the arguments or parameters to the
-function.
-To set the return value of the function you assign the value to the
-function's name. For example:
-FUNCTION SQUARE(a)
-SQUARE = a * a
-END FUNCTION
-Every definition must have one END FUNCTION statement. When this
-is reached the function will return its value to the expression from which
-it was called. The command EXIT FUNCTION can be used for an early
-exit.
-You use the function by using its name and arguments in a program just
-as you would a normal MMBasic function. For example:
-PRINT SQUARE(56.8)
-When the function is called each argument in the caller is matched to the
-argument in the function definition. These arguments are available only
-inside the function.
-Functions can be called with a variable number of arguments. Any
-omitted arguments in the function's list will be set to zero or a null string.
-Arguments in the caller's list that are a variable (ie, not an expression or
-constant) will be passed by reference to the function. This means that
-any changes to the corresponding argument in the function will also be
-copied to the caller's variable.
-You must not jump into or out of a function using commands like
-GOTO, GOSUB, etc. Doing so will have undefined side effects
-including the possibility of ruining your day.
-\\ \hline
-GOSUB target & Initiates a subroutine call to the target, which can be a line number or a
-label. The subroutine must end with RETURN.
-\\ \hline
-GOTO target & Branches program execution to the target, which can be a line number or
-a label.
-\\ \hline
-IF expr THEN statement
-or
-IF expr THEN statement
-ELSE statement
- & Evaluates the expression ‘expr' and performs the THEN statement if it is
-true or skips to the next line if false. The optional ELSE statement is the
-reverse of the THEN test. This type of IF statement is all on one line.
-The ‘THEN statement’ construct can be also replaced with:
-GOTO linenumber | label’.
-\\ \hline
-IF expression THEN
-<statements>
-[ELSE
-<statements>]
-[ELSEIF expression THEN
-<statements>]
-ENDIF
-& The ELSEIF statement (if present) is executed if the previous condition
-is false and it starts a new IF chain with further ELSE and/or ELSEIF
-statements as required.
-One ENDIF is used to terminate the multiline IF.
-\\ \hline
-INPUT ["prompt string\$";]
-list of variables
-& Allows input from the keyboard to a list of variables. The input
-command will prompt with a question mark (?).
-The input must contain commas to separate each data item if there is
-more than one variable.
-For example, if the command is: INPUT a, b, c
-And the following is typed on the keyboard: 23, 87, 66
-Then a = 23 and b = 87 and c = 66
-If the "prompt string\$" is specified it will be printed before the question
-mark. If the prompt string is terminated with a comma (,) rather than the
-semicolon (;) the question mark will be suppressed.
-\\ \hline
-INPUT \#nbr,
-list of variables
-& Same as above except that the input is read from a file previously opened
-for INPUT as ‘nbr’. See the OPEN command.
-\\ \hline
-KILL file\$ & Deletes the file specified by ‘file\$’. If there is an extension it must be
-specified.
-If 'file' is a string constant quote marks around it are optional at the
-command prompt but must be specified if the command is used within a
-program. Example: KILL “SAMPLE.DAT”
-\\ \hline
-LET variable = expression & Assigns the value of 'expression' to the variable. LET is automatically
-assumed if a statement does not start with a command.
-\\ \hline
-LIBRARY LOAD \$file
-and
-LIBRARY UNLOAD \$file
-& Will load a library file ('file\$') into general memory. Any user defined
+\end{tabular}
+\end{table}
+
+\newpage
+\begin{center}
+\begin{longtable}{l}
+\caption{Commands} \label{Commands}\\
+
+\hline
+\textbf{Basic Interpreter} \\ 
+\hline 
+\endfirsthead
+
+\textbf{LIBRARY LOAD} \$file\newline
+\textbf{LIBRARY UNLOAD} \$file
+\\ Will load a library file ('file\$') into general memory. Any user defined
 commands and subroutines in the file will then become available to the
-running program. Up to 8 files can be loaded simultaneously.
+running program.\newline 
 A library file is like any other MMBasic program, with the exception
 that any programming code outside the user defined commands and
 subroutines in the file will be ignored. The library is not visible to the
 user (it is not listed by the LIST command) so it should be tested and
 debugged as a normal basic program first. Normally a library file has
-the extension ".LIB" and that extension will be automatically added if
-the file name ('\$file') does not include the extension.
+the extension ".BLIB" and that extension will be automatically added if
+the file name ('\$file') does not include the extension.\newline
 Libraries can be loaded and unloaded in any order. Libraries can be
 loaded from within other libraries and nested to an unlimited extent.
 Any library file can be unloaded from memory and the memory returned
-to the general pool by using the LIBRARY UNLOAD command.
+to the general pool by using the LIBRARY UNLOAD command.\newline
 Library files must not be unloaded from within a library that is currently
 being used by the program (the results are undefined but it may crash
-MMBasic and cause your hair to go prematurely grey).
+MMBasic and cause your hair to go prematurely grey).\newline
 This command can be used to load specialised libraries to extend the
 functionality of MMBasic. Examples include device drivers, libraries
 that provide bit manipulation and libraries of specialised mathematical
 functions. The library file is only loaded on the first load command
 encountered so it is acceptable to put the same load command into every
-part of the program or every subroutine that may need the library.
+part of the program or every subroutine that may need the library.\newline
 Another use of the LIBRARY command is to extend the amount of
 memory available to a program by only loading sections of code as
 needed and then unloading them when their task is finished so that
-another function can be loaded.
+another function can be loaded.\newline
 To prevent fragmentation of memory, functions that use a lot of memory
 (like arrays) should be declared first before any
-libraries are loaded and then unloaded. This is not supported yet.
+libraries are loaded and then unloaded.bla
 \\ \hline
-LIST
-LIST line
-LIST -lastline
-LIST firstline -
-LIST firstline - lastline
-& Lists all lines in a program line or a range of lines.
-If –lastline is used it will start with the first line in the program. If
-startline- is used it will list to the end of the program.
-\\ \hline
-LOAD file\$
-& Loads a program called ‘file\$’ from the current drive into program
-memory.
-If an extension is not specified “.BAS” will be added to the file name.
-\\ \hline
-LOCAL variable [,
-variables]
-& Defines a list of variable names as local to the subroutine or function.
-'variable' can be an array and the array will be dimensioned just as if the
-DIM command had been used.
-A local variable will only be visible within the procedure and will be
-deleted (and the memory reclaimed) when the procedure returns. If the
-local variable has the same name as a global variable (used before any
-subroutines or functions were called) the global variable will be hidden
-by the local variable while the procedure is executed.
-\\ \hline
-LOOP [UNTIL expression] & Terminates a program loop: see DO.
-\\ \hline
-NAME old\$ AS new\$ & Rename a file or a directory from ‘old\$’ to ‘new\$’
-Unlike the other commands that work with file names the NAME
-command cannot accept a full pathname (with directories).
-\\ \hline
-NEW & Deletes the program in memory and clears all variables.
-\\ \hline
-NEXT [counter-variable] [, counter-variable], etc & NEXT comes at the end of a FOR-NEXT loop; see FOR. The ‘counter-variable’ specifies exactly which loop is being operated on.
-If no ‘counter-variable’ is specified the NEXT will default to the
-innermost loop. It is also possible to specify multiple counter-variables
-as in:
-NEXT x, y, z
-\\ \hline
-ON nbr GOTO | GOSUB
-target[,target, target,...]
-& ON either branches (GOTO) or calls a subroutine (GOSUB) based on
-the rounded value of 'nbr'; if it is 1, the first target is called, if 2, the
-second target is called, etc. Target can be a line number or a label.
-\\ \hline
-OPEN fname\$ FOR mode
-AS [\#]fnbr
-& Opens a file for reading or writing.
-‘fname’ is the filename (8 chars max) with an optional extension (3 chars
-max) separated by a dot (.). It can be prefixed with a directory path. For
-example: "DIR1/DIR2/FILE.EXT".
-‘mode’ is INPUT, OUTPUT, APPEND or RANDOM.
-INPUT will open the file for reading and throw an error if the file does
-not exist. OUTPUT will open the file for writing and will automatically
-overwrite any existing file with the same name.
-APPEND will also open the file for writing but it will not overwrite an
-existing file; instead any writes will be appended to the end of the file. If
-there is no existing file the APPEND mode will act the same as the
-OUTPUT mode (i.e. the file is created then opened for writing). Note:
-APPEND is not supported on the flash file system (drive A:).
-RANDOM will open the file for both read and write and will allow
-random access using the SEEK command. When opened the read/write
-pointer is positioned at the end of the file. See Appendix I for more
-details.
-‘fnbr’ is the file number (1 to 10). The \# is optional. Up to 10 files can
-be open simultaneously. The INPUT, LINE INPUT, PRINT, WRITE
-and CLOSE commands as well as the EOF() and INPUT\$() functions all
-use ‘fnbr’ to identify the file being operated on.
-See also OPTION ERROR and MM.ERRNO for error handling.
-\\ \hline
-OPTION BASE 0
-or
-OPTION BASE 1
-& Set the lowest value for array subscripts to either 0 or 1. The default is
-0.
-This must be used before any arrays are declared.
-\\ \hline
-OPTION BREAK nn
-& Set the value of the break key to 'nn'. This key is used to interrupt a
-running program.
-The value of the break key is set to CTRL-C key at startup but it can be
-changed to any keyboard key using this command (for example,
-OPTION BREAK 156 will set the break key to the F12 key).
-Setting this option to an invalid key value (for example, 255) will disable
-the break function entirely.
-\\ \hline
-OPTION ERROR
-CONTINUE
-or
-OPTION ERROR ABORT
- & Set the treatment for errors in file input/output. The option CONTINUE
-will cause MMBasic to ignore file related errors. The program must
-check the variable MM.ERRNO to determine if and what error has
-occurred.
-The option ABORT sets the normal behaviour (ie, stop the program and
-print an error message). The default is ABORT.
-Note that this option only relates to errors reading from or writing to
-NOR flash. It does not affect the handling of syntax and other
-program errors.
-\\ \hline
-OPTION PROMPT string\$ & Sets the command prompt to the contents of ‘string\$’ (which can also be
-an expression which will be evaluated when the prompt is printed).
-For example:
-OPTION PROMPT “Ok “
-or
-OPTION PROMPT TIME\$ + “: “
-or
-OPTION PROMPT CWD\$ + “: “
-Maximum length of the prompt string is 48 characters. The prompt is
-reset to the default (“> “) on power up but you can automatically set it by
-saving the following example program as “AUTORUN.BAS” on the
-NOR flash:
-10 OPTION PROMPT “My prompt: “
-20 NEW
-\\ \hline
-PAUSE delay & Halt execution of the running program for ‘delay’ mS.
-The maximum delay is 2147483647 mS (about 24 days).
-\\ \hline
-POKE hiword, loword, val
-or
-POKE keyword, offset, val
-or
-POKE VAR var, +-offset, val
- & Will set a byte within the PIC32 virtual memory space.
-The address is specified by ‘hiword’ which is the top 16 bits of the
-address while ‘loword’ is the bottom 16 bits.
-Alternatively 'keyword' can be used and 'offset' is the +-offset from the
-address of the keyword. The keyword can be
-PROGMEM (program memory) or VARTBL (the variable table).
-You can also access the memory allocated to a variable by using the
-variable's name ('var') preceded by the keyword VAR. This can be used
-to access the individual bytes of a numeric variable or a large segment of
-RAM allocated to an array. The first element of an array (eg, nbr(0)) is
-the start of RAM allocated to the whole array. For example:
-DIM nbr(1024)
-'allocate 4KB
-POKE VAR nbr(0),100,1 'set the 100th byte to 1
-This command is for expert users only. address space. Note that MMBasic stores most data (including video) as
-32 bit integers and the PIC32 uses little endian format.
-WARNING: No validation of the parameters is made and if you use this
-facility to access an invalid memory address you will get an "internal
-error" which causes the processor to reset and clear all memory.
-\\ \hline
-PRINT expression
-[[,; ]expression] … etc
-& Outputs text to the screen. Multiple expressions can be used and must be
-separated by either a:
-? Comma (,) which will output the tab character
-? Semicolon (;) which will not output anything (it is just used to
-separate expressions).
-? Nothing or a space which will act the same as a semicolon.
-A semicolon (;) at the end of the expression list will suppress the
-automatic output of a carriage return/ newline at the end of a print
-statement.
-When printed, a number is preceded with a space if positive or a minus
-(-) if negative but is not followed by a space. Integers (whole numbers)
-are printed without a decimal point while fractions are printed with the
-decimal point and the significant decimal digits. Large numbers (greater
-than six digits) are printed in scientific format.
-The function FORMAT\$() can be used to format numbers. The function
-TAB() can be used to space to a certain column and the string functions
-can be used to justify or otherwise format strings.
-\\ \hline
-QUIT & Will exit MMBasic and return control to the operating system.
-\\ \hline
-RANDOMIZE nbr & Seed the random number generator with ‘nbr’.
-On power up the random number generator is seeded with zero and will
-generate the same sequence of random numbers each time. To generate
-a different random sequence each time you must use a different value for
-‘nbr’. One good way to do this is use the TIMER function.
-For example  100 RANDOMIZE TIMER
-\\ \hline
-READ variable[, variable]...
-& Reads values from DATA statements and assigns these values to the
-named variables. Variable types in a READ statement must match the
-data types in DATA statements as they are read. See also DATA and
-RESTORE.
-\\ \hline
-REM string & REM allows remarks to be included in a program.
-Note the Microsoft style use of the single quotation mark to denote
-remarks is also supported and is preferred.
-\\ \hline
-RESTORE & Resets the line and position counters for DATA and READ statements to
-the top of the program file.
-\\ \hline
-RETURN & RETURN concludes a subroutine called by GOSUB and returns to the
-statement after the GOSUB.
-\\ \hline
-RUN [line] [file\$] & Executes the program in memory. If a line number is supplied then
-execution will begin at that line, otherwise it will start at the beginning
-of the program. Or, if a file name (file\$) is supplied, the current program
-will be erased and that program will be loaded from the current drive and
-executed. This enables one program to load and run another.
-Example: RUN “TEST.BAS”
-If an extension is not specified “.BAS” will be added to the file name.
-\\ \hline
-SEEK [\#]fnbr, pos & Will position the read/write pointer in a file that has been opened for
-RANDOM access to the 'pos' byte.
-The first byte in a file is numbered one so  SEEK \#5,1 will position the read/write pointer to the start of the file.
-See Appendix I for more details on random file access.
-\\ \hline
-SUB xxx (arg1 [,arg2, …])
-<statements>
-<statements>
-END SUB
-& Defines a callable subroutine. This is the same as adding a new
-command to MMBasic while it is running your program.
-'xxx' is the subroutine name and it must meet the specifications for
-naming a variable. 'arg1', 'arg2', etc are the arguments or parameters to
-the subroutine.
-Every definition must have one END SUB statement. When this is
-reached the program will return to the next statement after the call to the
-subroutine. The command EXIT SUB can be used for an early exit.
-You use the subroutine by using its name and arguments in a program
-just as you would a normal command. For example:  MySub a1, a2
-When the subroutine is called each argument in the caller is matched to
-the argument in the subroutine definition. These arguments are available
-only inside the subroutine. Subroutines can be called with a variable
-number of arguments. Any omitted arguments in the subroutine's list
-will be set to zero or a null string.
-Arguments in the caller's list that are a variable (ie, not an expression or
-constant) will be passed by reference to the subroutine. This means that
-any changes to the corresponding argument in the subroutine will also be
-copied to the caller's variable and therefore may be accessed after the
-subroutine has ended. Brackets around the argument list in both the caller and the definition are
-optional.
-\\ \hline
-SYSTEM command\$ & Submit 'command\$' to the operating system.
-It can be any command recognised by the command window in
-Windows XP/Vista/7. The available commands are listed here:
-http://ss64.com/nt
-For example, this will set the window to blue lettering on a yellow
-background: SYSTEM "COLOR 1E"
-Note that the command is executed in a different instance of the
-command processor to MMBasic so some commands (like "CD ..") will
-have no effect.
-\\ \hline
-TROFF & Turns the trace facility off; see TRON.
-\\ \hline
-TRON & Turns on the trace facility. This facility will print the number of each line
-(counting from the beginning of the program) in square brackets as the
-program is executed. This is useful in debugging programs.
-\\ \hline
-ABS( number ) & Returns the absolute value of the argument 'number' (ie, any negative
-sign is removed and the positive number is returned).
-\\ \hline
-ASC( string\$ ) & Returns the ASCII code for the first letter in the argument ‘string\$’.
-\\ \hline
-ATN( number ) & Returns the arctangent value of the argument 'number' in radians.
-\\ \hline
-BIN\$( number ) & Returns a string giving the binary (base 2) value for the 'number'.
-\\ \hline
-CHR\$( number ) & Returns a one-character string consisting of the character corresponding
-to the ASCII code indicated by argument 'number'.
-\\ \hline
-CINT( number ) & Round numbers with fractional portions up or down to the next whole
-number or integer.
-For example,
-45.47 will round to 45
-45.57 will round to 46
--34.45 will round to -34
--34.55 will round to -35
-See also INT() and FIX().
-\\ \hline
-CLR\$( )
-or
-CLR\$( fg )
-or
-CLR\$( fg, bg )
- & Returns a string containing embedded codes to select colours in a string.
-'fg' is the foreground colour and 'bg' is the background colour. If no
-parameters are specified both the foreground and background colours
-will be reset to the defaults set by the last COLOUR command.
-Example, this will display yellow letters on a red background:
-PRINT CLR\$(YELLOW,RED) " ALARM "
-This function simply generates a two character string where the first
-character is the number 128 plus the foreground colour number and the
-second character is the number 192 plus the background colour number.
-\\ \hline
-COS( number ) & Returns the cosine of the argument 'number' in radians.
-\\ \hline
-DEG( radians ) & Converts 'radians' to degrees.
-\\ \hline
-DIR\$( fspec, type )
-or
-DIR\$( fspec )
-or
-DIR\$( )
- & Will search the NOR flash for files and return the names of entries found.
-'fspec' is a file specification using wildcards the same as used by the
-FILES command. Eg, "*.*" will return all entries, "*.TXT" will return
-text files.
-'type' is the type of entry to return and can be one of:
-VOL
-Search for the volume label only
-DIR
-Search for directories only
-FILE
-Search for files only (the default if 'type' is not specified)
-The function will return the first entry found. To retrieve subsequent
-entries use the function with no arguments. ie, DIR\$( ). The return of
-an empty string indicates that there are no more entries to retrieve.
-This example will print all the files in a directory:
-f\$ = DIR\$("*.*", FILE)
-DO WHILE f\$ <> ""
-PRINT f\$
-f\$ = DIR\$()
-LOOP
-\\ \hline
-EOF( [\#]nbr ) & Will return true if the file previously opened for INPUT with the file
-number ‘nbr’ is positioned at the end of the file.
-If used on a file number opened as a serial port this function will return
-true if there are no characters waiting in the receive buffer.
-The \# is optional. Also see the OPEN, INPUT and LINE INPUT
-commands and the INPUT\$ function.
-\\ \hline
-EXP( number ) & Returns the exponential value of 'number'.
-\\ \hline
-FIX( number ) & Truncate a number to a whole number by eliminating the decimal point
-and all characters to the right of the decimal point.
-For example 9.89 will return 9 and -2.11 will return -2.
+\textbf{LIBRARY LOAD} \$file\newline
+\textbf{LIBRARY UNLOAD} \$file
+\\ Will load a library file ('file\$') into general memory. Any user defined
+commands and subroutines in the file will then become available to the
+running program.\newline 
+A library file is like any other MMBasic program, with the exception
+that any programming code outside the user defined commands and
+subroutines in the file will be ignored. The library is not visible to the
+user (it is not listed by the LIST command) so it should be tested and
+debugged as a normal basic program first. Normally a library file has
+the extension ".BLIB" and that extension will be automatically added if
+the file name ('\$file') does not include the extension.\newline
+Libraries can be loaded and unloaded in any order. Libraries can be
+loaded from within other libraries and nested to an unlimited extent.
+Any library file can be unloaded from memory and the memory returned
+to the general pool by using the LIBRARY UNLOAD command.\newline
+Library files must not be unloaded from within a library that is currently
+being used by the program (the results are undefined but it may crash
+MMBasic and cause your hair to go prematurely grey).\newline
+This command can be used to load specialised libraries to extend the
+functionality of MMBasic. Examples include device drivers, libraries
+that provide bit manipulation and libraries of specialised mathematical
+functions. The library file is only loaded on the first load command
+encountered so it is acceptable to put the same load command into every
+part of the program or every subroutine that may need the library.\newline
+Another use of the LIBRARY command is to extend the amount of
+memory available to a program by only loading sections of code as
+needed and then unloading them when their task is finished so that
+another function can be loaded.\newline
+To prevent fragmentation of memory, functions that use a lot of memory
+(like arrays) should be declared first before any
+libraries are loaded and then unloaded.bla
+\\ \hline 
+\end{longtable}
+\end{center}
 
-The major difference between FIX and INT is that FIX provides a true
-integer function (ie, does not return the next lower number for negative
-numbers as INT() does). This behaviour is for Microsoft compatibility.
-See also CINT() .
-\\ \hline
-FORMAT\$( nbr [, fmt\$] ) & Will return a string representing ‘nbr’ formatted according to the
-specifications in the string ‘fmt\$’.
-The format specification starts with a % character and ends with a letter.
-Anything outside of this construct is copied to the output as is.
-The structure of a format specification is:
-% [flags] [width] [.precision] type
-Where ‘flags’ can be:
--
-Left justify the value within a given field width
-0
-Use 0 for the pad character instead of space
-+
-Forces the + sign to be shown for positive numbers
-space
-Causes a positive value to display a space for the sign.
-Negative values still show the – sign
-‘width’ is the minimum number of characters to output, less than this the
-number will be padded, more than this the width will be expanded.
-‘precision’ specifies the number of fraction digits to generate with an e,
-or f type or the maximum number of significant digits to generate with a
-g type. If specified, the precision must be preceded by a dot (.).
-‘type’ can be one of:
-g
-Automatically format the number for the best presentation.
-f
-Format the number with the decimal point and following
-digits
-e
-Format the number in exponential format
-If uppercase G or F is used the exponential output will use an uppercase
-E. If the format specification is not specified “%g” is assumed.
-Examples:
-format\$(45) will return 45
-format\$(45, “%g”) will return 45
-format\$(24.1, “%g”) will return 24.1
-format\$(24.1,”%f”) will return 24.100000
-format\$(24.1, “%e”) will return 2.410000e+01
-format\$(24.1,"%09.3f") will return 00024.100
-format\$(24.1,"%+.3f") will return +24.100
-format\$(24.1,"**%-9.3f**") will return **24.100  **
-\\ \hline
-HEX\$( number ) & Returns a string giving the hexadecimal (base 16) value for the 'number'.
-\\ \hline
-INKEY\$ & Checks the input of a character.
-\\ \hline
-INPUT\$(nbr, [\#]fnbr) & Will return a string composed of ‘nbr’ characters read from a file
-previously opened for INPUT with the file number ‘fnbr’. This function
-will read all characters including carriage return and new line without
-translation.
-When reading from a serial communications port this will return as
-many characters as are waiting in the receive buffer up to ‘nbr’. If there
-are no characters waiting it will immediately return with an empty string.
-The \# is optional. Also see the OPEN command.
-\\ \hline
-INSTR( [start-position,]
-string-searched\$, string-
-pattern\$ )
- & Returns the position at which 'string-pattern\$' occurs in 'string-
-searched\$', beginning at 'start-position'.
-\\ \hline
-INT( number ) & Truncate an expression to the next whole number less than or equal to
-the argument. For example 9.89 will return 9 and -2.11 will return -3.
-This behaviour is for Microsoft compatibility, the FIX() function
-provides a true integer function.
-See also CINT() .
-\\ \hline
-LEFT\$( string\$, number-
-of-chars )
- & Returns a substring of ‘string\$’ with ‘number-of-chars’ from the left
-(beginning) of the string.
-\\ \hline
-LEN( string\$ ) & Returns the number of characters in 'string\$'.
-\\ \hline
-LOC( [\#]fnbr ) & For a file opened as RANDOM this will return the current position of
-the read/write pointer in the file. Note that the first byte in a file is
-numbered 1. See Appendix I for more details of random file access.
-For a serial port this will return the number of bytes received and
-waiting in the receive buffer to be read.
-The \# is optional.
-\\ \hline
-LOF( [\#]fnbr ) & For a file this will return the current length of the file in bytes.
-For a serial port this will return the space (in characters) remaining in the
-transmit buffer. Note that when the buffer is full MMBasic will pause
-when adding a new character and wait for some space to become
-available.
-The \# is optional.
-\\ \hline
-LOG( number ) & Returns the natural logarithm of the argument 'number'. 
-\\ \hline
-LCASE\$( string\$ ) & Returns ‘string\$’ converted to lowercase characters.
-\\ \hline
-MID\$( string\$, start-
-position-in-string[, number-
-of-chars ] )
- & Returns a substring of ‘string\$’ beginning at ‘start-position-in-string’
-and continuing for ‘number-of-chars’ bytes. If ‘number-of-chars’ is
-omitted the returned string will extend to the end of ‘string\$’
-\\ \hline
-OCT\$( number ) & Returns a string giving the octal (base 8) representation of 'number'.
-\\ \hline
-PEEK( hiword, loword )
-or
-PEEK( keyword, +-offset)
-or
-PEEK(VAR var, +-offset)
-& Will return a byte within the PIC32 virtual memory space.
-The address is specifies by ‘hiword’ which is the top 16 bits of the
-address while ‘loword’ is the bottom 16 bits.
-Alternatively 'keyword' can be used and 'offset' is the +-offset from the
-address of the keyword. The keyword can be 
-PROGMEM (program
-memory) or VARTBL (the variable table). 
-You can also access the memory allocated to a variable by using the
-variable's name ('var') preceded by the keyword VAR. This can be used
-to access the individual bytes of a numeric variable or a large segment of
-RAM allocated to an array (the first element of an array (eg, nbr(0)) is
-the start of RAM allocated to the whole array).
-See the POKE command for notes and warnings related to memory
-access.
-\\ \hline
-PI & Returns the value of pi.
-\\ \hline
-POS & Returns the current cursor position in the line in characters.
-\\ \hline
-RAD( degrees ) & Converts 'degrees' to radians.
-\\ \hline
-RIGHT\$( string\$, number-
-of-chars )
- & Returns a substring of ‘string\$’ with ‘number-of-chars’ from the right
-(end) of the string.
-\\ \hline
-RND( number ) & Returns a pseudo-random number in the range of 0 to 0.999999. The
-'number' value is ignored if supplied. The RANDOMIZE command
-reseeds the random number generator.
-\\ \hline
-SGN( number ) & Returns the sign of the argument 'number', +1 for positive numbers, 0 for
-0, and -1 for negative numbers.
-\\ \hline
-SIN( number ) & Returns the sine of the argument 'number' in radians.
-\\ \hline
-SPACE\$( number ) & Returns a string of blank spaces 'number' bytes long.
-\\ \hline
-SQR( number ) & Returns the square root of the argument 'number'.
-\\ \hline
-STR\$( number ) & Returns a string in the decimal (base 10) representation of 'number'.
-\\ \hline
-STRING\$( number, ascii-
-value|string\$ )
- & Returns a string 'number' bytes long consisting of either the first
-character of string\$ or the character representing the ASCII value ascii-
-value.
-\\ \hline
-TAB( number ) & Outputs spaces until the column indicated by 'number' has been reached.
-\\ \hline
-TAN( number ) & Returns the tangent of the argument 'number' in radians.
-\\ \hline
-UCASE\$( string\$ ) & Returns ‘string\$’ converted to uppercase characters.
-\\ \hline
-VAL( string\$ ) & Returns the numerical value of the ‘string\$’. If 'string\$' is an invalid
-number the function will return zero.
-This function will recognise the \&H prefix for a hexadecimal number,
-\&O for octal and \&B for binary.
-\\ \hline
-\end{tabular}
-\end{table}
+\input{basic_system}
+\input{basic_io}
+\input{basic_com}
+\input{basic_num}
+\input{basic_string}
+\input{basic_flow}
+\input{basic_function}
+\input{basic_special}
+The following operators, in order of precedence, are recognised. Operators that are on the same level (for
+example + and -) are processed with a left to right precedence as they occur on the program line.
+\input{basic_operations}
 
-\begin{table}[]
-\centering
-\caption{Basic Instructions for System}
-\label{Basic_Instructions_for_System}
-\begin{tabular}{|p{4cm}|p{10cm}|}
-\hline
-\textbf{Basic Interpreter} & \textbf{Description}                                                             \\ \hline
-3A & 3B 
-\\ \hline
-3A & 3B 
-\\ \hline
-3A & 3B 
-\\ \hline
-\end{tabular}
-\end{table}
+\subsection*{Certificates}
+
+\chapterimage{coalplant.png} % Chapter heading image
+\chapter{Reference Applications}
+add schematics for s0 input here (energy meter input, pulse / gpio counter)
+\label{fig:s0_input_application}
+add schematics for s0 output here
+\label{fig:s0_output_application}
+add schematics for rs485 line termination. Emdo has internal termination that can be activated by software.
+\label{fig:rs485_application}
+
+add schematics for relay output
+\label{fig:relay_application}
+
+add schematics for 1-wire
+\label{1wire_application}
+
+add schematics for m-bus
+\label{mbus_application}
+
+add schematics for knx
+\label{knx_application}
 
 
-\begin{table}[]
-\centering
-\caption{Basic Instructions for File Operation}
-\label{Basic_Instructions_for_File_Operation}
-\begin{tabular}{|p{4cm}|p{10cm}|}
-\hline
-\textbf{Basic Interpreter} & \textbf{Description}                                                             \\ \hline
-3A & 3B 
-\\ \hline
-3A & 3B 
-\\ \hline
-3A & 3B 
-\\ \hline
-\end{tabular}
-\end{table}
-
-
-\begin{table}[]
-\centering
-\caption{Basic Instructions for Communication}
-\label{Basic_Instructions_for_Communication}
-\begin{tabular}{|p{4cm}|p{10cm}|}
-\hline
-\textbf{Basic Interpreter} & \textbf{Description}                                                             \\ \hline
-3A & 3B 
-\\ \hline
-3A & 3B 
-\\ \hline
-3A & 3B 
-\\ \hline
-\end{tabular}
-\end{table}
-
-\begin{table}[]
-\centering
-\caption{Basic Instructions for Numerical Operation}
-\label{Basic_Instructions_for_Numerical_Operation}
-\begin{tabular}{|p{4cm}|p{10cm}|}
-\hline
-\textbf{Basic Interpreter} & \textbf{Description}                                                             \\ \hline
-3A & 3B 
-\\ \hline
-3A & 3B 
-\\ \hline
-3A & 3B 
-\\ \hline
-\end{tabular}
-\end{table}
-
-\begin{table}[]
-\centering
-\caption{Basic Instructions for String Operation}
-\label{Basic_Instructions_for_String_Operation}
-\begin{tabular}{|p{4cm}|p{10cm}|}
-\hline
-\textbf{Basic Interpreter} & \textbf{Description}                                                             \\ \hline
-3A & 3B 
-\\ \hline
-3A & 3B 
-\\ \hline
-3A & 3B 
-\\ \hline
-\end{tabular}
-\end{table}
-
-\begin{table}[]
-\centering
-\caption{Basic Instructions for System}
-\label{Basic_Instructions_for_System}
-\begin{tabular}{|p{4cm}|p{10cm}|}
-\hline
-\textbf{Basic Interpreter} & \textbf{Description}                                                             \\ \hline
-Memory & List the amount of memory currently in use. For example: \newline
- \textit{\newline 15kB (18\%) Program (528 lines) \newline 23kB (28\%) 52 Variables \newline 17kB (21\%) General \newline 28kB (33\%) Free} \newline \newline
-Program memory is cleared by the NEW command. Variable and the general memory spaces are cleared by many commands (eg, NEW, RUN, LOAD, etc) as well as the specific commands CLEAR and ERASE. General memory is used by streams, file I/O buffers, etc.   
-\\ \hline
-\end{tabular}
-\end{table}
-
-%BASIC COMMANDS
-%#	                Name	Tkn	Type
-%   1)	              Memory	0080	C
-%   2)	                   ?	0081	C
-%   3)	               Clear	0082	C
-%   4)	            Continue	0083	C
-%   5)	                Data	0084	C
-%   6)	                 Dim	0085	C
-%   7)	                  Do	0086	C
-%   8)	              ElseIf	0087	C
-%   9)	             Else If	0088	C
-%  10)	           Case Else	0089	C
-%  11)	                Else	008a	C
-%  12)	         Select Case	008b	C
-%  13)	          End Select	008c	C
-%  14)	                Case	008d	C
-%  15)	               EndIf	008e	C
-%  16)	              End If	008f	C
-%  17)	        End Function	0090	C
-%  18)	             End Sub	0091	C
-%  19)	                 End	0092	C
-%  20)	               Erase	0093	C
-%  21)	               Error	0094	C
-%  22)	            Exit For	0095	C
-%  23)	            Exit Sub	0096	C
-%  24)	       Exit Function	0097	C
-%  25)	             Exit Do	0098	C
-%  26)	                Exit	0099	C
-%  27)	                 For	009a	C
-%  28)	            Function	009b	C
-%  29)	               GoSub	009c	C
-%  30)	                GoTo	009d	C
-%  31)	                  If	009e	C
-%  32)	          Line Input	009f	C
-%  33)	               Input	00a0	C
-%  34)	                 Let	00a1	C
-%  35)	                List	00a2	C
-%  36)	               Local	00a3	C
-%  37)	                Loop	00a4	C
-%  38)	               Chain	00a5	C
-%  39)	                Next	00a6	C
-%  40)	                  On	00a7	C
-%  41)	              Option	00a8	C
-%  42)	               Print	00a9	C
-%  43)	                Read	00aa	C
-%  44)	                 Rem	00ab	C
-%  45)	             Restore	00ac	C
-%  46)	              Return	00ad	C
-%  47)	                 Run	00ae	C
-%  48)	                 Sub	00af	C
-%  49)	               TROFF	00b0	C
-%  50)	                TRON	00b1	C
-%  51)	               Trace	00b2	C
-%  52)	                Wend	00b3	C
-%  53)	               While	00b4	C
-%  54)	               Const	00b5	C
-%  55)	                Open	00b6	C
-%  56)	               Close	00b7	C
-%  57)	               Files	00b8	C
-%  58)	                Kill	00b9	C
-%  59)	                Copy	00ba	C
-%  60)	                Name	00bb	C
-%  61)	                Seek	00bc	C
-%  62)	             Library	00bd	C
-%  63)	               Pause	00be	C
-%  64)	               S0Out	00bf	C
-%  65)	        SetVarAccess	00c0	C
-%  66)	          SetTimeout	00c1	C
-%  67)	             SYS.Set	00c2	C
-%  68)	              SYSTEM	00c3	C
-%  69)	            Dispatch	00c4	C
-%  70)	                  @(	00c5	C
-%  71)	              SYSLOG	00c6	C
-%  72)	                 WDT	00c7	C
-%  73)	              Memory	00c8	C
-%  74)	           Copyright	00c9	C
-%BASIC TOKENS
-%#	                Name	Tkn	Type
-%   1)	                Abs(	0080	fF
-%   2)	               Acos(	0081	fF
-%   3)	                Asc(	0082	iF
-%   4)	               Asin(	0083	iF
-%   5)	                Atn(	0084	fF
-%   6)	               Bin$(	0085	sF
-%   7)	               Chr$(	0086	sF
-%   8)	               Cint(	0087	iF
-%   9)	                Cos(	0088	fF
-%  10)	                Deg(	0089	fF
-%  11)	                Exp(	008a	fF
-%  12)	                Fix(	008b	iF
-%  13)	            Format$(	008c	sF
-%  14)	               Hex$(	008d	sF
-%  15)	              Inkey$	008e	sV
-%  16)	              Instr(	008f	iF
-%  17)	                Int(	0090	iF
-%  18)	             LCase$(	0091	sF
-%  19)	              Left$(	0092	sF
-%  20)	             Ltrim$(	0093	sF
-%  21)	                Len(	0094	iF
-%  22)	                Log(	0095	fF
-%  23)	               Mid$(	0096	sF
-%  24)	         MM.CmdLine$	0097	sV
-%  25)	              MM.Ver	0098	fV
-%  26)	               Oct$(	0099	sF
-%  27)	               Peek(	009a	iF
-%  28)	                 Pi(	009b	fF
-%  29)	                Pos(	009c	iF
-%  30)	                Rad(	009d	fF
-%  31)	             Right$(	009e	sF
-%  32)	                Rnd(	009f	fF
-%  33)	                 Rnd	00a0	fV
-%  34)	              Round(	00a1	fF
-%  35)	             Rtrim$(	00a2	sF
-%  36)	                Sgn(	00a3	iF
-%  37)	                Sin(	00a4	fF
-%  38)	             Space$(	00a5	sF
-%  39)	                Spc(	00a6	sF
-%  40)	                Sqr(	00a7	fF
-%  41)	               Str$(	00a8	sF
-%  42)	            String$(	00a9	sF
-%  43)	                Tab(	00aa	sF
-%  44)	                Tan(	00ab	fF
-%  45)	             UCase$(	00ac	sF
-%  46)	                Val(	00ad	fF
-%  47)	                 For	00ae	
-%  48)	                Else	00af	
-%  49)	               GoSub	00b0	
-%  50)	                GoTo	00b1	
-%  51)	                Step	00b2	
-%  52)	                Then	00b3	
-%  53)	                  To	00b4	
-%  54)	               Until	00b5	
-%  55)	               While	00b6	
-%  56)	                   ^	00b7	fO
-%  57)	                   *	00b8	fO
-%  58)	                   /	00b9	fO
-%  59)	                   \	00ba	iO
-%  60)	                 Mod	00bb	iO
-%  61)	                   +	00bc	fO
-%  62)	                   -	00bd	fO
-%  63)	                 Not	00be	fO
-%  64)	                  <<	00bf	iO
-%  65)	                  >>	00c0	iO
-%  66)	                  <>	00c1	fO
-%  67)	                  >=	00c2	fO
-%  68)	                  =>	00c3	fO
-%  69)	                  <=	00c4	fO
-%  70)	                  =<	00c5	fO
-%  71)	                   <	00c6	fO
-%  72)	                   >	00c7	fO
-%  73)	                   =	00c8	fO
-%  74)	                 And	00c9	iO
-%  75)	                  Or	00ca	iO
-%  76)	                 Xor	00cb	iO
-%  77)	                   ~	00cc	iO
-%  78)	                Eof(	00cd	iF
-%  79)	                Loc(	00ce	iF
-%  80)	                Lof(	00cf	iF
-%  81)	                  As	00d0	
-%  82)	            MM.Errno	00d1	iV
-%  83)	             Input$(	00d2	sF
-%  84)	           MM.Fname$	00d3	sV
-%  85)	               Dir$(	00d4	sF
-%  86)	                Abs(	00d5	fF
-%  87)	           Unixtime(	00d6	iF
-%  88)	              Ticks(	00d7	iF
-%  89)	         Timestamp$(	00d8	sF
-%  90)	              Date$(	00d9	sF
-%  91)	            Weekday(	00da	iF
-%  92)	            Yearday(	00db	iF
-%  93)	       CheckTimeout(	00dc	iF
-%  94)	            SYS.Get(	00dd	fF
-%  95)	               S0In(	00de	iF
-%  96)	        Temperature(	00df	iF
-%  97)	         RS485Read$(	00e0	sF
-%  98)	       RS485ReadLn$(	00e1	sF
-%  99)	          RS485Read(	00e2	iF
-% 100)	         RS485Write(	00e3	iF
-% 101)	       RS485ReadEx$(	00e4	sF
-% 102)	     RS485ReadLnEx$(	00e5	sF
-% 103)	        RS485ReadEx(	00e6	iF
-% 104)	       RS485WriteEx(	00e7	iF
-% 105)	            D0Start(	00e8	iF
-% 106)	          D0ReadLn$(	00e9	sF
-% 107)	              D0End(	00ea	iF
-% 108)	            D0Read$(	00eb	sF
-% 109)	             D0Read(	00ec	iF
-% 110)	            D0Write(	00ed	iF
-% 111)	       SocketServer(	00ee	iF
-% 112)	       SocketClient(	00ef	iF
-% 113)	    SocketConnected(	00f0	iF
-% 114)	         SocketRead(	00f1	iF
-% 115)	        SocketRead$(	00f2	sF
-% 116)	      SocketReadLn$(	00f3	sF
-% 117)	        SocketWrite(	00f4	iF
-% 118)	        SocketClose(	00f5	iF
-% 119)	       SocketOption(	00f6	iF
-% 120)	               CRC$(	00f7	sF
-% 121)	             Split$(	00f8	sF
-% 122)	      StreamSearch$(	00f9	sF
-% 123)	     EnoceanReceive(	00fa	iF
-% 124)	    EnoceanTransmit(	00fb	iF
-% 125)	        MQTTConnect(	00fc	iF
-% 126)	     MQTTConnectTLS(	00fd	iF
-% 127)	     MQTTDisconnect(	00fe	iF
-% 128)	        MQTTPublish(	00ff	iF
-% 129)	      MQTTSubscribe(	0180	iF
-% 130)	    MQTTUnsubscribe(	0181	iF
-% 131)	   MQTTSubscription(	0182	iF
-% 132)	               Conv(	0183	fF
-% 133)	                  @(	0184	fF
-% 134)	           SetTimer(	0185	iF
-% 135)	          KillTimer(	0186	iF
-% 136)	         CrontabAdd(	0187	iF
-% 137)	      CrontabRemove(	0188	iF
-% 138)	                  As	0189	
-
+\chapterimage{nuclearplant.png} % Chapter heading image
 \chapter{Specification}
 % TODO measure weight and dimensions
 Matrix with features
@@ -1521,7 +594,7 @@ Ethernet 1 1 1 1
 Power Consumption < 1Watt (all)
 Dimensions TBD
 Weight TBD
-
+\chapterimage{kissemdo.png} % Chapter heading image
 \chapter{Credits and Licenses}
 pls extract from credit.txt
 

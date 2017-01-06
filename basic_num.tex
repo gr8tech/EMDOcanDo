@@ -1,0 +1,89 @@
+\begin{table}[]
+\centering
+\caption{Basic Instructions for Numerical Operation}
+\label{Basic_Instructions_for_Numerical_Operation}
+\begin{tabular}{|p{4cm}|p{10cm}|}
+\hline
+\textbf{Basic Interpreter} & \textbf{Description}                                                             \\ \hline
+\textbf{ABS}( number ) 
+& Returns the absolute value of the argument 'number' (ie, any negative sign is removed and the positive number is returned).
+\\ \hline
+\textbf{ACOS}( number ) 
+& Returns the arccosinus of a number ( $0$ to $\pi$ ) in radians
+\\ \hline
+\textbf{COS}( number ) & Returns the cosine of the argument 'number' in radians.
+\\ \hline
+\textbf{ASIN}( number ) 
+& Returns the arcsinus of a number in radians ( $-\frac{\pi}{2}$ to $\frac{\pi}{2}$ ) in radians
+\\ \hline
+\textbf{SIN}( number ) & Returns the sine of the argument 'number' in radians.
+\\ \hline
+\textbf{ATN}( number ) 
+& Returns the arctangent of a number in radians ( $-\frac{\pi}{2}$ to $\frac{\pi}{2}$ ) in radians
+\\ \hline
+\textbf{TAN}( number ) & Returns the tangent of the argument 'number' in radians.
+\\ \hline
+\textbf{INT}( number ) & Truncate an expression to the next whole number less than or equal to
+the argument. For example 9.89 will return 9 and -2.11 will return -3.
+This behaviour is for Microsoft compatibility, the \textbf{FIX}() function
+provides a true integer function.
+See also \textbf{CINT}() .
+\\ \hline
+\textbf{CINT}( number ) & Round numbers with fractional portions up or down to the next whole number or integer.\newline
+For example:\newline
+45.47 will round to 45\newline
+45.57 will round to 46\newline
+-34.45 will round to -34\newline
+-34.55 will round to -35\newline
+See also \textbf{INT}() and \textbf{FIX}().
+\\ \hline
+\textbf{DEG}( radians ) & Converts 'radians' to degrees.
+\\ \hline
+\textbf{RAD}( degrees ) & Converts 'degrees' to radians.
+\\ \hline
+\textbf{EXP}( number ) & Returns the exponential value of 'number'.
+\\ \hline
+\textbf{FIX}( number ) & Truncate a number to a whole number by eliminating the decimal point
+and all characters to the right of the decimal point.\newline
+For example 9.89 will return 9 and -2.11 will return -2.\newline
+The major difference between \textbf{FIX} and \textbf{INT} is that \textbf{FIX} provides a true
+integer function (ie, does not return the next lower number for negative
+numbers as \textbf{INT}() does). This behaviour is for Microsoft compatibility.
+See also \textbf{CINT}() .
+\\ \hline
+\textbf{LOG}( number ) & Returns the natural logarithm of the argument 'number'. 
+\\ \hline
+\textbf{PI}() & Returns the value of pi.
+\\ \hline
+\textbf{RND}( number )\newline
+\textbf{RND}
+& Returns a pseudo-random number in the range of 0 to 0.999999. The
+'number' value is ignored if supplied. This function is based on the EMDO crypto hardware module and does not need randomization.
+\\ \hline
+\textbf{ROUND}( number, places )
+& Round the number to ‘number’ to ‘places’ number of fractional digits.
+\\ \hline
+\textbf{SGN}( number ) & Returns the sign of the argument 'number', +1 for positive numbers, 0 for
+0, and -1 for negative numbers.
+\\ \hline
+\textbf{SQR}( number ) & Returns the square root of the argument 'number'.
+\\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[]
+\centering
+\caption{Basic Instructions for Numerical Conversion}
+\label{Basic_Instructions_for_Numerical_Conversion}
+\begin{tabular}{|p{4cm}|p{10cm}|}
+\hline
+\textbf{Basic Interpreter} & \textbf{Description}                                                             \\ \hline
+\textbf{BIN\$}( number ) 
+& Returns a string giving the binary (base 2) value for the 'number'.
+\\ \hline
+\textbf{OCT\$}( number ) & Returns a string giving the octal (base 8) representation of 'number'.
+\\ \hline
+\textbf{HEX}\$( number ) & Returns a string giving the hexadecimal (base 16) value for the 'number'.
+\\ \hline
+\end{tabular}
+\end{table}

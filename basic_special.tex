@@ -1,0 +1,173 @@
+\begin{table}[]
+\centering
+\caption{Basic Instructions for EMDO Special Functions}
+\label{Basic_Instructions_for_EMDO_Special_Functions}
+\begin{tabular}{|p{4cm}|p{10cm}|}
+\hline
+\textbf{Basic Interpreter} & \textbf{Description}                                                   
+\\ \hline
+\textbf{SetVarAccess} ( \textit{http-json-access-rights\$})
+&
+Variables in the BASIC application can be modified over http json requests. The \textit{http-json-access-rights\$} set the default to PROTECTED, READONLY, WRITEONLY or READWRITE for all variables that are initialized in the application.  Already initialized variables are not affected by the new default. The interpreter starts with READONLY default. So all variables are readable over http json. 
+\\ \hline
+\textbf{SetTimeout}( \textit{timeout\%}, \textit{remaining-time\%}, \textit{timeout-state\%} )
+& For many application it is essential to have some kind of timeout monitoring. Set a \textit{timeout\%} for an application in ms.\newline 
+The integer variables \textit{remaining-time\%} and \textit{timeout-state\%} will be used by the BASIC interpreter to do internal calculations of the timeout.\newline 
+Use \textbf{CheckTimeout} to check if the timer has expired.
+\\ \hline
+\textit{expired} = \textbf{CheckTimeout} (\textit{remaining-time\%}, \textit{timeout-state\%} )
+& Check if the timeout has occured. Function return 0 is no timeout has occured (\textit{expired} ). The variables \textit{remaining-time\%} and \textit{timeout-state\%} must have been initialized with \textbf{SetTimeout} prior to calling \textbf{CheckTimeout}.
+\\ \hline
+\textit{config\$}=\textbf{SYS.Get} ( \textit{device\$}, \textit{config-item\$} )\newline
+\textbf{SYS.Set} \textit{device\$}, \textit{config\$}
+& The system settings can be modified with the getter and setter function. Not all settings can be overwritten. All arguments are handled as strings.\newline
+For example:
+\textbf{SYS.SET} "rs485-2", "baud=115200 data=8 stop=1 parity=n"\newline
+\textit{baudrate\%} = \textbf{SYS.GET} ("rs485", "baud")\newline
+\\ \hline
+\textbf{Dispatch} \textit{timeout\%}
+& This command is similar to the \textbf{Pause} but monitors the scheduler for any planned timer or cron calls. 
+\\ \hline
+\textbf{\@} 
+& The OApi (object api) interface allows the data exchange with the EMDO operating system (e.g. SEMP, Speedwire, 1-Wire). Pls refer to the corresponding libraries for details.\newline
+for example:\newline
+' Query total objects quantity\newline
+\textbf{@}()\newline
+' Get object [by name] property [by name]\newline
+\textbf{@}("Dishwasher1","SEMP/Identification/DeviceId")\newline
+' Get object [by index] property [by name]\newline
+\textbf{@}(0,"SEMP/Identification/DeviceId")\newline 
+' Get object property by name in case of array property\newline
+\textbf{@}("Dishwasher1","SEMP/DeviceStatus/PowerConsumption/AveragePower()", 1) \newline
+' Get array property length by name\newline
+\textbf{@}("Dishwasher1","SEMP/DeviceStatus/PowerConsumption/AveragePower()")\newline
+ ' Get object [by name] property [by index]\newline
+\textbf{@}("Dishwasher1",0)\newline
+' Get object [by name] property [by index] in case of array property\newline
+\textbf{@}("Dishwasher1", 0, 0)\newline
+' Get object [by index] property [by index]\newline
+\textbf{@}(0,0)\newline 
+' Get object properties count\newline
+\textbf{@}("Dishwasher1")\newline
+\textbf{@}(0)\newline 
+' Set object property\newline
+\textbf{@}("Dishwasher1","SEMP/Identification/DeviceId","122200-0000-0000")\newline
+' Set object property by name in case of array property\newline
+\textbf{@}("Dishwasher1","SEMP/DeviceStatus/PowerConsumption/AveragePower", 1, 1500)\newline
+' Set object property by index in case of array property\newline
+\textbf{@}("Dishwasher1", 0, 1, 1500)\newline 
+' Delete object specified by name or index\newline
+\textbf{@}("Dishwasher1", "\#DELETE")\newline
+\textbf{@}(0, "\#DELETE") \newline
+' Delete property specified by name or index\newline
+\textbf{@}("Dishwasher1", "\#DELETE", "SEMP/Identification/DeviceId" )\newline
+\textbf{@}(0, "\#DELETE", 0)\newline
+' Query object name\newline
+\textbf{@}(0, "\#NAME")\newline 
+' Query property name\newline
+\textbf{@}("Dishwasher1", "\#NAME", 0)\newline
+\textbf{@}(0, "\#NAME", 0)\newline
+' Query property type\newline
+\textbf{@}("Dishwasher1", "\#TYPE", "SEMP/Identification/DeviceId")\newline
+\textbf{@}("Dishwasher1", "\#TYPE", 0)\newline
+\textbf{@}(0, "\#TYPE", 0)\newline
+' Query property length\newline
+\textbf{@}("Dishwasher1", "\#LEN", "SEMP/Identification/DeviceId")\newline
+\textbf{@}("Dishwasher1", "\#LEN", 0)\newline
+\textbf{@}(0, "\#LEN", 0)
+\\ \hline
+\textbf{WDT} 
+& Call this command to enable the watchdog. It is disabled by default.
+\\ \hline
+\textit{unix-time-stamp}=\textbf{Unixtime}()
+& Return the current time \textit{unix-time-stamp}. The unix time is counting the seconds since 1.1.1970 (UTC). It will overflow at 19.1.2038. The EMDO unix time depends on the global network time protocol which is distributed globally and derived from a precise atomic clock and corrected to universal time (solar time). All logging in the EMDO is done with Coordinated Universal Time (UTC) as it is the most correlated to earth rotation and solar cycle.
+\\ \hline
+\textit{ticks} = \textbf{Ticks}() 
+& This function returns the system ticks. It is a 32 bit register which overflows around every 24 days. For timeout calculation you better use the functions \textbf{SetTimeout} and \textbf{CheckTimeout}.
+\\ \hline
+\textit{time-stamp\$} = \textbf{Timestamp\$}()
+& This returns either the unix time, if the EMDO is synchronized to a NTP server, or the seconds since the EMDO has been powered up.
+\\ \hline
+\textit{iso-time-stamp\$} = \textbf{Date\$}() 
+& This function return an ISO 8601 formatted timestring. e.g.1988-04-07T18:39:09-08:00.
+\\ \hline
+\textit{week-day\%}=\textbf{Weekday} 
+& This function returns the day of the week (e.g. 1 = monday, ... , 7=sunday).
+\\ \hline
+\textit{year-day\%}=\textbf{Yearday}() 
+& This function returns the day of the year (e.g. 1= first day of january, ... 365 = last day of december).
+\\ \hline
+\textit{board-temperature} = \textbf{Temperature}()
+& This function returns the EMDO mainboard temperature in \degree Celsius. This temperature reading is biased by the current processor load. It is suitable to measure the enclosure temperature, but not suitable to measure a room temperature. It is recommended to use a 1-wire temperature sensor instead.
+\\ \hline
+\textit{crc-sum\$} = \textbf{CRC\$} ( \textit{mode\%}, \textit{data\$} )
+& Calculate the CRC checksum \textit{crc-sum\$} of \textit{data\$}. The following \textit{mode\%} are supported: Modbus CRC16 (use 0), Modbus LRC (use 1), 1-Wire CRC8 (use 2) and 1-Wire CRC16 (use 3).
+\\ \hline
+\textit{substring\$} = \textbf{Split\$} ( \textit{index\%}, \textit{string\$},\textit{token\$} )
+& Split a \textit{string\$} into multiple \textit{substring\$} separated by \textit{token\$}. The \textit{index\%} selects the substring, e.g. 0 would select the first \textit{substring\$} of \textit{string\$} which is terminated with the \textit{token\$}.
+\\ \hline
+\textit{substring\$} = \textbf{StreamSearch\$}( \textit{input-stream-function}, \textit{start-token\$}, \textit{end-token\$}, \textit{timeout\%} )
+& This function reads a data stream from \textit{input-stream-function} by calling the function in a loop until the \textit{start-token\$} and \textit{end-token\$} are found or the \textit{timeout\%} (in ms) has been reached. It then returns the extracted \textit{substring\$} (between the two tokens) or an empty string.\newline
+For example:\newline
+\textit{substring\$}=\textbf{StreamSearch\$}(SocketRead(con\%),"1970-01-17T15:50:30.672Z</td><td>","</td>",5000)
+\\ \hline
+\textit{string-converted\$} = \textbf{Conv} ( \textit{converter\$}, \textit{int-to-convert\%} )\newline
+\textit{string-converted\$} = \textbf{Conv} ( \textit{converter\$}, \textit{float-to-convert} )\newline
+\textit{int-converted\%} = \textbf{Conv} ( \textit{converter\$}, \textit{string-to-convert\$} )\newline
+\textit{float-converted} = \textbf{Conv} ( \textit{converter\$}, \textit{string-to-convert\$} )
+& Data need serialisation and deserialisation when send over data communication interface. The EMDO supports the following data conversions, specified in the \textit{converter}:\newline
+i16 (signed 16bit), u16 (unsigned 16 bit), i32 (signed 32 bit), u32 (unsigned 32bit), f32 (float 32 bit) and f64 (float 64bit) to / from bbe (binary big endian string) and ble (binary little endian string).\newline
+Examples:
+\textit{string-converted\$} = \textbf{Conv} ( "i16/bbe", \textit{int-converted\%} ) \newline
+\textit{float-converted} = \textbf{Conv} ( "ble/f32", \textit{string-to-convert\$} )
+\\ \hline
+\textit{timer-descriptor\%} = \textbf{SetTimer}( \textit{timeout\%} [, \textit{one-shot\%}] )\newline
+\textbf{ON TIMER} \textit{timer-descriptor\%} \textit{time-handler-function} [\textbf{DETACH}]
+\textit{err\%} = \textbf{KillTimer}( \textit{timer-descriptor\%} )
+& Plan returning events in the range of miliseconds to minutes (in ms resolution). With \textbf{SetTimer} the timer is configured to a \textit{timeout\%}. As an optional argument \textit{one-shot\%} must be set to 1 if the timer is a one shot timer (does not retrigger itself). The function returns \textit{timer-descriptor\%}. The value is negative on error.\newline
+Next the \textit{time-handler-function} is registered, which is called every time the timer expires.\newline
+The handler function is called within the \textbf{Dispatch} statement.\newline
+The timer can be disabled with \textbf{KillTimer}. The return value is negative on error.
+Once the timer is killed, it can be unregistered again with the \textbf{DETACH} statement.\newline
+The jitter of the timer is a view milliseconds and should be fine for most applications. 
+Example:\newline
+td\%=\textbf{SetTimer}(200)\newline
+\textbf{IF} td\% < 0 \textbf{THEN ERROR} "Failed to create timer"\newline
+\textbf{ON TIMER} td\% thandler\newline
+\textbf{Dispatch} 1100\newline
+sc\%=\textbf{KillTimer}(td\%)\newline
+\textbf{IF} sc\%<0 \textbf{THEN ERROR} "Failed to kill timer" \newline
+\textbf{ON TIMER} td\% thandler \textbf{DETACH}\newline
+\textbf{IF} MM.errno < 0 \textbf{THEN ERROR} "Failed to detach handler"\newline
+\textbf{FUNCTION} thandler(id\%)\newline
+\textbf{IF} id\% <> td\% \textbf{THEN ERROR} "id mismatch"\newline
+\textbf{END FUNCTION}
+\\ \hline
+\textit{cron-descriptor\%} = \textbf{CrontabAdd}( \textit{cron-string\$} )\newline
+\textbf{ON CRON} \textit{cron-descriptor\%} \textit{cron-handler-function} [\textbf{DETACH}]
+\textit{err\%} = \textbf{CrontabRemove} (\textit{cron-descriptor\%})
+& Tasks that run on a minute resolution can be triggered as cron jobs. The commands are very similar to the Timer commands. The main difference is that the CRON is not made for milisecond time base, but rather minutes. The \textit{cron-string\$} describes the scheduling of the task in analogy to unix cron jobs (see below examples). \textbf{CrontabAdd} adds the job to the cron system and the registration of the \textit{cron-handler-function} is done with the \textit{cron-descriptor\%} via \textbf{ON CRON} command. The unregistration is done the same way with the additional \textbf{DETACH} token. 
+
+Example:\newline
+' Minute, hour, day, month, weekday
+' * * * * * is every minute
+' 17 * * * * hourly at xx:17
+' 17 6 * * * daily at 6:17
+' 17 18 * * 5 is every friday at 18:17
+' 0 0 1 * *  is monthly on the 1st
+' */5 * * * * every 5 minutes
+' * * * * 1 every monday
+cd\%=\textbf{CrontabAdd}("* * * * *")\newline
+\textbf{IF} cd\% < 0 \textbf{THEN ERROR} "Failed to create cron"\newline
+\textbf{ON CRON} cd\% chandler\newline
+\textbf{Dispatch} 120000\newline
+sc\%=\textbf{CrontabRemove}(td\%)\newline
+\textbf{IF} sc\%<0 \textbf{THEN ERROR} "Failed to remove cron" \newline
+\textbf{ON CRON} cd\% chandler \textbf{DETACH}\newline
+\textbf{IF} MM.errno < 0 \textbf{THEN ERROR} "Failed to detach handler"\newline
+\textbf{FUNCTION} chandler(id\%)\newline
+\textbf{IF} id\% <> cd\% \textbf{THEN ERROR} "id mismatch"\newline
+\textbf{END FUNCTION}
+\\ \hline
+\end{tabular}
+\end{table}

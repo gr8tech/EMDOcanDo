@@ -1,0 +1,206 @@
+\begin{table}[]
+\centering
+\caption{Basic Instructions for Program Control}
+\label{Basic_Instructions_for_Program_Control}
+\begin{tabular}{|p{4cm}|p{10cm}|}
+\hline
+\\ \hline
+\textbf{CHAIN} file\$ 
+& Clear the current program from memory, load the new program ('file\$')
+into memory and run it starting with the first line.\newline
+Unlike the \textbf{RUN} command this command retains the current state of the
+program (ie, the value of variables, open files, open handles, etc). Cron, Timer, SEMP, MSG will be stay active, it is recommended to \textbf{DETACH} all handlers prior to \textbf{CHAIN} and reattach after it.\newline
+One program can \textbf{CHAIN} to another which can then chain to another (or
+back to the original) an unlimited number of times. As long as a
+program can be broken down into modules this command allows
+programs of almost unlimited size to be run, even with limited memory.\newline
+Communication between the modules can be accomplished by assigning
+values to one or more variables which then can be examined by the new
+chained program.
+Note that another way of squeezing a large program into limited memory
+is to use the \textbf{LIBRARY} command.
+\\ \hline
+\textbf{LIBRARY LOAD} \$file\newline
+\textbf{LIBRARY UNLOAD} \$file
+& Will load a library file ('file\$') into general memory. Any user defined
+commands and subroutines in the file will then become available to the
+running program.\newline 
+A library file is like any other MMBasic program, with the exception
+that any programming code outside the user defined commands and
+subroutines in the file will be ignored. The library is not visible to the
+user (it is not listed by the LIST command) so it should be tested and
+debugged as a normal basic program first. Normally a library file has
+the extension ".BLIB" and that extension will be automatically added if
+the file name ('\$file') does not include the extension.\newline
+Libraries can be loaded and unloaded in any order. Libraries can be
+loaded from within other libraries and nested to an unlimited extent.
+Any library file can be unloaded from memory and the memory returned
+to the general pool by using the LIBRARY UNLOAD command.\newline
+Library files must not be unloaded from within a library that is currently
+being used by the program (the results are undefined but it may crash
+MMBasic and cause your hair to go prematurely grey).\newline
+This command can be used to load specialised libraries to extend the
+functionality of MMBasic. Examples include device drivers, libraries
+that provide bit manipulation and libraries of specialised mathematical
+functions. The library file is only loaded on the first load command
+encountered so it is acceptable to put the same load command into every
+part of the program or every subroutine that may need the library.\newline
+Another use of the LIBRARY command is to extend the amount of
+memory available to a program by only loading sections of code as
+needed and then unloading them when their task is finished so that
+another function can be loaded.\newline
+To prevent fragmentation of memory, functions that use a lot of memory
+(like arrays) should be declared first before any
+libraries are loaded and then unloaded.
+\\ \hline
+\textbf{LIST}\newline
+\textbf{LIST} line\newline
+\textbf{LIST} -lastline\newline
+\textbf{LIST} firstline -\newline
+\textbf{LIST} firstline - lastline\newline
+& Lists all lines in a program line or a range of lines.
+If –lastline is used it will start with the first line in the program. If
+startline- is used it will list to the end of the program.
+\\ \hline
+\textbf(PAUSE)( delay ) & Halt execution of the running program for ‘delay’ mS.
+The maximum delay is 2147483647 mS (about 24 days).
+\\ \hline
+\textbf{REM} string\newline 
+\textbf{'} string
+& \textbf{REM} allows remarks to be included in a program.
+Note the Microsoft style use of the single quotation mark to denote
+remarks is also supported and is preferred for better readability of the code.
+\\ \hline
+\textbf{RUN} [line] [file\$] & Executes the program in memory. If a line number is supplied then
+execution will begin at that line, otherwise it will start at the beginning
+of the program. Or, if a file name (file\$) is supplied, the current program
+will be erased and that program will be loaded from the current drive and
+executed. This enables one program to load and run another.\newline
+Example: \textbf{RUN} “TEST.BAS”\newline
+If an extension is not specified “.BAS” will be added to the file name.
+\\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[]
+\centering
+\caption{Basic Instructions for System and Memory}
+\label{Basic_Instructions_for_System_and_Memory}
+\begin{tabular}{|p{4cm}|p{10cm}|}
+\hline
+\textbf{Basic Interpreter} & \textbf{Description}                                                   \\ \hline
+\textbf{CLEAR} & Delete all variables and recover the memory used by them. See \textbf{ERASE} for deleting specific array variables.
+\\ \hline
+\textbf{ERASE} variable
+[,variable]...
+&
+Deletes arrayed variables and frees up the memory. \newline
+Use \textbf{CLEAR} to delete all variables including all arrayed variables.
+\\ \hline 
+\textbf{ERROR} [errormsg\$] & Forces an error and terminates the program. This is normally used in
+debugging or to trap events that should not occur.
+\\ \hline
+\textbf{MEMORY} & List the amount of memory currently in use. For example: \newline
+ \textit{\newline 1kB (1\%) Program (9 lines) \newline 1kB (0\%) 5 Variables \newline 0kB (0\%) General \newline 98kB (99\%) Free} \newline \newline
+Program memory is cleared by the NEW command. Variable and the general memory spaces are cleared by many commands (eg, \textbf{NEW}, \textbf{RUN}, \textbf{LOAD}, etc) as well as the specific commands \textbf{CLEAR} and \textbf{ERASE}. General memory is used by streams, file I/O buffers, etc.   
+\\ \hline
+\textbf{PEEK}(VAR var, +-offset)
+& Will return a byte within MMBASIC variable memory space.\newline
+You can access the memory allocated to a variable by using the
+variable's name ('var') preceded by the keyword VAR. This can be used
+to access the individual bytes of a numeric variable or a large segment of
+RAM allocated to an array (the first element of an array (eg, nbr(0)) is
+the start of RAM allocated to the whole array). 'offset' is the offset in the memory space. This depends on the processor architecture and might be incompatible to future EMDO designs. For this reason, We recommend to use the more versatile \textbf{Conv} command for any type of data conversions.
+\\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[]
+\centering
+\caption{Basic Instructions for System (Option)}
+\label{Basic_Instructions_for_System_Option}
+\begin{tabular}{|p{4cm}|p{10cm}|}
+\hline
+\textbf{Basic Interpreter} & \textbf{Description}                                                   \\ \hline
+\textbf{OPTION BASE} 0\newline
+\textbf{OPTION BASE} 1
+& Set the lowest value for array subscripts to either 0 or 1. The default is
+0. This must be used before any arrays are declared.
+\\ \hline
+\textbf{OPTION ERROR CONTINUE}\newline
+\textbf{OPTION ERROR ABORT}
+ & Set the treatment for errors in file input/output. The option \textbf{CONTINUE}
+will cause MMBasic to ignore file related errors. The program must
+check the variable \textbf{MM.ERRNO} to determine if and what error has
+occurred.\newline
+The option ABORT sets the normal behaviour (ie, stop the program and
+print an error message). The default is \textbf{ABORT}.\newline
+Note that this option only relates to errors reading from or writing to
+NOR flash. It does not affect the handling of syntax and other
+program errors.
+\\ \hline
+\textbf{OPTION PROMPT} string\$ & Sets the command prompt to the contents of ‘string\$’ (which can also be an expression which will be evaluated when the prompt is printed).\newline
+For example:\newline
+\textbf{OPTION PROMPT} “Ok “\newline
+\textbf{OPTION PROMPT} TIME\$ + “: “\newline
+\textbf{OPTION PROMPT} CWD\$ + “: “\newline
+Maximum length of the prompt string is 48 characters. The prompt is
+reset to the default (“> “) on power up but you can automatically set in the first lines of the program.
+\\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[]
+\centering
+\caption{Basic Instructions for Debug}
+\label{Basic_Instructions_for_Debug}
+\begin{tabular}{|p{4cm}|p{10cm}|}
+\hline
+\textbf{Basic Interpreter} & \textbf{Description}                                                   \\ \hline
+\textbf{SYSLOG} \textit{log-level}, \textit{log} 
+& This mechanism allows to collect logs from EMDO devices centrally and analyze the logs. The open source software Logstash and Kibana is used for this.
+\\ \hline
+\textbf{SYSTEM} \textit{command\$}
+& Execute a command in the EMDO operating system's command line interface. \newline
+For example:\newline
+\textbf{SYSTEM} "stat s0 clear"
+\\ \hline
+\textbf{TRACE ON}\newline
+\textbf{TRON}\newline
+\textbf{TRACE OFF}\newline
+\textbf{TROFF}\newline
+\textbf{TRACE EXTENDED}\newline
+\textbf{TRACE LIST}
+&  Turns on/off the trace facility. This facility will print the number of each line
+(counting from the beginning of the program) in square brackets as the
+program is executed. This is useful in debugging programs.\newline
+In some situations more verbose output can be activated with \textbf{EXTENDED}.\newline
+As logging has an impact on program execution speed, it is sometime better to list the trace log when the program is idle (\textbf{TRACE LIST}) rather than all the time (\textbf{TRACE ON}). 
+\\ \hline
+\end{tabular}
+\end{table}
+
+
+\begin{table}[]
+\centering
+\caption{Basic Instructions for Read Only Variables}
+\label{Basic_Instructions_for_Read_Only_Variables}
+\begin{tabular}{|p{4cm}|p{10cm}|}
+\hline
+\textbf{Basic Interpreter} & \textbf{Description}                                                   
+\\ \hline
+\textbf{MM.VER} & The version number of the firmware in the form aa.bbcc where aa is the major version number, bb is the minor version number and cc is the revision number (normally zero but A = 01, B = 02, etc).
+\\ \hline
+\textbf{MM.FNAME}\$ & The name of the file that will be used as the default for the \textbf{SAVE} command. This is set by \textbf{LOAD}, \textbf{RUN} and \textbf{SAVE}.
+\\ \hline
+\textbf{MM.CMDLINE}\$ & The command line used with the implied \textbf{RUN} command. See the implied \textbf{RUN} command at the start of the next page for the details.
+\\ \hline
+\textbf{MM.ERRNO} & Is set to the error number if a statement involving the NOR flash fails or
+zero if the operation succeeds. This value is not supported yet.
+\\ \hline
+\textbf{COPYRIGHT}
+& Show MMBASIC copyright.
+\\ \hline
+\end{tabular}
+\end{table}
+

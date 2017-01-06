@@ -1,0 +1,218 @@
+\begin{table}[]
+\centering
+\caption{Basic Instructions for IO Open and Close}
+\label{Basic_Instructions_for_IO_Open_Close}
+\begin{tabular}{|p{4cm}|p{10cm}|}
+\hline
+\textbf{Basic Interpreter} & \textbf{Description}                                                   \\ \hline
+\textbf{OPEN} fname\$ \textbf{FOR} mode
+\textbf{AS} [\#]fnbr
+& Opens a file for reading or writing.
+‘fname’ is the filename with maximal string length (case-sensitive). It can be prefixed with a directory path. For example: "DIR1/DIR2/FILE.EXT". SPIFFS does not support directories. Directories are only emulated. \newline
+‘mode’ is \textbf{INPUT}, \textbf{OUTPUT}, \textbf{APPEND} or \textbf{RANDOM}.\newline\newline
+\textbf{INPUT} will open the file for reading and throw an error if the file does
+not exist. \newline
+\textbf{OUTPUT} will open the file for writing and will automatically
+overwrite any existing file with the same name.\newline
+\textbf{APPEND} will also open the file for writing but it will not overwrite an
+existing file; instead any writes will be appended to the end of the file. If
+there is no existing file the APPEND mode will act the same as the
+\textbf{OUTPUT} mode (i.e. the file is created then opened for writing). \newline
+Note:\newline
+\textbf{RANDOM} will open the file for both read and write and will allow
+random access using the SEEK command. When opened the read/write
+pointer is positioned at the end of the file.\newline
+‘fnbr’ is the file number (1 to 10). The \# is optional. Up to 10 files can
+be open simultaneously. The \textbf{INPUT}, \textbf{LINE INPUT}, \textbf{PRINT}, \textbf{WRITE}
+and \textbf{CLOSE} commands as well as the \textbf{EOF}() and \textbf{INPUT\$}() functions all
+use ‘fnbr’ to identify the file being operated on.\newline
+See also OPTION ERROR and MM.ERRNO for error handling.
+\\ \hline
+\textbf{CLOSE} [\#]nbr [,[\#]nbr] … &
+Close the file(s) previously opened with the file number ‘nbr’.
+The \# is optional. Also see the \textbf{OPEN} command.
+\\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[]
+\centering
+\caption{Basic Instructions for IO and File Operation}
+\label{Basic_Instructions_for_IO_and_File_Operation}
+\begin{tabular}{|p{4cm}|p{10cm}|}
+\hline
+\textbf{Basic Interpreter} & \textbf{Description}                                                 
+\\ \hline
+\textbf{INPUT} ["prompt string\$";]
+list of variables
+& Allows input from the keyboard to a list of variables. The input
+command will prompt with a question mark (?).\newline
+The input must contain commas to separate each data item if there is
+more than one variable.\newline
+For example, if the command is:\newline
+\textbf{INPUT} a, b, c\newline
+And the following is typed on the keyboard: 23, 87, 66\newline
+Then a = 23 and b = 87 and c = 66\newline
+If the "prompt string\$" is specified it will be printed before the question
+mark. If the prompt string is terminated with a comma (,) rather than the
+semicolon (;) the question mark will be suppressed.
+\\ \hline
+\textbf{INPUT}\$(nbr, [\#]fnbr) & Will return a string composed of ‘nbr’ characters read from a file
+previously opened for INPUT with the file number ‘fnbr’. This function
+will read all characters including carriage return and new line without
+translation.\newline
+When reading from a serial communications port this will return as
+many characters as are waiting in the receive buffer up to ‘nbr’. If there
+are no characters waiting it will immediately return with an empty string.\newline
+The \# is optional. Also see the\textbf{OPEN} command.
+\\ \hline
+\textbf{INKEY}\$ & Checks the input of a character.
+\\ \hline
+\textbf{LINE INPUT} [prompt\$,] string-variable\$\newline
+\textbf{LINE INPUT} \#nbr,
+string-variable\$
+ &  Reads entire line from the keyboard into ‘string-variable\$’. If specified
+the ‘prompt\$’ will be printed first. Unlike \textbf{INPUT}, \textbf{LINE INPUT} will
+read a whole line, not stopping for comma delimited data items.
+A question mark is not printed unless it is part of ‘prompt\$’.
+\\ \hline
+\textbf{PRINT} expression [[,; ]expression] … etc\newline
+\textbf{?} expression [[,; ]expression] … etc
+& Outputs text to the browser. Multiple expressions can be used and must be
+separated by either a: \newline
+\textbf{?} Comma (,) which will output the tab character \newline
+\textbf{?} Semicolon (;) which will not output anything (it is just used to separate expressions).\newline
+\textbf{?} Nothing or a space which will act the same as a semicolon.\newline
+A semicolon (;) at the end of the expression list will suppress the
+automatic output of a carriage return/ newline at the end of a print
+statement.\newline
+When printed, a number is preceded with a space if positive or a minus
+(-) if negative but is not followed by a space. Integers (whole numbers)
+are printed without a decimal point while fractions are printed with the
+decimal point and the significant decimal digits. Large numbers (greater
+than six digits) are printed in scientific format.\newline
+The function \textbf{FORMAT\$()} can be used to format numbers. The function
+\textbf{TAB()} can be used to space to a certain column and the string functions
+can be used to justify or otherwise format strings.
+\\ \hline
+\textbf{PRINT} \#nbr, expression
+[[,; ]expression] … etc
+& Same as above except that the output is directed to a file previously
+opened for \textbf{OUTPUT} or \textbf{APPEND} as ‘nbr’. See the \textbf{OPEN} command.
+\\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[]
+\centering
+\caption{Basic Instructions for SPIFFS File System}
+\label{Basic_Instructions_for_SPIFFS_File_System}
+\begin{tabular}{|p{4cm}|p{10cm}|}
+\hline
+\textbf{Basic Interpreter} & \textbf{Description}                                                   
+\\ \hline
+\textbf{Copy} src\$ To dest\$ & Copy the file named 'src\$' to another file named 'dest\$'.
+\\ \hline
+\textbf{Dir\$}( \textit{fspec} )\newline
+\textit{file-name\$} = \textbf{Dir\$}( )\newline
+& Will search the NOR flash for files and return the names of entries found.
+\textit{fspec} is a file specification using wildcards the same as used by the
+FILES command. E.g., "*.*" will return all entries, "*.TXT" will return
+text files.\newline
+The function without argument, will return the first entry found. To retrieve subsequent
+entries use the function with no arguments. ie, \textbf{DIR\$}. The return of
+an empty string indicates that there are no more entries to retrieve.\newline
+This example will print all the files in a directory:\newline
+\textit{f\$} = \textbf{Dir\$}("*.*")\newline
+\textbf{Do While} \textit{f\$} <> ""\newline
+\textbf{Print} f\$\newline
+\textit{f\$} = \textbf{Dir\$}()\newline
+\textbf{Loop}\newline
+SPIFFS does not support directories. Leading path alike pattern will force search within a "directory".
+\\ \hline
+\textbf{Eof}( [\#]nbr ) & Will return true if the file previously opened for INPUT with the file
+number ‘nbr’ is positioned at the end of the file.
+If used on a file number opened as a serial port this function will return
+true if there are no characters waiting in the receive buffer.
+The \# is optional. Also see the OPEN, INPUT and LINE INPUT
+commands and the \textbf{INPUT\$} function.
+\\ \hline
+\textbf{FILES} [fspec\$] 
+&  Lists files in the current directory of the NOR flash.\newline
+Optional use of ‘fspec\$’. Question marks
+(?) will match any character and an asterisk (*) will match any number
+of characters. If omitted, all files will be listed. For example:\newline
+*.* Find all entries\newline
+*.TXT Find all entries with an extension of TXT\newline
+E*.* Find all entries starting with E\newline
+X?X.* Find all three letter file names starting and ending with X
+\\ \hline
+\textbf{LOC}( [\#]fnbr ) & For a file opened as \textbf{RANDOM} this will return the current position of the read/write pointer in the file. Note that the first byte in a file is
+numbered 1. The \# is optional.
+\\ \hline
+\textbf{LOF}( [\#]fnbr ) & For a file this will return the current length of the file in bytes.
+The \# is optional.
+\\ \hline
+\textbf{KILL} file\$ & Deletes the file specified by ‘file\$’. If there is an extension it must be
+specified.\newline
+If 'file' is a string constant quote marks around it are optional at the
+command prompt but must be specified if the command is used within a
+program. Example: \textbf{KILL} “SAMPLE.DAT”
+\\ \hline
+\textbf{NAME} old\$ AS new\$ 
+& Rename a file or a directory from ‘old\$’ to ‘new\$’
+Unlike the other commands that work with file names the \textbf{NAME}
+command cannot accept a full pathname (with directories).
+\\ \hline
+\\ \hline
+\textbf{SEEK} [\#]fnbr, pos & Will position the read/write pointer in a file that has been opened for RANDOM access to the 'pos' byte.\newline
+The first byte in a file is numbered one so \textbf{SEEK} \#5,1 will position the read/write pointer to the start of the file.
+\\ \hline
+\textbf{POS}() & Returns the current cursor position in the line in characters.
+\end{tabular}
+\end{table}
+
+
+\begin{table}[]
+\centering
+\caption{Basic Instructions for S0 and Relay}
+\label{Basic_Instructions_for_S0_relay}
+\begin{tabular}{|p{4cm}|p{10cm}|}
+\hline
+\textbf{Basic Interpreter} & \textbf{Description}                                                   \\ \hline
+\textit{pulse-count\%} = \textbf{S0In} ( \textit{port\%} [, \textit{info\$} )\newline
+\textit{pulse-count\%} = \textbf{S0In} ( \textit{port\%} [, \textit{reset-counter\%} )
+& The S0 and relay outputs are highly configurable to static and dynamic modes. Prior to using a \textit{port\%} it must be configured with \textbf{SYS.SET} for its operation.\newline
+Examples:\newline
+' TOn, TOff are the minimal on and off period of the pulse in ms. ThHi and ThLo the threshold values of the ADC for high and low signal detection. If the reset flag is set to 1, the current pulse counter is reset.\newline
+\textbf{SYS.SET} "s0\_in0", "TOn=30 TOff=30 ThHi=700 ThLo=400 reset=1"\newline
+' Read pulse-count from primary S0 input and reset the pulse-count.\newline
+\textit{pulse-count\%} = \textbf{S0In}(0,1)\newline       
+' Get static state of the first S0 input\newline
+\textit{input-state} = \textbf{S0In}(0,'s')\newline
+' Get pulse rise time of the first S0 input\newline
+\textit{input-state} = \textbf{S0In}(0,'T')\newline
+' Get pulse fall time of the first S0 input\newline
+\textit{input-state} = \textbf{S0In}(0,'t')\newline
+' Get average pulse on time of the first S0 input\newline
+\textit{input-state} = \textbf{S0In}(0,'P')\newline
+' Get average pulse off time of the first S0 input\newline
+\textit{input-state} = \textbf{S0In}(0,'p')\newline
+The average pulse times are interesting to calculate average value e.g. for power production or consumption from the counts.
+\\ \hline
+\textbf{S0Out} \textit{port\%}, \textit{pulse-count\%} [, \textit{blank-period\%}]
+& The S0 and relay outputs are highly configurable to several static and dynamic modes. Prior to using a \textit{port\%} it must be configured with \textbf{SYS.SET} for its operation.\newline
+Examples:\newline
+' set first S0 output to 0 (phototransistor or relay driver conducting)\newline
+\textbf{SYS.SET} "s0\_out0", "state=0"\newline
+' set second S0 output to 1 (phototransistor or relay driver conducting)\newline
+\textbf{SYS.SET} "s0\_out1", "state=1"\newline
+' set second S0 output to pulsed mode with TOn and TOff period of 30m.\newline
+\textbf{SYS.SET} "s0\_out1", "TOn=30000 TOff=30000 mode=1"\newline
+' generate 100 pulses  (\textit{pulse-count\%}) on second S0 output\newline
+\textbf{S0Out} 1,100\newline
+' generate 2 pulses (\textit{pulse-count\%}) on second S0 output with 1 second \textit{blank-period}. This feature is usefull if the device receiving the pulse measures the time between the pulses to calculate a power value from it.\newline
+\textbf{S0Out} 1,2, 1000
+\\ \hline
+\end{tabular}
+\end{table}
